@@ -15,7 +15,7 @@ JWT_SECRET_TOKEN
 
 For example
 PORT=3000
-dbURI='mongodb+srv://admin:01042003@cluster0.niavsta.mongodb.net/?retryWrites=true&w=majority'
+dbURI='mongodb+srv://admin:123456783@cluster0.niavsta.mongodb.net/?retryWrites=true&w=majority'
 JWT_SECRET_TOKEN='secret'
 ```
 
