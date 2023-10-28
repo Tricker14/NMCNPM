@@ -27,3 +27,7 @@ JWT_SECRET_TOKEN='secret'
 ```
 nodemon app
 ```
+
+## Database Design
+
+![Class Diagram](./diagrams/class_diagram.png)
