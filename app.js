@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
@@ -15,16 +17,18 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 // database connection
-const dbURI = 'mongodb+srv://admin:01042003@cluster0.niavsta.mongodb.net/?retryWrites=true&w=majority';
+const dbURI = process.env.dbURI;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then((result) => {
-    app.listen(3000);
+    app.listen(process.env.PORT);
     console.log('connected');
   })
   .catch((err) => console.log(err));
 
 // routes
 app.get('*', checkUser);
-app.get('/', (req, res) => res.render('home'));
+app.get('/', (req, res) => res.render('home', {
+  test: 'testing'
+}));
 app.get('/index', requireAuth, (req, res) => res.render('index'));
 app.use(authRoutes);
