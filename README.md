@@ -30,4 +30,4 @@ nodemon app
 
 ## Database Design
 
-![Class Diagram](./diagrams/class_diagram.png)
+![Class Diagram](./db_desgin.png)
