@@ -30,18 +30,21 @@ const checkUser = function(req, res, next){
             if(err){
                 console.log(err.message);
                 res.locals.user = null;
+                req.body.user = null;
                 next();
             }
             else{
                 console.log(decodedToken);
                 let user = await User.findById(decodedToken.id);
                 res.locals.user = user;
+                req.body.user = user;
                 next();
             }
         });
     }
     else{
         res.locals.user = null;
+        req.body.user = null;
         next();
     }
 }

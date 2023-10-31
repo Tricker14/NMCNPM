@@ -1,32 +1,45 @@
 <%- include('partials/header'); -%>
 
-  <form action="/login">
+<form action="/signup" method="post">
     <h2>Sign up</h2>
     <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input type="text" class="form-control" id="username">
     </div>
     <div class="username error"></div>
+
     <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="email">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" name="email">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
     <div class="email error"></div>
+
     <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password">
+        <label for="role" class="form-label">Choose your role</label>
+        <select name="role" class="form-select">
+            <% userSchema.paths['role'].enumValues.forEach(function(value){ %>
+                <option value="<%= value %>"><%= value.charAt(0).toUpperCase() + value.slice(1) %></option>
+            <% }); %>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
     </div>
     <div class="password error"></div>
+
     <div class="mb-3">
-      <label for="confirmation" class="form-label">Confirmation Password</label>
-      <input type="password" class="form-control" id="confirmation">
+        <label for="confirmation" class="form-label">Confirmation Password</label>
+        <input type="password" class="form-control" id="confirmation" name="confirmation">
     </div>
     <div class="confirmation error"></div>
-    <button type="submit" class="btn btn-primary">Signup</button>
+
+    <button type="submit" class="btn btn-primary">Register</button>
   </form>
 
-  <script>
+<script>
     const form = document.querySelector('form');
     const usernameError = document.querySelector('.username.error');
     const emailError = document.querySelector('.email.error');
@@ -47,11 +60,12 @@
         const email = form.email.value;
         const password = form.password.value;
         const confirmation = form.confirmation.value;
+        const role = form.role.value;
 
         try{
             const res = await fetch('/signup', {
                 method: 'POST',
-                body: JSON.stringify({username, email, password, confirmation}),
+                body: JSON.stringify({username, email, role, password, confirmation}),
                 headers: {'Content-type': 'application/json'}
             })
             const data = await res.json();
@@ -70,6 +84,6 @@
             console.log(err);
         }
     });
-  </script>
+</script>
 
 <%- include('partials/footer'); -%>

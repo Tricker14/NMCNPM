@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a username"],
     unique: true,
-},
+  },
   email: {
     type: String,
     required: [true, 'Please enter an email'],
@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Please enter a password'],
     minlength: [6, 'Minimum password length is 6 characters'],
   },
+  role: {
+    type: String,
+    enum: ['admin', 'user'],
+  }
 });
 
 // fire a function before doc save to db

@@ -12,7 +12,10 @@
     <ul>
       <% if(user){ %>
         <li>Welcome, <%= user.username %></li>
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="/listing">Listing Page</a></li>
+        <li><a href="/category">Category Page</a></li>
+        <li><a href="/create">Create Listing</a></li>
+        <li><a href="/logout">Log out</a></li>
       <% }else{ %>  
         <li><a href="/login">Log in</a></li>
         <li><a href="/signup">Sign up</a></li>
