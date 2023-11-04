@@ -17,13 +17,4 @@
     </div>
 <% } %>
 
-<div>
-    This is <%= item.name %>
-</div>
-<div>
-    Post by <%= item.owner.username %>
-    <% let image = '\\' + item.image.split('\\').pop(); %>
-    <img src="<%= image %>" alt="Item Image" width="200">
-</div>
-
 <%- include('../partials/footer'); -%>
