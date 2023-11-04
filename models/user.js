@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
+const Item = require("../models/item");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -45,6 +46,11 @@ userSchema.statics.login = async function(email, password){
     }
     throw Error('incorrect email');
 }
+
+userSchema.pre('remove', async function(next){
+    await Item.deleteMany({owner: this._id});
+    next();
+})
 
 const User = mongoose.model('user', userSchema);
 

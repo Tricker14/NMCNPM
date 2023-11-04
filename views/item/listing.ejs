@@ -1,0 +1,17 @@
+<%- include('../partials/header'); -%>
+
+<h2>Listing Page</h2>
+
+<% if (items && items.length > 0) { %>
+    <% items.forEach(function(item) { %>
+        <div>
+            <a href="/item/<%= item._id %>">
+                <h4><%= item.name %></h4>
+            </a>
+        </div>
+    <% }); %>
+<% } else { %>
+    <div>No items available</div>
+<% } %>
+
+<%- include('../partials/footer'); -%>

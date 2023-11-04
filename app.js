@@ -4,12 +4,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
-const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const { requireAuth, checkUser, upload } = require('./middleware/authMiddleware');
 
 const app = express();
 
 // middleware
 app.use(express.static('public'));
+app.use(express.static('images'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -31,3 +32,5 @@ app.get('*', checkUser);
 app.post('*', checkUser);
 app.get('/', requireAuth, (req, res) => res.render('home'));
 app.use(authRoutes);
+
+

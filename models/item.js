@@ -5,7 +5,7 @@ const Category = require('./category');
 const itemSchema = new mongoose.Schema({
     name:{
         type: String,
-        require: [true, "Please enter an item name"],
+        required: [true, "Please enter an item name"],
     },
     description:{
         type: String
@@ -16,7 +16,7 @@ const itemSchema = new mongoose.Schema({
     },
     startingBid:{
         type: Number,
-        require: [true, "Please enter an item bid price"],
+        required: [true, "Please enter an item bid price"],
     },
     highestBid:{
         type: Number,
