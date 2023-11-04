@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user')
+const multer = require('multer');
+const path = require('path');
 
 const requireAuth = function(req, res, next){
     const token = req.cookies.jwt;
@@ -46,4 +48,15 @@ const checkUser = function(req, res, next){
     }
 }
 
-module.exports = { requireAuth, checkUser };
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+      cb(null, 'images');
+    },
+    filename: function(req, file, cb){
+      console.log(file);
+      cb(null, Date.now() + path.extname(file.originalname));
+    }
+  });
+const upload = multer({storage: storage});
+
+module.exports = { requireAuth, checkUser, upload};

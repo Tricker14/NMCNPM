@@ -1,0 +1,38 @@
+<%- include('../partials/header'); -%>
+
+<h2>Creating Item Page</h2>
+
+<form action="/item" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="category" class="form-select">
+            <% categories.forEach(function(category){ %>
+                <option value="<%= category.name %>"><%= category.name %></option>
+            <% }); %>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="startingBid" class="form-label">Starting bid</label>
+        <input type="number" class="form-control" id="startingBid" name="startingBid">
+    </div>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">Choose image</label>
+        <input type="file" class="form-control" id="image" name="image">
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Post">
+</form>
+
+<%- include('../partials/footer'); -%>
