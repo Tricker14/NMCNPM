@@ -2,7 +2,7 @@
 
 <h2>Creating Item Page</h2>
 
-<form action="/item" method="post" enctype="multipart/form-data">
+<form action="/webid/item" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name">
@@ -17,7 +17,7 @@
         <label for="category" class="form-label">Category</label>
         <select name="category" class="form-select">
             <% categories.forEach(function(category){ %>
-                <option value="<%= category.name %>"><%= category.name %></option>
+            <option value="<%= category.name %>"><%= category.name %></option>
             <% }); %>
         </select>
     </div>
