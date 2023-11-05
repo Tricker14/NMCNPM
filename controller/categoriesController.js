@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.category_get_all = async function (req, res) {
   const categories = await Category.find();
-  res.render("category/category", {
+  res.render("categories/categories", {
     categories: categories,
   });
 };
@@ -20,7 +20,7 @@ module.exports.category_get = async function (req, res) {
     return;
   }
   const items = await Item.find({ category });
-  res.redirect("/item/listing", {
+  res.redirect("/items/listing", {
     items: items,
   });
 };

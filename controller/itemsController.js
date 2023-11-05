@@ -7,7 +7,8 @@ module.exports.item_get = async function (req, res) {
   const id = req.params._id;
   try {
     const item = await Item.findById(id).populate("owner");
-    res.render("item/item", {
+    console.log(item.owner);
+    res.render("items/item", {
       item: item,
     });
   } catch (e) {
@@ -19,14 +20,14 @@ module.exports.item_get = async function (req, res) {
 
 module.exports.item_create_page = async function (req, res) {
   const categories = await Category.find();
-  res.render("item/create", {
+  res.render("items/create", {
     categories: categories,
   });
 };
 
 module.exports.listing_get = async function (req, res) {
   const items = await Item.find();
-  res.render("item/listing", {
+  res.render("items/listing", {
     items: items,
   });
 };
