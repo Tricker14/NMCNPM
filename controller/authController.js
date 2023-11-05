@@ -5,13 +5,13 @@ const jwt = require("jsonwebtoken");
 
 // controller actions
 module.exports.signup = (req, res) => {
-  res.render("user/signup", {
+  res.render("users/signup", {
     userSchema: User.schema,
   });
 };
 
 module.exports.login = (req, res) => {
-  res.render("user/login");
+  res.render("users/login");
 };
 
 module.exports.logout = function (req, res) {
