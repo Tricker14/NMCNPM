@@ -1,6 +1,6 @@
-const User = require("../models/user");
-const Category = require("../models/category");
-const Item = require("../models/item");
+const User = require("../../models/user");
+const Category = require("../../models/category");
+const Item = require("../../models/item");
 const jwt = require("jsonwebtoken");
 
 module.exports.item_post = async function (req, res) {
@@ -22,7 +22,7 @@ module.exports.item_post = async function (req, res) {
       owner,
       winner,
     });
-    res.status(201).json({ item, redirect: "/item/listing" });
+    res.status(201).json({ item, redirect: "/items" });
   } catch (err) {
     const errors = handleItemErrors(err);
     res.status(400).json({ errors });

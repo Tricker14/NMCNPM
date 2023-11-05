@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const itemsApiController = require("../../controller/api/itemsApiController");
+const categoriesApiController = require("../../controller/api/categoriesApiController");
 const {
   requireAuth,
   checkUser,
   upload,
 } = require("../../middleware/authMiddleware");
 
-router.post("/items", upload.single("image"), itemsApiController.item_post);
+router.post("/categories", categoriesApiController.category_post);
 module.exports = router;

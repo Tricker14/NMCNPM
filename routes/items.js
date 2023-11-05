@@ -5,8 +5,10 @@ const {
   requireAuth,
   checkUser,
   upload,
-} = require("../../middleware/authMiddleware");
+} = require("../middleware/authMiddleware");
 
-router.get("/listing", itemsController.listing_get);
-router.get("/item/:_id", itemsController.item_get);
-router.get("/create", itemsController.item_create_page);
+router.get("/items", itemsController.listing_get);
+router.get("/items/create", itemsController.item_create_page);
+router.get("/items/:_id", itemsController.item_get);
+
+module.exports = router;

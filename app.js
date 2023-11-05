@@ -2,8 +2,15 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const authRoutes = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
+
+// routes and api
+const authRoutes = require("./routes/authRoutes");
+const itemsRoutes = require("./routes/items");
+const itemsApi = require("./routes/api/itemsApi");
+const categoriesRoutes = require("./routes/categories");
+const categoriesApiRoutes = require("./routes/api/categoriesApi");
+
 const {
   requireAuth,
   checkUser,
@@ -41,3 +48,6 @@ app.get("*", checkUser);
 app.post("*", checkUser);
 app.get("/", requireAuth, (req, res) => res.render("home"));
 app.use("/webid", authRoutes);
+app.use("/webid", itemsRoutes);
+app.use("/webid", itemsApi);
+app.use("/webid", categoriesRoutes);

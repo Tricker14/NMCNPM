@@ -5,7 +5,13 @@ const jwt = require("jsonwebtoken");
 
 module.exports.item_get = async function (req, res) {
   const id = req.params._id;
-  const item = await Item.findById(id).populate("owner");
+  try {
+    const item = await Item.findById(id).populate("owner");
+  } catch (e) {
+    //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
+    res.send("Something went wrong");
+    return;
+  }
   res.render("item/item", {
     item: item,
   });
