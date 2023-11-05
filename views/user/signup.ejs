@@ -63,7 +63,7 @@
         const role = form.role.value;
 
         try {
-            const res = await fetch('/webid/signup', {
+            const res = await fetch('/api/webid/signup', {
                 method: 'POST',
                 body: JSON.stringify({ username, email, role, password, confirmation }),
                 headers: { 'Content-type': 'application/json' }

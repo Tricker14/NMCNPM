@@ -33,7 +33,7 @@
         const password = form.password.value;
 
         try {
-            const res = await fetch('/webid/login', {
+            const res = await fetch('/api/webid/login', {
                 method: 'POST',
                 body: JSON.stringify({ email, password }),
                 headers: { 'Content-type': 'application/json' }

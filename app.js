@@ -10,6 +10,7 @@ const itemsRoutes = require("./routes/items");
 const itemsApi = require("./routes/api/itemsApi");
 const categoriesRoutes = require("./routes/categories");
 const categoriesApi = require("./routes/api/categoriesApi");
+const authApi = require("./routes/api/authApi");
 
 const {
   requireAuth,
@@ -48,6 +49,7 @@ app.get("*", checkUser);
 app.post("*", checkUser);
 app.get("/", requireAuth, (req, res) => res.render("home"));
 app.use("/webid", authRoutes);
+app.use("/api/webid", authApi);
 app.use("/webid", itemsRoutes);
 app.use("/api/webid", itemsApi);
 app.use("/webid", categoriesRoutes);
