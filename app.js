@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -21,8 +21,8 @@ const {
 const app = express();
 
 // middleware
-app.use(express.static("public"));
-app.use(express.static("images"));
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -47,10 +47,11 @@ mongoose
 // routes
 app.get("*", checkUser);
 app.post("*", checkUser);
-app.get("/", requireAuth, (req, res) => res.render("home"));
 app.use("/webid", authRoutes);
 app.use("/api/webid", authApi);
 app.use("/webid", itemsRoutes);
 app.use("/api/webid", itemsApi);
 app.use("/webid", categoriesRoutes);
 app.use("/api/webid", categoriesApi);
+
+app.use("/webid", requireAuth, (req, res) => res.render("home"));
