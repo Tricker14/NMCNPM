@@ -13,6 +13,7 @@ module.exports.item_post = async function (req, res) {
   image = Object.values(images)[0][0].filename;
 
   Object.values(images)[1].forEach((preview) => {
+    console.log(preview);
     previewImages.push(preview.filename);
   });
   const highestBid = startingBid;
