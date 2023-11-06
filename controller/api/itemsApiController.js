@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 module.exports.item_post = async function (req, res) {
   const { name, description, date, category, startingBid } = req.body;
 
-  const images = req.previewImages;
+  const images = req.files;
   console.log(images);
   // const highestBid = startingBid;
   // const image = req.file.path;
