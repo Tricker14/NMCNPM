@@ -8,8 +8,7 @@
 </div>
 <div>
     Post by <%= item.owner.username %>
-    <% let image = '\\' + item.image.split('\\').pop(); %>
-    <img src="<%= image %>" alt="Item Image" width="200">
+    <img src="<%= item.image %>" alt="Item Image" width="200">
 </div>
 <% }else{ %>
 <div>

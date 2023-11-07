@@ -8,7 +8,7 @@ module.exports.item_get = async function (req, res) {
   try {
     const item = await Item.findById(id).populate("owner");
     console.log(item.owner);
-    res.render("items/item", {
+    res.render("items/item-details", {
       item: item,
     });
   } catch (e) {

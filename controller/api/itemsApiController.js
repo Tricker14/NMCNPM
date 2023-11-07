@@ -6,8 +6,17 @@ const jwt = require("jsonwebtoken");
 module.exports.item_post = async function (req, res) {
   const { name, description, date, category, startingBid } = req.body;
 
+  const images = req.files;
+  let image = null;
+  let previewImages = [];
+
+  image = Object.values(images)[0][0].filename;
+
+  Object.values(images)[1].forEach((preview) => {
+    console.log(preview);
+    previewImages.push(preview.filename);
+  });
   const highestBid = startingBid;
-  const image = req.file.path;
   const owner = res.locals.user;
   const winner = null;
   try {
@@ -19,6 +28,7 @@ module.exports.item_post = async function (req, res) {
       startingBid,
       highestBid,
       image,
+      previewImages,
       owner,
       winner,
     });
