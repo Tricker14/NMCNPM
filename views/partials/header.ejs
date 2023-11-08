@@ -6,6 +6,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="/stylesheets/styles.css">
   <link rel="stylesheet" href="/stylesheets/header.css">
+  <link rel="stylesheet" href="/stylesheets/create-items.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> -->
@@ -29,7 +30,7 @@
         <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/categories">Categories</a>
       </li>
       <li>
-        <a style="margin-right: 15rem;" class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
+        <a style="margin-right: 20rem;" class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
       </li>
     </ul>
 
@@ -37,6 +38,7 @@
       <i id="userAvatar" class="fa fa-user align-self-center fa-sm"></i>
       <button id="dropDownAvatar" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       </button>
+      <span id="greetings" class="align-self-center">Hi, <%= user.username %></span>
       <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li><a class="dropdown-item" href="#">Edit Profile</a></li>
         <li><a class="dropdown-item" href="#">Bid History</a></li>
@@ -45,7 +47,7 @@
     </div>
   </nav>
 
-  <nav class="navbar w-100 p-1 small-screen" style="background-color: var(--bold-background);">
+  <nav class="navbar w-100 p-1 small-screen" style="background-color: var(--header-background);">
 
     <div class="d-flex justify-content-between align-items-center ">
       <a class="navbar-brand " aria-current="page" href="/webid">
@@ -59,6 +61,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
 
       <ul class="navbar-nav" style="font-size: 1.75rem;">
+        <li><span id="greetings" class="align-self-center">Hi, <%= user.username %></span> </li>
         <li>
           <a class="nav-link active" id="nav-link" aria-current="page" href="/webid">Home</a>
         </li>
@@ -74,9 +77,9 @@
         <li>
           <hr />
         </li>
-        <li><a style="padding-right:2rem" class="nav-link active text-end " href="#">Edit Profile</a></li>
-        <li><a style="padding-right:2rem" class="nav-link active text-end" href="#">Bid History</a></li>
-        <li><a style="padding-right:2rem" class="nav-link active text-end" href="#">Log out</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="#">Edit Profile</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Bid History</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Log out</a></li>
       </ul>
 
     </div>

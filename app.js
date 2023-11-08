@@ -56,4 +56,6 @@ app.use("/webid", categoriesRoutes);
 app.use("/api/webid", categoriesApi);
 app.use("/test/webid", testRoutes);
 
-app.use("/webid", requireAuth, (req, res) => res.render("home"));
+app.use("/webid", requireAuth, (req, res) =>
+  res.render("home", { user: res.locals.user })
+);

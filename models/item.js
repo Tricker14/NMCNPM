@@ -21,10 +21,6 @@ const itemSchema = new mongoose.Schema({
   highestBid: {
     type: Number,
   },
-  highestBidder: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-  },
   image: {
     type: String,
   },

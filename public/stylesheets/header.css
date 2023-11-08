@@ -1,5 +1,5 @@
 #header-nav {
-  font-size: 3rem;
+  font-size: 2.2rem;
   background-color: var(--header-background);
   color: white !important;
   height: 10rem;
@@ -40,8 +40,14 @@
 #dropdown-menu {
   position: absolute;
   top: 8rem;
-  right: -2rem;
+  right: 3.5rem;
 }
+
+#greetings {
+  font-size: 1.6rem;
+  color: black;
+}
+
 @media screen and (max-width: 768px) {
   .large-screen {
     display: none !important;
