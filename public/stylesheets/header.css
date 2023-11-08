@@ -1,0 +1,43 @@
+#header-nav {
+  font-size: 3rem;
+  background-color: var(--bold-background);
+  color: white !important;
+  height: 10rem;
+}
+
+#nav-link {
+  text-decoration: underline 0.4rem var(--bold-background);
+  transition: text-decoration-color 0.15s ease-in;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
+#nav-link:hover {
+  text-decoration-color: black;
+}
+
+#brandImg {
+  height: 10rem;
+  margin-left: 5rem;
+}
+
+#userAvatar {
+  color: black !important;
+  background-color: var(--bold-background);
+}
+
+#dropDownAvatar {
+  border: 0;
+  background-color: var(--bold-background);
+}
+
+#userAvatarField {
+  right: 5rem;
+  height: 100%;
+}
+
+#dropdown-menu {
+  position: absolute;
+  top: 8rem;
+  right: -2rem;
+}

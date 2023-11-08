@@ -10,7 +10,7 @@ const itemSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  date: {
+  createdDate: {
     type: Date,
     default: Date.now,
   },
@@ -20,6 +20,10 @@ const itemSchema = new mongoose.Schema({
   },
   highestBid: {
     type: Number,
+  },
+  highestBidder: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
   },
   image: {
     type: String,
