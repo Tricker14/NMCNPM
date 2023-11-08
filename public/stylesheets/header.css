@@ -1,12 +1,13 @@
 #header-nav {
   font-size: 3rem;
-  background-color: var(--bold-background);
+  background-color: var(--header-background);
   color: white !important;
   height: 10rem;
+  display: flex;
 }
 
 #nav-link {
-  text-decoration: underline 0.4rem var(--bold-background);
+  text-decoration: underline 0.4rem var(--header-background);
   transition: text-decoration-color 0.15s ease-in;
   padding-left: 1.2rem;
   padding-right: 1.2rem;
@@ -23,12 +24,12 @@
 
 #userAvatar {
   color: black !important;
-  background-color: var(--bold-background);
+  background-color: var(--header-background);
 }
 
 #dropDownAvatar {
   border: 0;
-  background-color: var(--bold-background);
+  background-color: var(--header-background);
 }
 
 #userAvatarField {
@@ -40,4 +41,30 @@
   position: absolute;
   top: 8rem;
   right: -2rem;
+}
+@media screen and (max-width: 768px) {
+  .large-screen {
+    display: none !important;
+  }
+  .small-screen {
+    display: block !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .large-screen {
+    display: none !important;
+  }
+  .small-screen {
+    display: block !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .large-screen {
+    display: flex !important;
+  }
+  .small-screen {
+    display: none !important;
+  }
 }

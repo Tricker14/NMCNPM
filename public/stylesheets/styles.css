@@ -5,8 +5,9 @@
 }
 
 :root {
-  --bold-background: #e5b880;
-  --background: #e5d0b5;
+  --header-background: #ffe4c4;
+  --bold-background: #cb997e;
+  --background: #e6ccb2;
 }
 
 body,

@@ -13,7 +13,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand d-flex justify-content-between position-relative " id="header-nav">
+  <nav class="navbar navbar-expand justify-content-between position-relative large-screen" id="header-nav">
     <a class="navbar-brand " aria-current="page" href="/webid">
       <img src="/images/brands-logos/brand.png" id="brandImg" />
     </a>
@@ -43,6 +43,44 @@
         <li><a class="dropdown-item" href="#">Log out</a></li>
       </ul>
     </div>
+  </nav>
+
+  <nav class="navbar w-100 p-1 small-screen" style="background-color: var(--bold-background);">
+
+    <div class="d-flex justify-content-between align-items-center ">
+      <a class="navbar-brand " aria-current="page" href="/webid">
+        <img src="/images/brands-logos/brand.png" id="brandImg" style="margin-left: 1rem;" />
+      </a>
+
+      <button class="navbar-toggler toggler-example m-2 h-25 " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i class="fas fa-bars fa-2x"></i></span></button>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+      <ul class="navbar-nav" style="font-size: 1.75rem;">
+        <li>
+          <a class="nav-link active" id="nav-link" aria-current="page" href="/webid">Home</a>
+        </li>
+        <li>
+          <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/items">Listing</a>
+        </li>
+        <li>
+          <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/categories">Categories</a>
+        </li>
+        <li>
+          <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
+        </li>
+        <li>
+          <hr />
+        </li>
+        <li><a style="padding-right:2rem" class="nav-link active text-end " href="#">Edit Profile</a></li>
+        <li><a style="padding-right:2rem" class="nav-link active text-end" href="#">Bid History</a></li>
+        <li><a style="padding-right:2rem" class="nav-link active text-end" href="#">Log out</a></li>
+      </ul>
+
+    </div>
+
   </nav>
 
 
