@@ -1,17 +1,36 @@
 <%- include('../partials/header'); -%>
 
-<h2>Listing Page</h2>
-
-<% if (items && items.length > 0) { %>
-<% items.forEach(function(item) { %>
-<div>
-    <a href="/webid/items/<%= item._id %>">
-        <h4><%= item.name %></h4>
-    </a>
+<div class="container ">
+    <% if (items && items.length > 0) { %>
+    <div class="row justify-content-center ">
+        <% items.forEach(function(item) { %>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 d-flex justify-content-center  ">
+            <a href="/webid/items/<%= item._id %>">
+                <div class="item-card">
+                    <a class="item-image" href="/webid/items/<%= item._id %>">
+                        <img src="/images/items-images/<%= item.image %>" alt="Product Image" style="height: 15rem;">
+                    </a>
+                    <div class="card-content">
+                        <a href="/webid/items/<%= item._id %>" class="product-name"><%= item.name %></a>
+                        <div class="product-description">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam cumque, quae mollitia porro eos laboriosam adipisci perspiciatis ab sequi pariatur eius earum labore excepturi nam corporis ad, consequuntur inventore repellendus.
+                        </div>
+                        <div class="price">$19.99</div>
+                        <div class="add-to-cart">
+                            <button class="heart-icon">&#10084;</button>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <% }); %>
+    </div>
+    <% } else { %>
+    <div>No items available</div>
+    <% } %>
 </div>
-<% }); %>
-<% } else { %>
-<div>No items available</div>
-<% } %>
+
+
 
 <%- include('../partials/footer'); -%>

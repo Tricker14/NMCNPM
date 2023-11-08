@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="/stylesheets/item-card.css">
 </head>
+
 <body>
 
-<div class="card">
-  <a href="your-product-page.html">
-    <img src="./background_header.png" alt="Product Image">
-  </a>
-  <div class="card-content">
-    <a href="your-product-page.html" class="product-name">Product Name</a>
-    <div class="product-description">Tôi có một người thầy, thầy Vũ Anh Khoa. Thầy là một người rất tốt bụng, học giỏi và chơi thể thao hay. Thầy ấy là thần tượng của tôi và hy vọng 1 ngày nào đó tôi cũng dc như thầy.</div>
-    <div class="price">$19.99</div>
-    <div class="add-to-cart">
-      <button class="heart-icon">&#10084;</button>
-      <button class="add-to-cart-btn">Add to Cart</button>
+  <div class="card">
+    <a href="your-product-page.html">
+      <img src="./background_header.png" alt="Product Image">
+    </a>
+    <div class="card-content">
+      <a href="your-product-page.html" class="product-name">Product Name</a>
+      <div class="product-description">Tôi có một người thầy, thầy Vũ Anh Khoa. Thầy là một người rất tốt bụng, học giỏi và chơi thể thao hay. Thầy ấy là thần tượng của tôi và hy vọng 1 ngày nào đó tôi cũng dc như thầy.</div>
+      <div class="price">$19.99</div>
+      <div class="add-to-cart">
+        <button class="heart-icon">&#10084;</button>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  const heartIcon = document.querySelector('.heart-icon');
+  <script>
+    const heartIcon = document.querySelector('.heart-icon');
 
-  heartIcon.addEventListener('click', function() {
-    this.classList.toggle('clicked');
-  });
-</script>
+    heartIcon.addEventListener('click', function () {
+      this.classList.toggle('clicked');
+    });
+  </script>
 
 </body>
+
 </html>

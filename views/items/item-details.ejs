@@ -1,19 +1,5 @@
 <%- include('../partials/header'); -%>
 
-<h2>Item Page</h2>
 
-<% if(item){ %>
-<div>
-    This is <%= item.name %>
-</div>
-<div>
-    Post by <%= item.owner.username %>
-    <img src="<%= item.image %>" alt="Item Image" width="200">
-</div>
-<% }else{ %>
-<div>
-    Item has been deleted
-</div>
-<% } %>
 
 <%- include('../partials/footer'); -%>
