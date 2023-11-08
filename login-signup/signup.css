@@ -1,0 +1,172 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --text-color: #333;
+}
+
+body {
+  margin: 0;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    background-color: rgba(255, 228, 196, 0.7);
+}
+
+.wrapper {
+  width: 420px;
+  background: transparent;
+  color: var(--text-color);
+  padding: 30px 40px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #e6ccb2;
+  font-family: "Lobster Regular";
+}
+
+.wrapper h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.wrapper .form-group {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 20px 0;
+}
+
+.form-group .form-control {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid #333;
+  border-radius: 40px;  
+  font-size: 16px;
+  color: var(--text-color);
+  padding: 20px 45px 20px 49px;
+  -webkit-text-fill-color: var(--text-color);
+}
+
+::-ms-reveal {
+  display: none;
+}
+
+.form-group select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid #333;
+  border-radius: 40px;
+  padding: 0 45px 0 49px;
+  font-size: 16px;
+  color: var(--text-color);
+  -webkit-appearance: none; /* Loại bỏ mũi tên trên Chrome/Safari */
+  -moz-appearance: none; /* Loại bỏ mũi tên trên Firefox */
+  appearance: none; /* Loại bỏ mũi tên trên các trình duyệt khác */
+}
+
+
+.form-group .form-control:focus {
+  background: transparent;
+  outline: none;
+  caret-color: black;
+  color: #fff;
+}
+
+.form-group .form-control::placeholder {
+  color: var(--text-color);
+}
+
+
+
+.form-group i {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 25px;
+}
+
+.form-group .show, .down-arrow-div {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 25px;
+  color: var(--text-color);
+}
+
+.wrapper .form-check {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin: 15px 0px 15px;
+}
+
+.form-check .form-check-label .form-check-input {
+  accent-color: var(--text-color);
+  margin: 3px 5px 0px 0px;
+}
+
+.form-check a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 15px 0 0;
+}
+
+.form-check a:hover {
+  text-decoration: underline;
+}
+
+#login-btn {
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  background: #cb997e;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.register {
+  color: var(--text-color);
+}
+
+.wrapper .register {
+  font-size: 16px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+
+.register p a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register p a:hover {
+  text-decoration: underline;
+}
+
+
