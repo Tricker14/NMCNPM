@@ -11,7 +11,7 @@ const itemsApi = require("./routes/api/itemsApi");
 const categoriesRoutes = require("./routes/categories");
 const categoriesApi = require("./routes/api/categoriesApi");
 const authApi = require("./routes/api/authApi");
-const bidsApi = require("./routes/api/authApi");
+const bidsApi = require("./routes/api/bidsApi");
 const testRoutes = require("./routes/test");
 
 const {

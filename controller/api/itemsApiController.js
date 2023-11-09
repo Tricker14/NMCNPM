@@ -56,7 +56,6 @@ module.exports.delete_item = async function(req, res){
         .status(404)
         .json({ message: `cannot find item with id ${id}` });
     }
-    deleteImage(item);
     await item.remove();
     res.status(200).json({ item });
   } catch (err) {

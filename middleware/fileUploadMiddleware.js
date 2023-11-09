@@ -16,16 +16,4 @@ const storage = multer.diskStorage({
 // Create multer upload instance
 const upload = multer({ storage: storage });
 
-const deleteImage = function(item){
-  try {
-    fs.unlinkSync(`public/images/items-images/${item.image}`);
-    item.previewImages.forEach(previewImage => {
-      fs.unlinkSync(`public/images/items-images/${previewImage}`);
-    });
-    console.log("Delete File successfully.");
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-module.exports = { upload, deleteImage };
+module.exports = { upload };

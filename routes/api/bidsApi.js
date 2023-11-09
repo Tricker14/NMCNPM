@@ -3,5 +3,5 @@ const router = express.Router();
 const bidsApiController = require("../../controller/api/bidsApiController");
 
 router.post("/bids", bidsApiController.bid_post);
-router.delete("/bids", bidsApiController.bid_delete);
+// router.delete("/bids", bidsApiController.bid_delete);
 module.exports = router;
