@@ -26,7 +26,6 @@ module.exports.item_create_page = async function (req, res) {
 
 module.exports.listing_get = async function (req, res) {
   const items = await Item.find({}).populate("owner");
-  console.log(items);
   res.render("items/listing", {
     items: items,
     user: res.locals.user,
@@ -43,7 +42,6 @@ module.exports.create_item = async function (req, res) {
   image = Object.values(images)[0][0].filename;
 
   Object.values(images)[1].forEach((preview) => {
-    console.log(preview);
     previewImages.push(preview.filename);
   });
   const highestBid = startingBid;
@@ -66,4 +64,51 @@ module.exports.create_item = async function (req, res) {
   } catch (err) {
     res.send("Catched error happened in item");
   }
+};
+
+module.exports.item_edit = async function (req, res) {
+  const { name, description, date, category, startingBid } = req.body;
+  const id = req.body._id;
+  console.log(id);
+
+  const item = await Item.findById(id);
+
+  const images = req.files;
+  let image = null;
+  let previewImages = [];
+  if (Object.values(images)[0] == undefined) {
+    console.log("User didnt edit any images");
+  } else {
+    if (Object.values(images)[0][0].fieldname === "previewImages") {
+      Object.values(images)[0].forEach((preview) => {
+        previewImages.push(preview.filename);
+        item.previewImages = previewImages;
+      });
+      item.save();
+    } else if (
+      Object.values(images)[0][0].fieldname === "image" &&
+      !Object.values(images)[1]
+    ) {
+      item.image = Object.values(images)[0][0].filename;
+      item.save();
+    } else {
+      console.log("User updated both");
+      image = Object.values(images)[0][0].filename;
+      Object.values(images)[1].forEach((preview) => {
+        previewImages.push(preview.filename);
+      });
+      item.image = image;
+      item.previewImages = previewImages;
+      item.save();
+    }
+  }
+
+  res.send("Maintaining");
+};
+
+module.exports.get_edit_page = async function (req, res) {
+  const id = req.params.id;
+  const item = await Item.findById(id);
+
+  res.render("items/edit-item", { item: item, categories: [] });
 };
