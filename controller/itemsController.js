@@ -7,7 +7,6 @@ module.exports.item_get = async function (req, res) {
   const id = req.params._id;
   try {
     const item = await Item.findById(id).populate("owner");
-    console.log(item.owner);
     res.render("items/item-details", {
       item: item,
     });
@@ -26,8 +25,45 @@ module.exports.item_create_page = async function (req, res) {
 };
 
 module.exports.listing_get = async function (req, res) {
-  const items = await Item.find();
+  const items = await Item.find({}).populate("owner");
+  console.log(items);
   res.render("items/listing", {
     items: items,
+    user: res.locals.user,
   });
+};
+
+module.exports.create_item = async function (req, res) {
+  const { name, description, date, category, startingBid } = req.body;
+
+  const images = req.files;
+  let image = null;
+  let previewImages = [];
+
+  image = Object.values(images)[0][0].filename;
+
+  Object.values(images)[1].forEach((preview) => {
+    console.log(preview);
+    previewImages.push(preview.filename);
+  });
+  const highestBid = startingBid;
+  const owner = res.locals.user;
+  const winner = null;
+  try {
+    const item = await Item.create({
+      name,
+      description,
+      date,
+      category,
+      startingBid,
+      highestBid,
+      image,
+      previewImages,
+      owner,
+      winner,
+    });
+    res.redirect("/test/webid/items/" + item._id + "?create=succeed");
+  } catch (err) {
+    res.send("Catched error happened in item");
+  }
 };

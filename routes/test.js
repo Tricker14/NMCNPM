@@ -4,12 +4,13 @@ const Item = require("../models/item");
 
 router.get("/items/:id", async (req, res) => {
   const id = req.params.id;
-  console.log(id);
+  const create =
+    req.query.create !== undefined ? "Created item successfully" : null;
   try {
     const item = await Item.findById(id).populate("owner");
-    console.log(item.owner);
     res.render("test/item-details", {
       item: item,
+      message: create,
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
