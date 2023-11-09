@@ -69,7 +69,6 @@ module.exports.create_item = async function (req, res) {
 module.exports.item_edit = async function (req, res) {
   const { name, description, date, category, startingBid } = req.body;
   const id = req.body._id;
-  console.log(id);
 
   const item = await Item.findById(id);
   item.description = req.body.description;
@@ -93,7 +92,6 @@ module.exports.item_edit = async function (req, res) {
       item.image = Object.values(images)[0][0].filename;
       item.save();
     } else {
-      console.log("User updated both");
       image = Object.values(images)[0][0].filename;
       Object.values(images)[1].forEach((preview) => {
         previewImages.push(preview.filename);
@@ -104,7 +102,7 @@ module.exports.item_edit = async function (req, res) {
     }
   }
 
-  res.send("Maintaining");
+  res.redirect("/test/webid/items/" + item.id + "?update=succeed");
 };
 
 module.exports.get_edit_page = async function (req, res) {

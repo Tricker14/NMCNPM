@@ -156,8 +156,14 @@
   <head>
 
   <body>
-    <% if(message) { %>
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <% if(createMessage) { %>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+    <% if(updateMessage) { %>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
       <%= message %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -202,10 +208,8 @@
         <div class="product">
 
           <div class="product-info">
-            <h2>Tên Sản Phẩm 1</h2>
-            <p>Giá: $50.00</p>
-            <label for="quantity1">Số Lượng:</label>
-            <input type="number" id="quantity1" name="quantity1" min="1" value="1">
+            <h2><%= item.name %></h2>
+            <p><%= item.description %></p>
           </div>
           <button class="order-btn">Đặt Hàng</button>
         </div>
