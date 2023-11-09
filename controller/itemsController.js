@@ -72,6 +72,7 @@ module.exports.item_edit = async function (req, res) {
   console.log(id);
 
   const item = await Item.findById(id);
+  item.description = req.body.description;
 
   const images = req.files;
   let image = null;
