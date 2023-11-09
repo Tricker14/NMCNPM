@@ -7,7 +7,7 @@ router.get("/items/:id", async (req, res) => {
   const create =
     req.query.create !== undefined ? "Created item successfully" : null;
   const update =
-    req.query.create !== undefined ? "Updated item successfully" : null;
+    req.query.update !== undefined ? "Updated item successfully" : null;
   try {
     const item = await Item.findById(id).populate("owner");
     res.render("test/item-details", {

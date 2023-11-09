@@ -55,10 +55,16 @@
 
     <div id="submit-btn-container" class="d-flex justify-content-center ">
       <button style="border: 0; border-radius: 5%; font-size: 2rem; background-color: var(--bold-background);" id="submit-btn" type=" submit" class="m-2">Save</button>
-      <form style="overflow: auto" action="/webid">
-        <button style="border: 0; border-radius: 5%; font-size: 2rem; background-color: var(--bold-background);" id="submit-btn" class="m-2 " type="submit">Remove</button>
-      </form>
     </div>
   </div>
 </form>
+<div class="row">
+  <div class="col-12 d-flex justify-content-center ">
+    <form action="/webid/delete" method="delete">
+      <input type="hidden" name="_id" value="<%= item._id %>" />
+      <button style="width: 10rem;border: 0; border-radius: 5%; font-size: 2rem; background-color: var(--light-red);" class="m-3">Remove</button>
+    </form>
+  </div>
+</div>
+
 <%- include('../partials/footer'); -%>

@@ -2,6 +2,8 @@ const User = require("../models/user");
 const Category = require("../models/category");
 const Item = require("../models/item");
 const jwt = require("jsonwebtoken");
+const fs = require("node:fs");
+const { unlinkSync } = require("node:fs");
 
 module.exports.item_get = async function (req, res) {
   const id = req.params._id;
@@ -62,9 +64,32 @@ module.exports.create_item = async function (req, res) {
     });
     res.redirect("/test/webid/items/" + item._id + "?create=succeed");
   } catch (err) {
+    console.log(err);
     res.send("Catched error happened in item");
   }
 };
+
+function deleteMainImage(image) {
+  console.log(image);
+
+  try {
+    unlinkSync(`public/images/items-images/${image}`);
+  } catch (err) {
+    console.log("cannot delete image");
+    console.log(err);
+  }
+}
+
+function deletePreviewImages(images) {
+  images.forEach((image) => {
+    try {
+      unlinkSync(`public/images/items-images/${image}`);
+    } catch (err) {
+      console.log("cannot delete image");
+      console.log(err);
+    }
+  });
+}
 
 module.exports.item_edit = async function (req, res) {
   const { name, description, date, category, startingBid } = req.body;
@@ -80,6 +105,7 @@ module.exports.item_edit = async function (req, res) {
     console.log("User didnt edit any images");
   } else {
     if (Object.values(images)[0][0].fieldname === "previewImages") {
+      deletePreviewImages(item.previewImages);
       Object.values(images)[0].forEach((preview) => {
         previewImages.push(preview.filename);
         item.previewImages = previewImages;
@@ -89,9 +115,13 @@ module.exports.item_edit = async function (req, res) {
       Object.values(images)[0][0].fieldname === "image" &&
       !Object.values(images)[1]
     ) {
+      console.log("Remove main");
+      deleteMainImage(item.image);
       item.image = Object.values(images)[0][0].filename;
       item.save();
     } else {
+      deleteMainImage(item.image);
+      deletePreviewImages(item.previewImages);
       image = Object.values(images)[0][0].filename;
       Object.values(images)[1].forEach((preview) => {
         previewImages.push(preview.filename);
