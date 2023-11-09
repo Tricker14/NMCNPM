@@ -28,9 +28,13 @@ module.exports.item_create_page = async function (req, res) {
 
 module.exports.listing_get = async function (req, res) {
   const items = await Item.find({}).populate("owner");
+  console.log(req.query.delete);
+  const message =
+    req.query.delete != undefined ? "Deleted item successfully" : null;
   res.render("items/listing", {
     items: items,
     user: res.locals.user,
+    message: message,
   });
 };
 
@@ -140,4 +144,10 @@ module.exports.get_edit_page = async function (req, res) {
   const item = await Item.findById(id);
 
   res.render("items/edit-item", { item: item, categories: [] });
+};
+
+module.exports.delete_item = async function (req, res) {
+  const id = req.body._id;
+  await Item.findByIdAndDelete(id);
+  res.redirect("/webid/items?delete=succeed");
 };

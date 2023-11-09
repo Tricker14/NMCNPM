@@ -1,5 +1,12 @@
 <%- include('../partials/header'); -%>
 
+<% if(message != null) { %>
+<div class="alert alert-info alert-dismissible fade show" style="font-size: 1.6rem;" role="alert">
+    <%= message %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+
 <div class="container ">
     <% if (items && items.length > 0) { %>
     <div class="row justify-content-center ">
@@ -13,7 +20,7 @@
                     <div class="card-content">
                         <a href="/webid/items/<%= item._id %>" class="product-name"><%= item.name %></a>
                         <div class="product-description">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magnam cumque, quae mollitia porro eos laboriosam adipisci perspiciatis ab sequi pariatur eius earum labore excepturi nam corporis ad, consequuntur inventore repellendus.
+                            <%= item.description %>
                         </div>
                         <div class="price">$19.99</div>
 
@@ -37,7 +44,7 @@
         <% }); %>
     </div>
     <% } else { %>
-    <div>No items available</div>
+    <div style="font-size: 1.6rem; margin-top: 30vh" class="alert alert-warning " role="alert">No items available</div>
     <% } %>
 </div>
 
