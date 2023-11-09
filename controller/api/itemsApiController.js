@@ -11,25 +11,17 @@ module.exports.item_post = async function (req, res) {
   let image = null;
   let previewImages = [];
 
-  if(images.image === undefined){   // user does not provide image
-    if(Object.values(images).length >= 1){
-      Object.values(images)[0].forEach((preview) => {
-        // console.log(preview);
-        previewImages.push(preview.filename);
-      });
-    }
+  if (!images.image || !images.previewImages) {
+    // Redirect the user back to the create page if one of the images is missing
+    return res.redirect('/webid/items/create');
   }
-  else{   // user provide main image
-    if(Object.values(images).length !== 0){
-      image = Object.values(images)[0][0].filename;
-    }
-    if(Object.values(images).length >= 2){
-      Object.values(images)[1].forEach((preview) => {
-        // console.log(preview);
-        previewImages.push(preview.filename);
-      });
-    }
-  } 
+  image = Object.values(images)[0][0].filename;
+
+  Object.values(images)[1].forEach((preview) => {
+    console.log(preview);
+    previewImages.push(preview.filename);
+  });
+
   const highestBid = startingBid;
   const owner = res.locals.user;
   const winner = null;
@@ -46,10 +38,12 @@ module.exports.item_post = async function (req, res) {
       owner,
       winner,
     });
-    res.status(201).json({ item, redirect: "/items" });
+    // res.status(201).json({ item });
+    res.redirect('/webid/items');
   } catch (err) {
-    const errors = handleItemErrors(err);
-    res.status(400).json({ errors });
+    // const errors = handleItemErrors(err);
+    // res.status(400).json({ errors });
+    res.status(400).json({ err });
   }
 };
 

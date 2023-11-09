@@ -20,7 +20,7 @@ module.exports.category_get = async function (req, res) {
     return;
   }
   const items = await Item.find({ category });
-  res.redirect("/items/listing", {
+  res.redirect('/items/listing', {
     items: items,
   });
 };
