@@ -6,11 +6,17 @@ const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
 
 module.exports.item_get = async function (req, res) {
-  const id = req.params._id;
+  const id = req.params.id;
+  const create =
+    req.query.create !== undefined ? "Created item successfully" : null;
+  const update =
+    req.query.update !== undefined ? "Updated item successfully" : null;
   try {
     const item = await Item.findById(id).populate("owner");
-    res.render("items/item-details", {
+    res.render("test/item-details", {
       item: item,
+      createMessage: create,
+      updateMessage: update,
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
