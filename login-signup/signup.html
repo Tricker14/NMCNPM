@@ -43,61 +43,70 @@
 
 </head>
 <body>
-    <div class="wrapper">
-        <form action="">
-            <h1>Sign Up</h1>
-            <div class="form-group">
-                <input type="email" placeholder="Email" class="form-control" required>
-                <i class='bx bxs-envelope'></i>
-            </div>
+    <div class="container">
+        <div class="header">
 
-            <div class="form-group">
-                <input type="text" placeholder="Username" class="form-control" required>
-                <i class='bx bxs-user' ></i>
-            </div>
-  
-            <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control" id="password" required>
-                <i class='bx bxs-lock'></i>
-                <div class="show">
-                    <i class='bx bxs-show' id="show-icon-pw"></i>
-                </div>
-            </div>
+        </div>
 
-            <div class="form-group">
-                <input type="password" name="password" id="cfpw" placeholder="Confirm Password" class="form-control" required>
-                <i class='bx bxs-lock'></i>
-                <div class="show">
-                    <i class='bx bxs-show' id="show-icon-cfpw"></i>
-                </div>
+        <div class="main">
+            <div class="wrapper">
+                <form action="">
+                    <h1>Sign Up</h1>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="form-control" required>
+                        <i class='bx bxs-envelope'></i>
+                    </div>
+        
+                    <div class="form-group">
+                        <input type="text" placeholder="Username" class="form-control" required>
+                        <i class='bx bxs-user' ></i>
+                    </div>
+          
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control" id="password" required>
+                        <i class='bx bxs-lock'></i>
+                        <div class="show">
+                            <i class='bx bxs-show' id="show-icon-pw"></i>
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <input type="password" name="password" id="cfpw" placeholder="Confirm Password" class="form-control" required>
+                        <i class='bx bxs-lock'></i>
+                        <div class="show">
+                            <i class='bx bxs-show' id="show-icon-cfpw"></i>
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <select name="role" id="role" required>
+                            <option value="" disabled selected>Pick a role</option>
+                            <option value="admin">admin</option>
+                            <option value="user">user</option>
+                        </select>
+                        <i class='bx bxs-user-circle' ></i>
+                        <div class="down-arrow-div">
+                            <i class='bx bxs-chevron-down' id="down-arrow"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <label for="remember" class="form-check-label">
+                            <input type="checkbox" name="remember" id="remember" class="form-check-input" required>
+                            I argee with privacy and policy
+                        </label>
+                    </div>
+          
+                    <button id="login-btn">Sign up</button>
+          
+                    <div class="register">
+                        <p>Already have an accout ?  <a href="./login.html">Log in</a></p>
+                    </div>
+                    
+                </form>
             </div>
-
-            <div class="form-group">
-                <select name="role" id="role" required>
-                    <option value="" disabled selected>Pick a role</option>
-                    <option value="admin">admin</option>
-                    <option value="user">user</option>
-                </select>
-                <i class='bx bxs-user-circle' ></i>
-                <div class="down-arrow-div">
-                    <i class='bx bxs-chevron-down' id="down-arrow"></i>
-                </div>
-            </div>
-            
-            <div class="form-check">
-                <label for="remember" class="form-check-label">
-                    <input type="checkbox" name="remember" id="remember" class="form-check-input" required>
-                    I argee with privacy and policy
-                </label>
-            </div>
-  
-            <button id="login-btn">Sign up</button>
-  
-            <div class="register">
-                <p>Already have an accout ?  <a href="./login.html">Log in</a></p>
-            </div>
-            
-        </form>
+        </div>
     </div>
+    
 </body>
 </html>

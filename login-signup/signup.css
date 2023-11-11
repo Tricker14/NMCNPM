@@ -5,7 +5,16 @@
 }
 
 :root {
-  --text-color: #333;
+  --bold-background: #cb997e;
+  --background: #e6ccb2;
+}
+
+body,
+html {
+  font-size: 10px !important;
+  font-family: arial, sans-serif !important;
+  font-family: consolas, "Courier New" !important;
+  background-color: var(--background) !important;
 }
 
 body {
@@ -19,28 +28,28 @@ body {
 }
 
 .wrapper {
-  width: 420px;
+  width: 42rem;
   background: transparent;
   color: var(--text-color);
-  padding: 30px 40px;
-  border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 3rem 4rem;
+  border-radius: 1rem;
+  border: 0.2rem solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2rem);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   background-color: #e6ccb2;
   font-family: "Lobster Regular";
 }
 
 .wrapper h1 {
-  font-size: 40px;
+  font-size: 4rem;
   text-align: center;
 }
 
 .wrapper .form-group {
   position: relative;
   width: 100%;
-  height: 50px;
-  margin: 20px 0;
+  height: 5rem;
+  margin: 2rem 0;
 }
 
 .form-group .form-control {
@@ -49,11 +58,11 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid #333;
-  border-radius: 40px;  
-  font-size: 16px;
+  border: 0.2rem solid #333;
+  border-radius: 4rem;  
+  font-size: 1.6rem;
   color: var(--text-color);
-  padding: 20px 45px 20px 49px;
+  padding: 2rem 4.5rem 2rem 4.9rem;
   -webkit-text-fill-color: var(--text-color);
 }
 
@@ -67,10 +76,10 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid #333;
-  border-radius: 40px;
-  padding: 0 45px 0 49px;
-  font-size: 16px;
+  border: 0.2rem solid #333;
+  border-radius: 4rem;
+  padding: 0 4.5rem 0 4.9rem;
+  font-size: 1.6rem;
   color: var(--text-color);
   -webkit-appearance: none; /* Loại bỏ mũi tên trên Chrome/Safari */
   -moz-appearance: none; /* Loại bỏ mũi tên trên Firefox */
@@ -93,41 +102,41 @@ body {
 
 .form-group i {
   position: absolute;
-  left: 20px;
+  left: 2rem;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 25px;
+  font-size: 2.5rem;
 }
 
 .form-group .show, .down-arrow-div {
   position: absolute;
-  right: 60px;
+  right: 6rem;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 20px;
+  font-size: 2rem;
   border: none;
   outline: none;
   background: transparent;
-  font-size: 25px;
+  font-size: 2.5rem;
   color: var(--text-color);
 }
 
 .wrapper .form-check {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
-  margin: 15px 0px 15px;
+  font-size: 1.6rem;
+  margin: 1.5rem 0rem 1.5rem;
 }
 
 .form-check .form-check-label .form-check-input {
   accent-color: var(--text-color);
-  margin: 3px 5px 0px 0px;
+  margin: 0.3rem 0.5rem 0rem 0rem;
 }
 
 .form-check a {
   color: var(--text-color);
   text-decoration: none;
-  margin: 0 15px 0 0;
+  margin: 0 1.5rem 0 0;
 }
 
 .form-check a:hover {
@@ -136,15 +145,15 @@ body {
 
 #login-btn {
   width: 100%;
-  height: 45px;
-  padding: 10px;
+  height: 4.5rem;
+  padding: 1rem;
   background: #cb997e;
   border: none;
   outline: none;
-  border-radius: 40px;
+  border-radius: 4rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.6rem;
   color: var(--text-color);
   font-weight: 600;
 }
@@ -154,9 +163,9 @@ body {
 }
 
 .wrapper .register {
-  font-size: 16px;
+  font-size: 1.6rem;
   text-align: center;
-  margin: 20px 0 15px;
+  margin: 2rem 0 1.5rem;
 }
 
 .register p a {
@@ -168,5 +177,6 @@ body {
 .register p a:hover {
   text-decoration: underline;
 }
+
 
 
