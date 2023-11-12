@@ -8,20 +8,33 @@ module.exports.item_get = async function (req, res) {
   const id = req.params._id;
   try {
     const item = await Item.findById(id).populate("owner");
-    console.log("owner", item.owner);
     const highestBid = await Bid.find({product: item}).sort({price: -1}).limit(1).populate('bidder');
-    const highestBidder = highestBid[0].bidder;
+    let highestBidder = null
+    if(highestBid[0]){
+      highestBidder = highestBid[0].bidder;
+    }
+    console.log("highestBid ", highestBid);
+    console.log("highestBidder ", highestBidder);
     
-    const userBid = await Bid.find({product: item, bidder: res.locals.user}).sort({price: -1}).limit(1).populate('bidder');
-    const currentUser = userBid[0].bidder;
+    const bid = await Bid.find({product: item, bidder: res.locals.user}).sort({price: -1}).limit(1).populate('bidder');
+    let bidder = null;
+    let price = 0;
+    if(bid[0]){
+      bidder = bid[0].bidder;
+      price = bid[0].price;
+    }
+    console.log("bid ", bid);
+    console.log("bidder ", bidder);
+
     res.render("items/item-details", {    
       item: item,
       highestBidder: highestBidder,
-      userBid: userBid,
-      currentUser: currentUser
+      bidder: bidder,
+      price: price
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
+    console.log("error ", e);
     res.send("Something went wrong");
     return;
   }
