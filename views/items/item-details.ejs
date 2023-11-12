@@ -13,8 +13,23 @@
         <%= item.startingBid %>
         <%= item.highestBid %>
     </div>
+    <form action="/api/webid/bids/<%= item._id %>" method="post">
+        <textarea type="text" placeholder="Price" name="price"></textarea><br>
+        <input type="submit" value="Bid">
+    </form>
     <div>
-        <%= item.owner. %>
+        <% if(highestBidder){ %>
+            Highest bidder: <%= highestBidder.username %>
+        <% }else{ %>
+            No bidder
+        <% } %>
+    </div>
+    <div>
+        <% if(currentUser){ %>
+            Your last bid is: <%= userBid %>
+        <% }else{ %>
+            You have no bid on this item
+        <% } %>
     </div>
 </div>
 <% }else{ %>

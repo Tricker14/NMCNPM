@@ -6,6 +6,7 @@ module.exports.bid_post = async function(req, res){
     const product = await Item.findById(req.params._id);
     const bidder = res.locals.user;
     const price = req.body.price;
+    console.log("price ", price);
     try{
         if(price > product.highestBid){
             const bid = await Bid.create({ price, product, bidder });
