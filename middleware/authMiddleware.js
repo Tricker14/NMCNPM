@@ -22,7 +22,7 @@ const requireAuth = function (req, res, next) {
       }
     );
   } else {
-    res.redirect("webid/login");
+    res.redirect("/webid/login");
   }
 };
 

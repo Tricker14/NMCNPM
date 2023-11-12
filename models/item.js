@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./user");
 const Category = require("./category");
+const { unlinkSync } = require("node:fs");
 
 const itemSchema = new mongoose.Schema({
   name: {
@@ -10,7 +11,7 @@ const itemSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  date: {
+  createdDate: {
     type: Date,
     default: Date.now,
   },
@@ -37,6 +38,34 @@ const itemSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+});
+
+function deleteMainImage(image) {
+  console.log(image);
+
+  try {
+    unlinkSync(`public/images/items-images/${image}`);
+  } catch (err) {
+    console.log("cannot delete image");
+    console.log(err);
+  }
+}
+
+function deletePreviewImages(images) {
+  images.forEach((image) => {
+    try {
+      unlinkSync(`public/images/items-images/${image}`);
+    } catch (err) {
+      console.log("cannot delete image");
+      console.log(err);
+    }
+  });
+}
+
+// clean up image when delete an item
+itemSchema.post("findOneAndDelete", async function (doc) {
+  deleteMainImage(doc.image);
+  deletePreviewImages(doc.previewImages);
 });
 
 const Item = mongoose.model("item", itemSchema);
