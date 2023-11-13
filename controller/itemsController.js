@@ -6,7 +6,7 @@ const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
 
 module.exports.item_get = async function (req, res) {
-  const id = req.params.id;
+  const id = req.params._id;
   const create =
     req.query.create !== undefined ? "Created item successfully" : null;
   const update =
@@ -73,7 +73,8 @@ module.exports.create_item = async function (req, res) {
       owner,
       winner,
     });
-    res.redirect("/items/webid/items/" + item._id + "?create=succeed");
+
+    res.redirect("/webid/items/" + item._id + "?create=succeed");
   } catch (err) {
     console.log(err);
     res.send("Catched error happened in item");
@@ -143,7 +144,7 @@ module.exports.item_edit = async function (req, res) {
     }
   }
 
-  res.redirect("/items/webid/items/" + item.id + "?update=succeed");
+  res.redirect("/webid/items/" + item.id + "?update=succeed");
 };
 
 module.exports.get_edit_page = async function (req, res) {
