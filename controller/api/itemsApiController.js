@@ -11,10 +11,6 @@ module.exports.item_post = async function (req, res) {
   let image = null;
   let previewImages = [];
 
-  if (!images.image || !images.previewImages) {
-    // Redirect the user back to the create page if one of the images is missing
-    return res.redirect('/webid/items/create');
-  }
   image = Object.values(images)[0][0].filename;
 
   Object.values(images)[1].forEach((preview) => {
