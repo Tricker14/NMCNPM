@@ -12,7 +12,7 @@ const categoriesRoutes = require("./routes/categories");
 const categoriesApi = require("./routes/api/categoriesApi");
 const authApi = require("./routes/api/authApi");
 const bidsApi = require("./routes/api/bidsApi");
-const testRoutes = require("./routes/test");
+const appRoutes = require("./routes/appRoutes");
 
 const {
   requireAuth,
@@ -49,6 +49,7 @@ mongoose
 // routes
 app.get("*", checkUser);
 app.post("*", checkUser);
+
 app.use("/webid", authRoutes);
 app.use("/api/webid", authApi);
 app.use("/webid", itemsRoutes);
@@ -56,6 +57,22 @@ app.use("/api/webid", itemsApi);
 app.use("/webid", categoriesRoutes);
 app.use("/api/webid", categoriesApi);
 app.use("/api/webid", bidsApi);
-app.use("/test/webid", testRoutes);
+app.use("/webid", appRoutes);
 
-app.use("/webid", requireAuth, (req, res) => res.render("home"));
+app.use(function (req, res, next) {
+  if (req.statusCode === 400) {
+    res.status(400);
+    res.send("400 BAD REQUEST !");
+    return;
+  } else if (req.statusCode === 403) {
+    res.status(403);
+    res.send("403 NOT AUTHORIZED !");
+    return;
+  } else if (req.statusCode === 500) {
+    res.status(500);
+    res.send("500 INTERNAL SERVER ERROR !");
+    return;
+  }
+  res.status(404);
+  res.send("404 NOT FOUND !");
+});

@@ -1,57 +1,70 @@
-<%- include('../partials/header'); -%>
+<html lang="en">
 
-<form action="/login" method="post">
-    <h2>Login</h2>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" name="email">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="email error"></div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password">
-    </div>
-    <div class="password error"></div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-<script>
-    const form = document.querySelector('form');
-    const emailError = document.querySelector('.email.error');
-    const passwordError = document.querySelector('.password.error');
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> -->
+</head>
 
-    form.addEventListener('submit', async function (e) {
-        e.preventDefault();
+<body>
 
-        // reset errors
-        emailError.textContent = '';
-        passwordError.textContent = '';
+    <form action="/login" method="post">
+        <h2>Login</h2>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="email error"></div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="password error"></div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
 
-        // get values
-        const email = form.email.value;
-        const password = form.password.value;
+    <script>
+        const form = document.querySelector('form');
+        const emailError = document.querySelector('.email.error');
+        const passwordError = document.querySelector('.password.error');
 
-        try {
-            const res = await fetch('/api/webid/login', {
-                method: 'POST',
-                body: JSON.stringify({ email, password }),
-                headers: { 'Content-type': 'application/json' }
-            })
-            const data = await res.json();
-            console.log(data);
-            if (data.errors) {
-                emailError.textContent = data.errors.email;
-                passwordError.textContent = data.errors.password;
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // reset errors
+            emailError.textContent = '';
+            passwordError.textContent = '';
+
+            // get values
+            const email = form.email.value;
+            const password = form.password.value;
+
+            try {
+                const res = await fetch('/api/webid/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password }),
+                    headers: { 'Content-type': 'application/json' }
+                })
+                const data = await res.json();
+                console.log(data);
+                if (data.errors) {
+                    emailError.textContent = data.errors.email;
+                    passwordError.textContent = data.errors.password;
+                }
+                if (data.user) {
+                    location.assign('/webid');
+                }
             }
-            if (data.user) {
-                location.assign('/webid');
+            catch (err) {
+                console.log(err);
             }
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
-</script>
+        });
+    </script>
 
-<%- include('../partials/footer'); -%>
+    <%- include('../partials/footer'); -%>
