@@ -18,5 +18,4 @@ router.post(
   ]),
   itemsApiController.item_post
 );
-router.delete("/items/:_id", itemsApiController.delete_item);
 module.exports = router;
