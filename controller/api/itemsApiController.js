@@ -39,19 +39,3 @@ module.exports.item_post = async function (req, res) {
     res.status(400).json({ errors });
   }
 };
-
-module.exports.delete_item = async function(req, res){
-  const id = req.params._id;
-  try {
-    const item = await Item.findById(id);
-    if (!item) {
-      return res
-        .status(404)
-        .json({ message: `cannot find item with id ${id}` });
-    }
-    await item.remove();
-    res.status(200).json({ item });
-  } catch (err) {
-    console.log(err);
-  }
-}
