@@ -13,7 +13,8 @@ module.exports.item_get = async function (req, res) {
     req.query.update !== undefined ? "Updated item successfully" : null;
   try {
     const item = await Item.findById(id).populate("owner");
-    res.render("test/item-details", {
+    console.log("item", item);
+    res.render("items/item-details", {
       item: item,
       createMessage: create,
       updateMessage: update,
@@ -72,7 +73,7 @@ module.exports.create_item = async function (req, res) {
       owner,
       winner,
     });
-    res.redirect("/test/webid/items/" + item._id + "?create=succeed");
+    res.redirect("/items/webid/items/" + item._id + "?create=succeed");
   } catch (err) {
     console.log(err);
     res.send("Catched error happened in item");
@@ -142,7 +143,7 @@ module.exports.item_edit = async function (req, res) {
     }
   }
 
-  res.redirect("/test/webid/items/" + item.id + "?update=succeed");
+  res.redirect("/items/webid/items/" + item.id + "?update=succeed");
 };
 
 module.exports.get_edit_page = async function (req, res) {
