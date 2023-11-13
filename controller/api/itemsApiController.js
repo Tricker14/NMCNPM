@@ -35,9 +35,8 @@ module.exports.item_post = async function (req, res) {
     });
     res.status(201).json({ item, redirect: "/items" });
   } catch (err) {
-    // const errors = handleItemErrors(err);
-    // res.status(400).json({ errors });
-    res.status(400).json({ err });
+    const errors = handleItemErrors(err);
+    res.status(400).json({ errors });
   }
 };
 
