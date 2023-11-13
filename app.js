@@ -11,7 +11,6 @@ const itemsApi = require("./routes/api/itemsApi");
 const categoriesRoutes = require("./routes/categories");
 const categoriesApi = require("./routes/api/categoriesApi");
 const authApi = require("./routes/api/authApi");
-const testRoutes = require("./routes/test");
 const appRoutes = require("./routes/appRoutes");
 
 const {
@@ -56,7 +55,6 @@ app.use("/webid", itemsRoutes);
 app.use("/api/webid", itemsApi);
 app.use("/webid", categoriesRoutes);
 app.use("/api/webid", categoriesApi);
-app.use("/test/webid", testRoutes);
 app.use("/webid", appRoutes);
 
 app.use(function (req, res, next) {
