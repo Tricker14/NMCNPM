@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Category = require("../models/category");
 const Item = require("../models/item");
+const Bid= require("../models/bid");
 const jwt = require("jsonwebtoken");
 const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
@@ -13,14 +14,35 @@ module.exports.item_get = async function (req, res) {
     req.query.update !== undefined ? "Updated item successfully" : null;
   try {
     const item = await Item.findById(id).populate("owner");
-    console.log("item", item);
-    res.render("items/item-details", {
+    const highestBid = await Bid.find({product: item}).sort({price: -1}).limit(1).populate('bidder');
+    let highestBidder = null
+    if(highestBid[0]){
+      highestBidder = highestBid[0].bidder;
+    }
+    console.log("highestBid ", highestBid);
+    console.log("highestBidder ", highestBidder);
+    
+    const bid = await Bid.find({product: item, bidder: res.locals.user}).sort({price: -1}).limit(1).populate('bidder');
+    let bidder = null;
+    let price = 0;
+    if(bid[0]){
+      bidder = bid[0].bidder;
+      price = bid[0].price;
+    }
+    console.log("bid ", bid);
+    console.log("bidder ", bidder);
+
+    res.render("items/item-details", {    
       item: item,
+      highestBidder: highestBidder,
+      bidder: bidder,
+      price: price,
       createMessage: create,
       updateMessage: update,
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
+    console.log("error ", e);
     res.send("Something went wrong");
     return;
   }

@@ -24,10 +24,12 @@ const itemSchema = new mongoose.Schema({
   },
   image: {
     type: String,
+    required: [true, "Please choose an image"],
   },
   previewImages: [
     {
       type: String,
+      required: [true, "Please choose an image"],
     },
   ],
   owner: {

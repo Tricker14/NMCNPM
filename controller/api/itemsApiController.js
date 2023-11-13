@@ -16,6 +16,7 @@ module.exports.item_post = async function (req, res) {
     console.log(preview);
     previewImages.push(preview.filename);
   });
+
   const highestBid = startingBid;
   const owner = res.locals.user;
   const winner = null;

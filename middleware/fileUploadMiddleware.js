@@ -1,6 +1,7 @@
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const Item = require("../models/item");
 
 // Configure multer storage and file name
 const storage = multer.diskStorage({
