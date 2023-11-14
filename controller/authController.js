@@ -16,5 +16,5 @@ module.exports.login = (req, res) => {
 
 module.exports.logout = function (req, res) {
   res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/webid");
+  res.redirect("/webid/home");
 };

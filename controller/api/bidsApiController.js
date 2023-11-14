@@ -12,7 +12,8 @@ module.exports.bid_post = async function(req, res){
             const bid = await Bid.create({ price, product, bidder });
             product.highestBid = price;
             await product.save();
-            res.status(201).json({bid});
+            // res.status(201).json({bid});
+            res.redirect(`/webid/items/${product._id}`);
         }
         else{
             res.status(400).json(`You must bid higher than ${product.highestBid}`);

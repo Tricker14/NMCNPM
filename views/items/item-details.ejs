@@ -1,45 +1,3 @@
-<%- include('../partials/header'); -%>
-
-<h2>Item Page</h2>
-
-<% if(item){ %>
-<div>
-    This is <%= item.name %>
-</div>
-<div>
-    Post by <%= item.owner.username %>
-    <img src="<%= item.image %>" alt="Item Image" width="200">
-    <div>
-        <%= item.startingBid %>
-        <%= item.highestBid %>
-    </div>
-    <form action="/api/webid/bids/<%= item._id %>" method="post">
-        <textarea type="text" placeholder="Price" name="price"></textarea><br>
-        <input type="submit" value="Bid">
-    </form>
-    <div>
-        <% if(highestBidder){ %>
-            Highest bidder: <%= highestBidder.username %>
-        <% }else{ %>
-            No bidder
-        <% } %>
-    </div>
-    <div>
-        <% if(bidder){ %>
-            Your last bid is: <%= price %>
-        <% }else{ %>
-            You have no bid on this item
-        <% } %>
-    </div>
-</div>
-<% }else{ %>
-<div>
-    Item has been deleted
-</div>
-<% } %>
-
-<%- include('../partials/footer'); -%>
-=======
 <!DOCTYPE html>
 <html>
 
@@ -255,6 +213,33 @@
           </div>
           <button class="order-btn">Đặt Hàng</button>
         </div>
+        <div>
+          Post by <%= item.owner.username %>
+          <div>
+              Starting bid: <%= item.startingBid %>
+          </div>
+          <div>
+            Current bid: <%= item.highestBid %>
+          </div>
+          <form action="/api/webid/bids/<%= item._id %>" method="post">
+              <textarea type="text" placeholder="Price" name="price"></textarea><br>
+              <input type="submit" value="Bid">
+          </form>
+          <div>
+              <% if(highestBidder){ %>
+                  Highest bidder: <%= highestBidder.username %>
+              <% }else{ %>
+                  No bidder
+              <% } %>
+          </div>
+          <div>
+              <% if(bidder){ %>
+                  Your last bid is: <%= price %>
+              <% }else{ %>
+                  You have no bid on this item
+              <% } %>
+          </div>
+      </div>
       </div>
     </div>
 
