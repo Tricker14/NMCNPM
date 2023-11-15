@@ -1,3 +1,5 @@
+<%- include('../partials/header'); -%>
+
 <html lang="en">
 
 <head>
@@ -58,7 +60,7 @@
                     passwordError.textContent = data.errors.password;
                 }
                 if (data.user) {
-                    location.assign('/webid');
+                    location.assign('/webid/home');
                 }
             }
             catch (err) {
