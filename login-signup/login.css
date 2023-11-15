@@ -1,0 +1,272 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* --bold-background: #cb997e;
+  --background: #e6ccb2; */
+}
+
+body,
+html {
+  font-size: 10px !important;
+  font-family: arial, sans-serif !important;
+  font-family: consolas, "Courier New" !important;
+  background-color: var(--background) !important;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+
+.main {
+  background: url(./image/main-bg.jpg);
+}
+
+.main .right-side-bg img {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  width: 42rem;
+  height: fit-content;
+  background: transparent;
+  color: var(--text-color);
+  padding: 3rem 4rem;
+  border-radius: 1rem ;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(0rem);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-family: "Lobster Regular";
+  background-color: #e6ccb2;
+}
+
+.wrapper h1 {
+  font-size: 4rem;
+  text-align: center;
+}
+
+.wrapper .form-group {
+  position: relative;
+  width: 100%;
+  height: 5rem;
+  margin: 2rem 0;
+}
+
+.form-group .form-control {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 0.2rem solid #333;
+  border-radius: 4rem;
+  font-size: 1.6rem;
+  color: var(--text-color);
+  padding: 2rem 4.5rem 2rem 5rem;
+  -webkit-text-fill-color: var(--text-color);
+}
+
+.form-group .form-control:focus {
+  background: transparent;
+  outline: none;
+  caret-color: black;
+}
+
+.form-group .form-control::placeholder {
+  color: var(--text-color);
+}
+
+.form-group i {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+}
+
+.form-group .show {
+  position: absolute;
+  right: 6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 2.5rem;
+  color: var(--text-color);
+}
+
+.wrapper .form-check {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  margin: 1.5rem 0rem 1.5rem;
+}
+
+.form-check .form-check-label .form-check-input {
+  accent-color: var(--text-color);
+  margin: 0.3rem 0.5rem 0rem 0rem;
+}
+
+.form-check a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 1.5rem 0 0;
+}
+
+.form-check a:hover {
+  text-decoration: underline;
+}
+
+#login-btn {
+  width: 100%;
+  height: 4.5rem;
+  padding: 1rem;
+  background: #cb997e;
+  /* background: #fff;   */
+  border: none;
+  outline: none;
+  border-radius: 4rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.register {
+  color: var(--text-color);
+}
+
+.wrapper .register {
+  font-size: 1.6rem;
+  text-align: center;
+  margin: 2rem 0 1.5rem;
+}
+
+.register p a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register p a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px){
+  .header {
+    display: block;
+    text-align: center;
+  }
+  .header img {
+    display: inline-block;
+    margin: 0 auto;
+    align-items: center;
+    width: 20rem;
+    height: 20rem;
+  }
+  .header p {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: -2rem;
+  }
+  .main {
+    display: block;
+    justify-content: center;
+    padding: 0;
+    height: 100vh;
+  }
+  .main .right-side-bg {
+    width: 40rem;
+    height: 30rem;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px){
+  .header {
+    display: block;
+    text-align: center;
+  }
+  .header img {
+    display: inline-block;
+    margin: 0 auto;
+    align-items: center;
+    width: 20rem;
+    height: 20rem;
+  }
+  .header p {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: -2rem;
+  }
+  .main {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    height: 100vh;
+  }
+  
+  .main .wrapper {
+    display: inline-block;
+    margin-top: 2rem;
+  }
+
+  .main .right-side-bg {
+    display: inline-block;
+    width: 40rem;
+    height: 30rem;
+  }
+}
+
+@media screen and (min-width: 1025px){
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 15rem;
+    /* background-color: #FFE4C4; */
+  }
+  
+  .header img{
+    width: 15rem;
+    height: 15rem;
+    margin-left: 15rem;
+  }
+  
+  .header p {
+    font-size: 5rem !important ;
+    font-family: "Lobster Regular" !important;
+    margin-right: 15rem;
+  }
+
+  .main {
+    display: flex;
+    justify-content: left;
+    padding: 2rem;
+  }
+
+  .main .right-side-bg {
+    width: 90rem;
+    height: 50rem;
+  }
+
+  .wrapper {
+    margin-top: 1rem;
+    margin-left: 4rem;
+  }
+  
+}
