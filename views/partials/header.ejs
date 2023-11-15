@@ -38,12 +38,20 @@
       <i id="userAvatar" class="fa fa-user align-self-center fa-sm"></i>
       <button id="dropDownAvatar" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       </button>
-      <span id="greetings" class="align-self-center">Hi, <%= user.username %></span>
-      <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="/webid/users/edit">Edit Profile</a></li>
-        <li><a class="dropdown-item" href="/webid/users/history">Bid History</a></li>
-        <li><a class="dropdown-item" href="/webid/logout">Log out</a></li>
-      </ul>
+      <% if(user){ %>
+        <span id="greetings" class="align-self-center">Hi, <%= user.username %></span>
+        <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/webid/users/edit">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="/webid/users/history">Bid History</a></li>
+            <li><a class="dropdown-item" href="/webid/logout">Log out</a></li>
+        </ul>
+      <% }else{ %>
+        <span id="greetings" class="align-self-center">Hi, Anonymous</span>
+        <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/webid/signup">Signup</a></li>
+            <li><a class="dropdown-item" href="/webid/login">Login</a></li>
+        </ul>
+      <% } %>
     </div>
   </nav>
 
@@ -61,7 +69,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
 
       <ul class="navbar-nav" style="font-size: 1.75rem;">
-        <li><span id="greetings" class="align-self-center">Hi, <%= user.username %></span> </li>
+        <% if(user){ %>
+        <li>
+          <span id="greetings" class="align-self-center">Hi, <%= user.username %></span>
+        </li>
+        <% } %>
         <li>
           <a class="nav-link active" id="nav-link" aria-current="page" href="/webid">Home</a>
         </li>
@@ -77,9 +89,14 @@
         <li>
           <hr />
         </li>
-        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="#">Edit Profile</a></li>
-        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Bid History</a></li>
-        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Log out</a></li>
+        <% if(user){ %>
+          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="#">Edit Profile</a></li>
+          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Bid History</a></li>
+          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/logout">Log out</a></li>
+        <% }else{ %>
+          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/signup">Signup</a></li>
+          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/login">Login</a></li>
+        <% } %>
       </ul>
 
     </div>
