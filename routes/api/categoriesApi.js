@@ -7,5 +7,5 @@ const {
   upload,
 } = require("../../middleware/authMiddleware");
 
-router.post("/categories", categoriesApiController.category_post);
+router.post("/categories", requireAuth, categoriesApiController.category_post);
 module.exports = router;

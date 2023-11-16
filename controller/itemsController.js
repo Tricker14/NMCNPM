@@ -60,6 +60,7 @@ module.exports.listing_get = async function (req, res) {
   console.log(req.query.delete);
   const message =
     req.query.delete != undefined ? "Deleted item successfully" : null;
+  console.log('user',res.locals.user);
   res.render("items/listing", {
     items: items,
     user: res.locals.user,

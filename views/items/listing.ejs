@@ -24,18 +24,20 @@
                         </div>
                         <div class="price">$19.99</div>
 
-                        <% if (item.owner._id.equals(user._id))  { %>
-                        <div class="add-to-cart">
-                            <button class="heart-icon">&#10084;</button>
-                            <a href="/webid/items/edit/<%= item._id %>">
-                                <button class="add-to-cart-btn">Edit</button>
-                            </a>
-                        </div>
-                        <% } else { %>
-                        <div class="add-to-cart">
-                            <button class="heart-icon">&#10084;</button>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                        </div>
+                        <% if(user){ %>
+                            <% if (item.owner._id.equals(user._id))  { %>
+                                <div class="add-to-cart">
+                                    <button class="heart-icon">&#10084;</button>
+                                    <a href="/webid/items/edit/<%= item._id %>">
+                                        <button class="add-to-cart-btn">Edit</button>
+                                    </a>
+                                </div>
+                            <% } else { %>
+                                <div class="add-to-cart">
+                                    <button class="heart-icon">&#10084;</button>
+                                    <button class="add-to-cart-btn">Add to Cart</button>
+                                </div>
+                            <% } %>
                         <% } %>
                     </div>
                 </div>
@@ -47,7 +49,5 @@
     <div style="font-size: 1.6rem; margin-top: 30vh" class="alert alert-warning " role="alert">No items available</div>
     <% } %>
 </div>
-
-
 
 <%- include('../partials/footer'); -%>

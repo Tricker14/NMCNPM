@@ -15,7 +15,7 @@ router.post(
       name: "previewImages",
       maxCount: 5,
     },
-  ]),
+  ]), requireAuth,
   itemsApiController.item_post
 );
 module.exports = router;

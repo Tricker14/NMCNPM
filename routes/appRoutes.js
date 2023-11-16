@@ -12,7 +12,7 @@ router.get("/", function (req, res, next) {
   res.send("this will be index page");
 });
 
-router.get("/home", requireAuth, function (req, res, next) {
+router.get("/home", function (req, res, next) {
   const user = res.locals.user === null ? null : res.locals.user;
   res.render("home", { user: user });
 });

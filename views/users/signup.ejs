@@ -1,13 +1,11 @@
-<%- include('../partials/header'); -%>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/stylesheets/styles.css">
-    <link rel="stylesheet" href="/stylesheets/header.css">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/stylesheets/auth/signup.css">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> -->
@@ -15,44 +13,79 @@
 
 <body>
 
-    <form action="/signup" method="post">
-        <h2>Sign up</h2>
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username">
-        </div>
-        <div class="username error"></div>
-
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" name="email">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="email error"></div>
-
-        <div class="mb-3">
-            <label for="role" class="form-label">Choose your role</label>
-            <select name="role" class="form-select">
-                <% userSchema.paths['role'].enumValues.forEach(function(value){ %>
-                <option value="<%= value %>"><%= value.charAt(0).toUpperCase() + value.slice(1) %></option>
-                <% }); %>
-            </select>
+    <div class="container">
+        <div class="header">
+            <a href="/webid/home"><img src="../auth-image/logo.png" alt=""></a>
+            <p>Dare to bid - Dare to win</p>
         </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+        <div class="main">
+            <div class="right-side-bg">
+                <img src="../auth-image/number-bid.png" alt="">
+            </div>
+            <div class="wrapper">
+                <form action="/signup" method="post">
+                    <h1>Sign Up</h1>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="form-control" name="email" required>
+                        <i class='bx bxs-envelope'></i>
+                    </div>
+                    <div class="email error"></div>
+        
+                    <div class="form-group">
+                        <input type="text" placeholder="Username" class="form-control" name="username" required>
+                        <i class='bx bxs-user' ></i>
+                    </div>
+                    <div class="username error"></div>
+          
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control" id="password" name="password" required>
+                        <i class='bx bxs-lock'></i>
+                        <div class="show">
+                            <i class='bx bxs-show' id="show-icon-pw"></i>
+                        </div>
+                    </div>
+                    <div class="password error"></div>
+        
+                    <div class="form-group">
+                        <input type="password" name="confirmation" id="cfpw" placeholder="Confirm Password" class="form-control" required>
+                        <i class='bx bxs-lock'></i>
+                        <div class="show">
+                            <i class='bx bxs-show' id="show-icon-cfpw"></i>
+                        </div>
+                    </div>
+                    <div class="confirmation error"></div>
+        
+                    <div class="form-group">
+                        <select name="role" id="role" required>
+                            <option value="" disabled selected>Pick a role</option>
+                            <% userSchema.paths['role'].enumValues.forEach(function(value){ %>
+                                <option value="<%= value %>"><%= value.charAt(0).toUpperCase() + value.slice(1) %></option>
+                            <% }); %>
+                        </select>
+                        <i class='bx bxs-user-circle' ></i>
+                        <div class="down-arrow-div">
+                            <i class='bx bxs-chevron-down' id="down-arrow"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <label for="remember" class="form-check-label">
+                            <input type="checkbox" name="remember" id="remember" class="form-check-input" required>
+                            I argee with privacy and policy
+                        </label>
+                    </div>
+          
+                    <button type="submit" id="login-btn">Sign up</button>
+          
+                    <div class="register">
+                        <p>Already have an accout ?  <a href="/webid/login">Log in</a></p>
+                    </div>
+                    
+                </form>
+            </div>
         </div>
-        <div class="password error"></div>
-
-        <div class="mb-3">
-            <label for="confirmation" class="form-label">Confirmation Password</label>
-            <input type="password" class="form-control" id="confirmation" name="confirmation">
-        </div>
-        <div class="confirmation error"></div>
-
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+    </div>
 
     <script>
         const form = document.querySelector('form');
@@ -97,6 +130,36 @@
             }
             catch (err) {
                 console.log(err);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-pw').onmousedown = function(){
+                document.querySelector('#password').type = 'text';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-pw').onmouseup = function(){
+                document.querySelector('#password').type = 'password';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-cfpw').onmousedown = function(){
+                document.querySelector('#cfpw').type = 'text';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-cfpw').onmouseup = function(){
+                document.querySelector('#cfpw').type = 'password';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#down-arrow').click = function() {
+                document.querySelector('#role').style.display = (select.style.display === 'none') ? 'block' : 'none';
             }
         });
     </script>

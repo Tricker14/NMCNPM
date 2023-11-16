@@ -9,5 +9,5 @@ const {
 
 router.post("/signup", authApiController.signup);
 router.post("/login", authApiController.login);
-router.delete("/user/:_id", authApiController.delete_user);
+router.delete("/user/:_id", requireAuth, authApiController.delete_user);
 module.exports = router;
