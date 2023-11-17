@@ -18,3 +18,9 @@ module.exports.logout = function (req, res) {
   res.cookie("jwt", "", { maxAge: 1 });
   res.redirect("/webid/home");
 };
+
+module.exports.profile = (req, res) => {
+  res.render("users/profile", {
+    userSchema: User.schema,
+  });
+};

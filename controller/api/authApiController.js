@@ -39,18 +39,6 @@ const handleErrors = function (err) {
   return errors;
 };
 
-// handle item errors
-const handleItemErrors = function (err) {
-  let errors = { name: "", startingBid: "" };
-  if (err.message.includes("item validation failed")) {
-    Object.values(err.errors).forEach(function ({ properties }) {
-      errors[properties.path] = properties.message;
-    });
-  }
-
-  return errors;
-};
-
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = function (id) {
   return jwt.sign({ id }, process.env.JWT_SECRET_TOKEN, {
@@ -58,18 +46,17 @@ const createToken = function (id) {
   });
 };
 
-// controller actions
-module.exports.signup = (req, res) => {
-  res.render("user/signup", {
-    userSchema: User.schema,
-  });
-};
-
 module.exports.signup = async (req, res) => {
   const { username, email, role, password, confirmation } = req.body;
   if (password === confirmation) {
     try {
-      const user = await User.create({ username, email, role, password });
+      const name = null;
+      const phone = null;
+      const gender = null;
+      const birthday = null;
+      const image = null;
+
+      const user = await User.create({ username, email, role, password, name, phone, gender, birthday, image });
       const token = createToken(user._id);
       res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(201).json({ user });
@@ -112,3 +99,20 @@ module.exports.delete_user = async function (req, res) {
     console.log(err);
   }
 };
+
+module.exports.profile = async function(req, res){
+  try{
+    const { name, phone, birthday } = req.body;
+    console.log(req.file);
+    const image = req.file.filename;
+
+    const updatedAttribute = { name, phone, birthday, image };
+
+    const userUpdate = await User.findByIdAndUpdate({_id: res.locals.user._id}, updatedAttribute, {new: true});
+    res.status(200).json({ userUpdate });
+  }
+  catch(err){
+    console.log(err);
+    res.status(400).json({ err });
+  }
+}

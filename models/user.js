@@ -24,7 +24,23 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['admin', 'user'],
-  }
+  },
+  name: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', null],
+  },
+  birthday: {
+    type: Date,
+  },
+  image: {
+    type: String,
+  },
 });
 
 // fire a function before doc save to db
