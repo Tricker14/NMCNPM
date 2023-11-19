@@ -161,3 +161,70 @@ opacity: 1;
   font-weight: bold;
   color: #fff;
 }
+
+#quantity-input {
+  display: flex;
+  align-items: center;
+  }
+  
+  #quantity-input input {
+  width: 40px;
+  text-align: center;
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  
+  }
+  
+  #quantity-input button {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  }
+  
+  
+  #quantity-input button:hover {
+  background-color: #f0f0f0;
+  }
+  
+  #quantity-input button:active {
+  background-color: #ffe4c4;
+  }
+  
+  #btn-area{
+    display: flex;
+    justify-content: center;
+  }
+  
+  #bid-btn, #add-to-fav{
+  padding: 0 !important;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffe4ce;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  #bid-btn button, #add-to-fav button{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+  }
+  
+  #bid-btn button:hover {
+    color: #CD853F;
+    filter: brightness(1.2);
+  }
+  
+  #bid-btn button:active i {
+    animation: rotate 0.3s ease;
+  }
+  
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(100deg); }
+  }
