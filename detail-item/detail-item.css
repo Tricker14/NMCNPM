@@ -135,3 +135,29 @@ opacity: 1;
   background-color: #cb997e;
   vertical-align: center;
 }
+
+.countdown-container {
+  background-color: #ffe4c4;
+}
+
+.countdown {
+  display: flex;
+  align-items: center;
+}
+
+.countdown i {
+  margin-right: 10px;
+}
+
+.countdown-item{
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  margin: 10px;
+}
+
+.countdown-number {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
