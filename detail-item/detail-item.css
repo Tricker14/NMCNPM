@@ -113,3 +113,25 @@ opacity: 1;
 }
 
 
+.product-area {
+  background-color: #fff;
+  width: 710px;
+  padding: 20px;
+}
+
+.row{
+  margin: 20px 20px;
+}
+
+
+#product-name{
+  font-size: 1.5rem;
+  font-weight: 50rem;
+}
+
+
+#category-tag{
+  color: #fff;
+  background-color: #cb997e;
+  vertical-align: center;
+}
