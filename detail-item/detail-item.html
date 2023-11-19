@@ -164,99 +164,99 @@
         </div>
 
     </div>
+
+<script>
     
+    document.addEventListener('DOMContentLoaded', function(){
+      updateBid();
+    })
 
-        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const targetDate = new Date('2023-12-31T23:59:59').getTime();
 
-          document.addEventListener('DOMContentLoaded', function(){
-                updateBid();
-              })
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-          document.addEventListener('DOMContentLoaded', function () {
-              const targetDate = new Date('2023-12-31T23:59:59').getTime();
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-              function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
+      document.getElementById('days').innerText = padZero(days);
+      document.getElementById('hours').innerText = padZero(hours);
+      document.getElementById('minutes').innerText = padZero(minutes);
+      document.getElementById('seconds').innerText = padZero(seconds);
+    }
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    function padZero(number) {
+      return (number < 10 ? '0' : '') + number;
+    }
+    
+    updateCountdown();
 
-                document.getElementById('days').innerText = padZero(days);
-                document.getElementById('hours').innerText = padZero(hours);
-                document.getElementById('minutes').innerText = padZero(minutes);
-                document.getElementById('seconds').innerText = padZero(seconds);
-              }
+    setInterval(updateCountdown, 1000);
+  });
 
-              function padZero(number) {
-                return (number < 10 ? '0' : '') + number;
-              }
-              
-              updateCountdown();
+    let slideIndex = 1;
+    showSlides(slideIndex);
 
-              setInterval(updateCountdown, 1000);
-            });
-      
-          let slideIndex = 1;
-          showSlides(slideIndex);
-      
-          function plusSlides(n) {
-          showSlides(slideIndex += n);
-          }
-      
-          function currentSlide(n) {
-          showSlides(slideIndex = n);
-          }
-      
-          function showSlides(n) {
-          let i;
-          let slides = document.getElementsByClassName("mySlides");
-          let dots = document.getElementsByClassName("demo");
-          let captionText = document.getElementById("caption");
-          if (n > slides.length) {slideIndex = 1}
-          if (n < 1) {slideIndex = slides.length}
-          for (i = 0; i < slides.length; i++) {
-              slides[i].style.display = "none";
-          }
-          for (i = 0; i < dots.length; i++) {
-              dots[i].className = dots[i].className.replace(" active", "");
-          }
-          slides[slideIndex-1].style.display = "block";
-          dots[slideIndex-1].className += " active";
-          captionText.innerHTML = dots[slideIndex-1].alt;
-          }
-      
-          function updateBid() {
-          var bidIncrement = parseFloat(document.getElementById("bid-increment").innerText);
-          var quantity = parseInt(document.getElementById("quantity").value, 10);
-          var currentPrice = parseFloat(document.getElementById("current-price-container").innerText);
+    function plusSlides(n) {
+    showSlides(slideIndex += n);
+    }
 
-          var totalBid = bidIncrement * quantity + currentPrice;
-          document.getElementById("your-bid").innerHTML = '<i class="fas fa-dollar-sign"></i> ' + totalBid.toFixed(3);
-        }
+    function currentSlide(n) {
+    showSlides(slideIndex = n);
+    }
 
-        function increment() {
-          var quantityInput = document.getElementById("quantity");
-          var currentQuantity = parseInt(quantityInput.value, 10);
+    function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("demo");
+    let captionText = document.getElementById("caption");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+    captionText.innerHTML = dots[slideIndex-1].alt;
+    }
 
-          if (currentQuantity < 9) {
-            quantityInput.value = currentQuantity + 1;
-            updateBid();
-          }
-        }
+    function updateBid() {
+      var bidIncrement = parseFloat(document.getElementById("bid-increment").innerText);
+      var quantity = parseInt(document.getElementById("quantity").value, 10);
+      var currentPrice = parseFloat(document.getElementById("current-price-container").innerText);
 
-        function decrement() {
-          var quantityInput = document.getElementById("quantity");
-          var currentQuantity = parseInt(quantityInput.value, 10);
+      var totalBid = bidIncrement * quantity + currentPrice;
+      document.getElementById("your-bid").innerHTML = '<i class="fas fa-dollar-sign"></i> ' + totalBid.toFixed(3);
+    }
 
-          if (currentQuantity > 1) {
-            quantityInput.value = currentQuantity - 1;
-            updateBid();
-          }
-        }
-      
-      </script>
+    function increment() {
+      var quantityInput = document.getElementById("quantity");
+      var currentQuantity = parseInt(quantityInput.value, 10);
+
+      if (currentQuantity < 9) {
+        quantityInput.value = currentQuantity + 1;
+        updateBid();
+      }
+    }
+
+    function decrement() {
+      var quantityInput = document.getElementById("quantity");
+      var currentQuantity = parseInt(quantityInput.value, 10);
+
+      if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
+        updateBid();
+      }
+    }
+
+</script>
+    
     </body>
 </html>
