@@ -25,7 +25,7 @@ vertical-align: middle;
 /* Position the image container (needed to position the left and right arrows) */
 .container {
 position: relative;
-width: 470px;
+width: 47rem;
 }
 
 /* Hide the images by default */
@@ -39,7 +39,7 @@ cursor: pointer;
 }
 
 .wrapper {
-  width: 1200px;
+  width: 120rem;
   margin: 0 auto;
   display: flex;
   }
@@ -51,20 +51,20 @@ cursor: pointer;
 position: absolute;
 top: 40%;
 width: auto;
-padding: 16px;
-margin-top: -50px;
+padding: 1.6rem;
+margin-top: -5rem;
 color: white;
 font-weight: bold;
-font-size: 20px;
-border-radius: 0 3px 3px 0;
+font-size: 2rem;
+border-radius: 0 0.3rem 0.3rem 0;
 user-select: none;
 -webkit-user-select: none;
 }
 
 /* Position the "next button" to the right */
 .next {
-right: 12px;
-border-radius: 3px 0 0 3px;
+right: 1.2rem;
+border-radius: 0.3rem 0 0 0.3rem;
 }
 
 /* On hover, add a black background color with a little bit see-through */
@@ -76,8 +76,8 @@ background-color: rgba(0, 0, 0, 0.8);
 /* Number text (1/3 etc) */
 .numbertext {
 color: #f2f2f2;
-font-size: 12px;
-padding: 8px 12px;
+font-size: 1.2rem;
+padding: 0.8rem 1.2rem;
 position: absolute;
 top: 0;
 }
@@ -86,7 +86,7 @@ top: 0;
 .caption-container {
 text-align: center;
 background-color: #222;
-padding: 2px 16px;
+padding: 0.2rem 1.6rem;
 color: white;
 }
 
@@ -115,12 +115,12 @@ opacity: 1;
 
 .product-area {
   background-color: #fff;
-  width: 710px;
-  padding: 20px;
+  width: 71rem;
+  padding: 2rem;
 }
 
 .row{
-  margin: 20px 20px;
+  margin: 2rem 2rem;
 }
 
 
@@ -146,7 +146,7 @@ opacity: 1;
 }
 
 .countdown i {
-  margin-right: 10px;
+  margin-right: 1rem;
 }
 
 
@@ -154,7 +154,7 @@ opacity: 1;
   display: flex;
   flex-direction: column;
   background-color: #333;
-  margin: 10px;
+  margin: 1rem;
 }
 
 .countdown-number {
@@ -172,8 +172,8 @@ opacity: 1;
   position: absolute;
   background-color: #cb997e;
   color: #fff;
-  padding: 8px;
-  border-radius: 4px;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
   opacity: 0;
   display: none;
   transition: opacity 1s;
@@ -194,18 +194,18 @@ align-items: center;
 }
 
 #quantity-input input {
-width: 40px;
+width: 4rem;
 text-align: center;
-font-size: 16px;
-padding: 8px;
-border: 1px solid #ccc;
+font-size: 1.6rem;
+padding: 0.8rem;
+border: 0.1rem solid #ccc;
 
 }
 
 #quantity-input button {
-padding: 8px;
-font-size: 16px;
-border: 1px solid #ccc;
+padding: 0.8rem;
+font-size: 1.6rem;
+border: 0.1rem solid #ccc;
 background-color: #fff;
 cursor: pointer;
 }
@@ -226,9 +226,9 @@ background-color: #ffe4c4;
 
 #bid-btn, #add-to-fav{
 padding: 0 !important;
-height: 45px;
+height: 4.5rem;
 border: none;
-border-radius: 5px;
+border-radius: 0.5rem;
 background-color: #ffe4ce;
 justify-content: center;
 align-items: center;

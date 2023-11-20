@@ -42,8 +42,8 @@
                 <img src="img_snow.jpg" style="width:100%">
             </div>
                 
-            <a class="prev" onclick="plusSlides(-1)">❮</a>
-            <a class="next" onclick="plusSlides(1)">❯</a>
+            <a class="prev" id="prevButton">❮</a>
+            <a class="next" id="nextButton">❯</a>
 
             <div class="caption-container">
                 <p id="caption"></p>
@@ -51,22 +51,22 @@
 
             <div class="row1">
                 <div class="column">
-                <img class="demo cursor" src="img_woods.jpg" style="width:100%" onclick="currentSlide(1)" alt="">
+                <img class="demo cursor" src="img_woods.jpg" style="width:100%" id="img1" alt="">
                 </div>
                 <div class="column">
-                <img class="demo cursor" src="img_5terre.jpg" style="width:100%" onclick="currentSlide(2)" alt="">
+                <img class="demo cursor" src="img_5terre.jpg" style="width:100%" id="img2" alt="">
                 </div>
                 <div class="column">
-                <img class="demo cursor" src="img_mountains.jpg" style="width:100%" onclick="currentSlide(3)" alt="">
+                <img class="demo cursor" src="img_mountains.jpg" style="width:100%" id="img3" alt="">
                 </div>
                 <div class="column">
-                <img class="demo cursor" src="img_lights.jpg" style="width:100%" onclick="currentSlide(4)" alt="">
+                <img class="demo cursor" src="img_lights.jpg" style="width:100%" id="img4" alt="">
                 </div>
                 <div class="column">
-                <img class="demo cursor" src="img_nature.jpg" style="width:100%" onclick="currentSlide(5)" alt="">
+                <img class="demo cursor" src="img_nature.jpg" style="width:100%" id="img5" alt="">
                 </div>    
                 <div class="column">
-                <img class="demo cursor" src="img_snow.jpg" style="width:100%" onclick="currentSlide(6)" alt="">
+                <img class="demo cursor" src="img_snow.jpg" style="width:100%" id="img6" alt="">
                 </div>
             </div>
         </div>
@@ -145,9 +145,9 @@
               Bid Increment Quantity
             </div>
             <div class="col-8" id="quantity-input">
-              <button onclick="decrement()">-</button>
+              <button id="decrement">-</button>
               <input type="text" id="quantity" value="1" readonly>
-              <button onclick="increment()">+</button>
+              <button id="increment">+</button>
             </div>
           </div>
           <div class="row" id="btn-area">

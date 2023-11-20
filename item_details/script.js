@@ -86,3 +86,43 @@ document.addEventListener('DOMContentLoaded', function(){
 	  updateBid();
 	}
   }
+
+document.getElementById('prevButton').addEventListener('click', function() {
+    plusSlides(-1);
+});
+
+document.getElementById('nextButton').addEventListener('click', function() {
+    plusSlides(1);
+});
+
+document.getElementById('decrement').addEventListener('click', function() {
+  decrement();
+});
+
+document.getElementById('increment').addEventListener('click', function() {
+  increment();
+});
+
+document.getElementById('img1').addEventListener('click', function() {
+  currentSlide(1);
+});
+
+document.getElementById('img2').addEventListener('click', function() {
+  currentSlide(2);
+});
+
+document.getElementById('img3').addEventListener('click', function() {
+  currentSlide(3);
+});
+
+document.getElementById('img4').addEventListener('click', function() {
+  currentSlide(4);
+});
+
+document.getElementById('img5').addEventListener('click', function() {
+  currentSlide(5);
+});
+
+document.getElementById('img6').addEventListener('click', function() {
+  currentSlide(6);
+});
