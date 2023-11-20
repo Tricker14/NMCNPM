@@ -39,6 +39,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false, // Set this option to false to suppress the deprecation warning
   })
   .then((result) => {
     app.listen(process.env.PORT);

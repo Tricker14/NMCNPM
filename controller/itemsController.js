@@ -1,10 +1,11 @@
 const User = require("../models/user");
 const Category = require("../models/category");
-const Item = require("../models/item");
+const { Item } = require("../models/item");
 const Bid= require("../models/bid");
 const jwt = require("jsonwebtoken");
 const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
+const { countdownDeleteItem } = require("../models/item");
 
 module.exports.item_get = async function (req, res) {
   const id = req.params._id;
@@ -19,8 +20,6 @@ module.exports.item_get = async function (req, res) {
     if(highestBid[0]){
       highestBidder = highestBid[0].bidder;
     }
-    console.log("highestBid ", highestBid);
-    console.log("highestBidder ", highestBidder);
     
     const bid = await Bid.find({product: item, bidder: res.locals.user}).sort({price: -1}).limit(1).populate('bidder');
     let bidder = null;
@@ -29,8 +28,6 @@ module.exports.item_get = async function (req, res) {
       bidder = bid[0].bidder;
       price = bid[0].price;
     }
-    console.log("bid ", bid);
-    console.log("bidder ", bidder);
 
     res.render("items/item-details", {    
       item: item,
@@ -57,10 +54,8 @@ module.exports.item_create_page = async function (req, res) {
 
 module.exports.listing_get = async function (req, res) {
   const items = await Item.find({}).populate("owner");
-  console.log(req.query.delete);
   const message =
     req.query.delete != undefined ? "Deleted item successfully" : null;
-  console.log('user',res.locals.user);
   res.render("items/listing", {
     items: items,
     user: res.locals.user,
@@ -68,7 +63,20 @@ module.exports.listing_get = async function (req, res) {
   });
 };
 
+module.exports.get_edit_page = async function (req, res) {
+  const id = req.params.id;
+  const item = await Item.findById(id);
+
+  res.render("items/edit-item", { item: item, categories: [] });
+};
+
 module.exports.create_item = async function (req, res) {
+  let day = req.body.day;
+  let hour = req.body.hour;
+  let minute = req.body.minute;
+  let second = req.body.second;
+  const countdown = { day, hour, minute, second };
+
   const { name, description, date, category, startingBid } = req.body;
 
   const images = req.files;
@@ -95,7 +103,9 @@ module.exports.create_item = async function (req, res) {
       previewImages,
       owner,
       winner,
+      countdown
     });
+    countdownDeleteItem(item);
 
     res.redirect("/webid/items/" + item._id + "?create=succeed");
   } catch (err) {
@@ -168,13 +178,6 @@ module.exports.item_edit = async function (req, res) {
   }
 
   res.redirect("/webid/items/" + item.id + "?update=succeed");
-};
-
-module.exports.get_edit_page = async function (req, res) {
-  const id = req.params.id;
-  const item = await Item.findById(id);
-
-  res.render("items/edit-item", { item: item, categories: [] });
 };
 
 module.exports.delete_item = async function (req, res) {

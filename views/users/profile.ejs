@@ -1,0 +1,45 @@
+<%- include('../partials/header'); -%>
+
+<link rel="stylesheet" href="/stylesheets/styles.css">
+<link rel="stylesheet" href="/stylesheets/profile.css">
+
+<strong id="header">Profile Page</strong>
+
+<form action="/api/webid/profile/<%= user._id %>" method="post" enctype="multipart/form-data" style="max-width: 700px;">
+    <div id="username">Username: <%= user.username %></div>
+    <div id="name">
+        Name:
+        <input type="text" name="name">
+    </div>
+    <div id="email">Email: <%= user.email %></div>
+    <div id="role">Role: <%= user.role %></div>
+    <div id="phone">
+        Phone:
+        <input type="text" name="phone">
+    </div>
+    <div id="gender">
+        Gender:
+        <% userSchema.paths['gender'].enumValues.forEach(function(value){ %>
+            <% if(value !== null){ %>
+                <input type="radio" name="gender" value="<%= value %>"><%= value.charAt(0).toUpperCase() + value.slice(1) %>
+            <% } %>
+        <% }); %>
+    </div>
+    <div id="birthday">
+        Date of birth:
+        <input type="date" name="birthday">
+    </div>
+    <div id="image" name="image">
+        <div>
+            Profile image:
+        </div>
+        <% if(user.image){ %>
+            <img src="<%= '/images/users-images/' + user.image %>" style="width:10%" alt="user">
+        <% } %>
+        Choose your profile image:
+        <input type="file" class="form-control" accept="image/png, image/jpeg" name="image">
+    </div>
+    <button id="save" type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<%- include('../partials/footer'); -%>

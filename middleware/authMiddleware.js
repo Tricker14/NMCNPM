@@ -37,17 +37,20 @@ const checkUser = function (req, res, next) {
         if (err) {
           console.log(err.message);
           res.locals.user = null;
+          res.locals.currentUser = null;
           next();
         } else {
           console.log(decodedToken);
           let user = await User.findById(decodedToken.id);
           res.locals.user = user;
+          res.locals.currentUser = user;
           next();
         }
       }
     );
   } else {
     res.locals.user = null;
+    res.locals.currentUser = null;
     next();
   }
 };

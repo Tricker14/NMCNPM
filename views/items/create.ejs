@@ -49,7 +49,28 @@
             <div class="col-9">
                 <input type="file" class="form-control" id="previewImages" name="previewImages" multiple accept="image/png, image/jpeg" required>
             </div>
+        </div>
 
+        <div class="mb-3 form-group row">
+            <label for="day" class="col-3">Choose day</label>
+            <div class="col-9 mb-2">
+                <select id="day" class="form-select" name="day"></select>
+            </div>
+
+            <label for="hour" class="col-3">Choose hour</label>
+            <div class="col-9 mb-2">
+                <select id="hour" class="form-select" name="hour"></select>
+            </div>
+
+            <label for="minute" class="col-3">Choose minute</label>
+            <div class="col-9 mb-2">
+                <select id="minute" class="form-select" name="minute"></select>
+            </div>
+
+            <label for="second" class="col-3">Choose second</label>
+            <div class="col-9 mb-2">
+                <select id="second" class="form-select" name="second"></select>
+            </div>
         </div>
 
         <div id="submit-btn-container" class="d-flex justify-content-center ">
@@ -57,5 +78,38 @@
         </div>
     </div>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        let day = document.getElementById('day');
+        let hour = document.getElementById('hour');
+        let minute = document.getElementById('minute');
+        let second = document.getElementById('second');
+
+        for(let i = 0; i < 100; i++){
+            let option = document.createElement('option');
+            option.innerHTML = i;
+            day.appendChild(option);
+        }
+
+        for(let i = 0; i < 24; i++){
+            let option = document.createElement('option');
+            option.innerHTML = i;
+            hour.appendChild(option);
+        }
+
+        for(let i = 0; i < 60; i++){
+            let option = document.createElement('option');
+            option.innerHTML = i;
+            minute.appendChild(option);
+        }
+
+        for(let i = 0; i < 60; i++){
+            let option = document.createElement('option');
+            option.innerHTML = i;
+            second.appendChild(option);
+        }
+    })
+</script>
 
 <%- include('../partials/footer'); -%>

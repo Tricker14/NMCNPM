@@ -4,7 +4,7 @@ const path = require("path");
 const Item = require("../models/item");
 
 // Configure multer storage and file name
-const storage = multer.diskStorage({
+const storageItem = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/images/items-images");
   },
@@ -13,7 +13,18 @@ const storage = multer.diskStorage({
   },
 });
 
-// Create multer upload instance
-const upload = multer({ storage: storage });
+const storageUser = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images/users-images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname.replace(/ /g, ""));
+  },
+});
 
-module.exports = { upload };
+// Create multer upload instance
+const upload = multer({ storage: storageItem });
+
+const uploadUser = multer({ storage: storageUser });
+
+module.exports = { upload, uploadUser };
