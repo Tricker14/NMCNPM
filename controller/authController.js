@@ -19,8 +19,19 @@ module.exports.logout = function (req, res) {
   res.redirect("/webid/home");
 };
 
-module.exports.profile = (req, res) => {
-  res.render("users/profile", {
-    userSchema: User.schema,
-  });
+module.exports.profile = async (req, res) => {
+  const id = req.params._id;
+  try{
+    const user = await User.findById(id);
+    console.log(user.username);
+    console.log(id);
+    res.render("users/profile", {
+      user: user,
+      userSchema: User.schema,
+    });
+  }
+  catch(err){
+    console.log(err);
+    res.status(400).json({ err });
+  }
 };

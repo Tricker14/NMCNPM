@@ -214,7 +214,7 @@
           <button class="order-btn">Đặt Hàng</button>
         </div>
         <div>
-          Post by <%= item.owner.username %>
+          Post by <a href="/webid/profile/<%= item.owner._id %>"><%= item.owner.username %></a>
           <div>
               Starting bid: <%= item.startingBid %>
           </div>
@@ -238,6 +238,12 @@
               <% }else{ %>
                   You have no bid on this item
               <% } %>
+          </div>
+          <div>
+            <span>Day <%= item.countdown.day %> </span>
+            <span>Hour <%= item.countdown.hour %> </span>
+            <span>Minute <%= item.countdown.minute %> </span>
+            <span>Second <%= item.countdown.second %> </span>
           </div>
       </div>
       </div>

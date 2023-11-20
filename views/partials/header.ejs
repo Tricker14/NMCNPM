@@ -39,9 +39,9 @@
       <button id="dropDownAvatar" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       </button>
       <% if(user){ %>
-        <span id="greetings" class="align-self-center">Hi, <%= user.username %></span>
+        <span id="greetings" class="align-self-center">Hi, <%= currentUser.username %></span>
         <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/webid/profile">User Profile</a></li>
+            <li><a class="dropdown-item" href="/webid/profile/<%= user._id %>">User Profile</a></li>
             <li><a class="dropdown-item" href="/webid/users/history">Bid History</a></li>
             <li><a class="dropdown-item" href="/webid/logout">Log out</a></li>
         </ul>
@@ -90,7 +90,7 @@
           <hr />
         </li>
         <% if(user){ %>
-          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/profile">User Profile</a></li>
+          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/profile/<%= user._id %>">User Profile</a></li>
           <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Bid History</a></li>
           <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/logout">Log out</a></li>
         <% }else{ %>

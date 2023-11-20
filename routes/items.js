@@ -34,7 +34,7 @@ router.post(
       name: "previewImages",
       maxCount: 5,
     },
-  ]), requireAuth, 
+  ]), requireAuth,
   itemsController.create_item
 );
 

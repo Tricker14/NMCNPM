@@ -4,6 +4,12 @@ const Item = require("../../models/item");
 const jwt = require("jsonwebtoken");
 
 module.exports.item_post = async function (req, res) {
+  let day = req.body.day;
+  let hour = req.body.hour;
+  let minute = req.body.minute;
+  let second = req.body.second;
+  const countdown = { day, hour, minute, second };
+  
   const { name, description, date, category, startingBid } = req.body;
 
   const images = req.files;
@@ -32,6 +38,10 @@ module.exports.item_post = async function (req, res) {
       previewImages,
       owner,
       winner,
+      day,
+      hour,
+      minute,
+      second
     });
     res.status(201).json({ item, redirect: "/items" });
   } catch (err) {

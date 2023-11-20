@@ -5,7 +5,7 @@
 
 <strong id="header">Profile Page</strong>
 
-<form action="/api/webid/profile" method="post" enctype="multipart/form-data" style="max-width: 700px;">
+<form action="/api/webid/profile/<%= user._id %>" method="post" enctype="multipart/form-data" style="max-width: 700px;">
     <div id="username">Username: <%= user.username %></div>
     <div id="name">
         Name:

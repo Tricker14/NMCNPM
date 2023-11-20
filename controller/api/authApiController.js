@@ -101,14 +101,14 @@ module.exports.delete_user = async function (req, res) {
 };
 
 module.exports.profile = async function(req, res){
+  const id = req.params._id;
   try{
     const { name, phone, birthday } = req.body;
-    console.log(req.file);
     const image = req.file.filename;
 
     const updatedAttribute = { name, phone, birthday, image };
 
-    const userUpdate = await User.findByIdAndUpdate({_id: res.locals.user._id}, updatedAttribute, {new: true});
+    const userUpdate = await User.findByIdAndUpdate(id, updatedAttribute, {new: true});
     res.status(200).json({ userUpdate });
   }
   catch(err){

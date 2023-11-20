@@ -3,7 +3,6 @@ const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const methodOverride = require('method-override');
 
 // routes and api
 const authRoutes = require("./routes/authRoutes");
@@ -29,7 +28,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(methodOverride('_method'));
 
 // view engine
 app.set("view engine", "ejs");
