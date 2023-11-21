@@ -115,7 +115,7 @@ opacity: 1;
 
 .product-area {
   background-color: #fff;
-  width: 71rem;
+  width: 50rem;
   padding: 2rem;
 }
 
@@ -262,7 +262,7 @@ align-items: center;
 }
 @media only screen and (max-width: 768px) {
   .wrapper{
-    width: 100%;
+    width: 100% !important;
     display: block;
   }
   
@@ -275,9 +275,11 @@ align-items: center;
   }
 }
 
-@media only screen and (max-width: 992px) {
+
+
+@media only screen and (max-width: 1600px) {
   .wrapper{
-    width: 100%;
+    width: 70%;
     display: block;
   }
   
@@ -286,6 +288,7 @@ align-items: center;
   }
 
   .container{
+    
     padding: 0 !important;
   }
 
