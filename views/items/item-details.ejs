@@ -1,161 +1,19 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/stylesheets/item/item_detail.css">
+  <link rel="stylesheet" href="/stylesheets/header.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    img {
-      vertical-align: middle;
-    }
-
-    /* Position the image container (needed to position the left and right arrows) */
-    .container {
-      position: relative;
-    }
-
-    /* Hide the images by default */
-    .mySlides {
-      display: none;
-    }
-
-    /* Add a pointer when hovering over the thumbnail images */
-    .cursor {
-      cursor: pointer;
-    }
-
-    /* Next & previous buttons */
-    .prev,
-    .next {
-      cursor: pointer;
-      position: absolute;
-      top: 40%;
-      width: auto;
-      padding: 16px;
-      margin-top: -50px;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover,
-    .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    /* Number text (1/3 etc) */
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-
-    /* Container for image text */
-    .caption-container {
-      text-align: center;
-      background-color: #222;
-      padding: 2px 16px;
-      color: white;
-    }
-
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    /* Six columns side by side */
-    .column {
-      float: left;
-      width: 16.66%;
-    }
-
-    /* Add a transparency effect for thumnbail images */
-    .demo {
-      opacity: 0.6;
-    }
-
-    .active,
-    .demo:hover {
-      opacity: 1;
-    }
-
-    .product-container {
-
-      width: 100%;
-      margin: 0;
-      background-color: white;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .product {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 10px;
-    }
-
-    .product img {
-      max-width: 100px;
-      max-height: 100px;
-      margin-right: 20px;
-    }
-
-    .product-info {
-      flex-grow: 1;
-    }
-
-    .order-btn {
-      background-color: #4caf50;
-      color: white;
-      padding: 10px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .wrapper {
-      width: 980px;
-      margin: 0 auto;
-      display: flex;
-    }
-
-    h1 {
-      text-align: center;
-    }
-  </style>
-
-
 
   <head>
 
   <body>
+    <%- include('../partials/headerNavOnly'); -%>
+
+
     <% if(createMessage != null) { %>
     <div class="alert alert-info alert-dismissible fade show" role="alert">
       <%= createMessage %>
@@ -169,33 +27,32 @@
     </div>
     <% } %>
 
-    <header>
-      <h1>Jelwery shop</h1>
-    </header>
     <div class="wrapper">
 
       <div class="container">
         <div class="mySlides">
-          <div class="numbertext">1 / 6</div>
+          <div class="numbertext">1 / <%= item.previewImages.length %></div>
           <img src="<%= '/images/items-images/' + item.image %>" style="width:100%">
         </div>
 
         <% for(var i=0; i< item.previewImages.length; i++) {%>
         <div class="mySlides">
-          <div class="numbertext">1 / 6</div>
+          <div class="numbertext"> <%= i+2 %> / <%= item.previewImages.length %></div>
           <img src="<%= '/images/items-images/' + item.previewImages[i] %>" style="width:100%">
         </div>
         <% } %>
 
+        <a class="prev" id="prevButton">❮</a>
+        <a class="next" id="nextButton">❯</a>
 
-        <a class="prev" onclick="plusSlides(-1)">❮</a>
-        <a class="next" onclick="plusSlides(1)">❯</a>
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
 
-        <div class="row">
+        <div class="row1">
           <div class="column">
             <img class="demo cursor" src="<%= '/images/items-images/' + item.image %>" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
           </div>
-
           <% for(var i=0; i< item.previewImages.length; i++) {%>
           <div class="column">
             <img class="demo cursor" src="<%= '/images/items-images/' + item.previewImages[i] %>" style="width:100%" onclick="currentSlide('<%= i + 2 %>')" alt="The Woods">
@@ -203,239 +60,104 @@
           <% } %>
         </div>
       </div>
-
-      <div class="product-container">
-        <div class="product">
-
-          <div class="product-info">
-            <h2><%= item.name %></h2>
-            <p><%= item.description %></p>
+      <div class="product-area">
+        <div class="row">
+          <div class="col" id="product-name-area">
+            <span id="category-tag">category</span>
+            <span id="product-name"><%= item.name %></span>
           </div>
-          <button class="order-btn">Đặt Hàng</button>
         </div>
-        <div>
-          Post by <a href="/webid/profile/<%= item.owner._id %>"><%= item.owner.username %></a>
-          <div>
-              Starting bid: <%= item.startingBid %>
+        <div class="row">
+          <div class="col">
+            <%= item.description %>
           </div>
-          <div>
-            Current bid: <%= item.highestBid %>
-          </div>
-          <form action="/api/webid/bids/<%= item._id %>" method="post">
-              <textarea type="text" placeholder="Price" name="price"></textarea><br>
-              <input type="submit" value="Bid">
-          </form>
-          <div>
-              <% if(highestBidder){ %>
-                  Highest bidder: <%= highestBidder.username %>
-              <% }else{ %>
-                  No bidder
-              <% } %>
-          </div>
-          <div>
-              <% if(bidder){ %>
-                  Your last bid is: <%= price %>
-              <% }else{ %>
-                  You have no bid on this item
-              <% } %>
-          </div>
-          <div>
-            <span>Day <%= item.countdown.day %> </span>
-            <span>Hour <%= item.countdown.hour %> </span>
-            <span>Minute <%= item.countdown.minute %> </span>
-            <span>Second <%= item.countdown.second %> </span>
-          </div>
-      </div>
-      </div>
-    </div>
-
-    <script>
-      let slideIndex = 1;
-      showSlides(slideIndex);
-
-      function plusSlides(n) {
-        showSlides(slideIndex += n);
-      }
-
-      function currentSlide(n) {
-        showSlides(slideIndex = n);
-      }
-
-      function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("demo");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-      }
-    </script>
-
-  </body>
-
-</html> -->
-
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/stylesheets/item/item_detail.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  
-<head>
-<body>
-  <% if(createMessage != null) { %>
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-      <%= createMessage %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% } %>
-  <% if(updateMessage != null) { %>
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-      <%= updateMessage %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% } %>
-
-    <div class="wrapper">
-        
-        <div class="container">
-            <div class="mySlides">
-                <div class="numbertext">1 / 6</div>
-                <img src="<%= '/images/items-images/' + item.image %>" style="width:100%">
-            </div>
-
-            <% for(var i=0; i< item.previewImages.length; i++) {%>
-              <div class="mySlides">
-                <div class="numbertext">1 / 6</div>
-                <img src="<%= '/images/items-images/' + item.previewImages[i] %>" style="width:100%">
-              </div>
-            <% } %>
-                
-            <a class="prev" id="prevButton">❮</a>
-            <a class="next" id="nextButton">❯</a>
-
-            <div class="caption-container">
-                <p id="caption"></p>
-            </div>
-
-            <div class="row1">
-              <div class="column">
-                <img class="demo cursor" src="<%= '/images/items-images/' + item.image %>" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-              </div>
-              <% for(var i=0; i< item.previewImages.length; i++) {%>
-                <div class="column">
-                  <img class="demo cursor" src="<%= '/images/items-images/' + item.previewImages[i] %>" style="width:100%" onclick="currentSlide('<%= i + 2 %>')" alt="The Woods">
-                </div>
-              <% } %>
-            </div>
         </div>
-        <div class="product-area">
-          <div class="row"> 
-            <div class="col" id="product-name-area">
-              <span id="category-tag">category</span>
-              <span id="product-name"><%= item.name %></span>
-            </div>
-          </div>
-          <div class="row">
+        <div class="row countdown-container">
+          <div class="countdown">
+            <i class="fa-regular fa-clock"></i>
             <div class="col">
-              <%= item.description %>
+              BID ENDS IN
             </div>
-          </div>
-          <div class="row countdown-container">
-            <div class="countdown">
-              <i class="fa-regular fa-clock"></i> 
-              <div class="col">
-                BID ENDS IN
-              </div>
-              <div class="countdown-item">
-                <span class="countdown-number" id="days">00</span>
-              </div>
-              <div class="countdown-item">
-                <span class="countdown-number" id="hours">00</span>
-              </div>
-              <div class="countdown-item">
-                <span class="countdown-number" id="minutes">00</span>
-              </div>
-              <div class="countdown-item">
-                <span class="countdown-number" id="seconds">00</span>
-              </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="days">00</span>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              Starting Bid
+            <div class="countdown-item">
+              <span class="countdown-number" id="hours">00</span>
             </div>
-            <div class="col-8" id="starting-bid">
-              <i class="fa-solid fa-sack-dollar"></i>
-              <%= item.startingBid %>
+            <div class="countdown-item">
+              <span class="countdown-number" id="minutes">00</span>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              Bid Increment
-            </div>
-            <div class="col-8" id="bid-increment">
-              <i class="fa-solid fa-arrow-trend-up"></i>
-              5.000
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              Current Price
-            </div>
-            <div class="col-8 tooltip-container" id="current-price-container">
-              <i class="fa-solid fa-trophy"></i>
-              <%= item.highestBid %>
-              <div class="tooltip" id="current-price-tooltip">
-                Your tooltip content here.
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              Your Bid
-            </div>
-            <div class="col-8" id="your-bid">
-              <i class="fa-solid fa-dollar-sign"><%= price %></i>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              Bid Increment Quantity
-            </div>
-            <div class="col-8" id="quantity-input">
-              <button id="decrement">-</button>
-              <input type="text" id="quantity" value="1" readonly>
-              <button id="increment">+</button>
-            </div>
-          </div>
-          <div class="row" id="btn-area">
-            <div class="col-6" id="add-to-fav">
-              <button>
-                <i class="fa-solid fa-heart"></i>
-                ADD TO FAVOR LIST
-              </button>
-            </div>
-            <div class="col-1"></div>
-            <div class="col-3" id="bid-btn">
-              <button><i class="fa-solid fa-gavel"></i></button>
+            <div class="countdown-item">
+              <span class="countdown-number" id="seconds">00</span>
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-4">
+            Starting Bid
+          </div>
+          <div class="col-8" id="starting-bid">
+            <i class="fa-solid fa-sack-dollar"></i>
+            <%= item.startingBid %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Bid Increment
+          </div>
+          <div class="col-8" id="bid-increment">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            5.000
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Current Price
+          </div>
+          <div class="col-8 tooltip-container" id="current-price-container">
+            <i class="fa-solid fa-trophy"></i>
+            <%= item.highestBid %>
+            <div class="tooltip" id="current-price-tooltip">
+              Your tooltip content here.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Your Bid
+          </div>
+          <div class="col-8" id="your-bid">
+            <i class="fa-solid fa-dollar-sign"><%= price %></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Bid Increment Quantity
+          </div>
+          <div class="col-8" id="quantity-input">
+            <button id="decrement">-</button>
+            <input type="text" id="quantity" value="1" readonly>
+            <button id="increment">+</button>
+          </div>
+        </div>
+        <div class="row" id="btn-area">
+          <div class="col-6" id="add-to-fav">
+            <button>
+              <i class="fa-solid fa-heart"></i>
+              ADD TO FAVOR LIST
+            </button>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-3" id="bid-btn">
+            <button><i class="fa-solid fa-gavel"></i></button>
+          </div>
+        </div>
+      </div>
 
     </div>
 
     <script src="script.js"></script>
 
-    </body>
+  </body>
+
 </html>
