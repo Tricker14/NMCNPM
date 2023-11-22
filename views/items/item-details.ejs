@@ -219,10 +219,13 @@
               Starting bid: <%= item.startingBid %>
           </div>
           <div>
+            Bid increment: <%= item.bidIncrement %>
+          </div>
+          <div>
             Current bid: <%= item.highestBid %>
           </div>
           <form action="/api/webid/bids/<%= item._id %>" method="post">
-              <textarea type="text" placeholder="Price" name="price"></textarea><br>
+              <textarea type="text" placeholder="Bid increment" name="bidIncrement"></textarea><br>
               <input type="submit" value="Bid">
           </form>
           <div>
@@ -244,6 +247,12 @@
             <span>Hour <%= item.countdown.hour %> </span>
             <span>Minute <%= item.countdown.minute %> </span>
             <span>Second <%= item.countdown.second %> </span>
+          </div>
+          <div>
+            <span>Day left <%= countdown.days %> </span>
+            <span>Hour left <%= countdown.hours %> </span>
+            <span>Minute left <%= countdown.minutes %> </span>
+            <span>Second left <%= countdown.seconds %> </span>
           </div>
       </div>
       </div>

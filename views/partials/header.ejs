@@ -42,7 +42,7 @@
         <span id="greetings" class="align-self-center">Hi, <%= currentUser.username %></span>
         <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="/webid/profile/<%= user._id %>">User Profile</a></li>
-            <li><a class="dropdown-item" href="/webid/users/history">Bid History</a></li>
+            <li><a class="dropdown-item" href="/webid/history/<%= user._id %>">Bid History</a></li>
             <li><a class="dropdown-item" href="/webid/logout">Log out</a></li>
         </ul>
       <% }else{ %>
@@ -91,7 +91,7 @@
         </li>
         <% if(user){ %>
           <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/profile/<%= user._id %>">User Profile</a></li>
-          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Bid History</a></li>
+          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/history/<%= user._id %>">Bid History</a></li>
           <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/logout">Log out</a></li>
         <% }else{ %>
           <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/signup">Signup</a></li>

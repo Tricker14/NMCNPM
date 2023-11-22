@@ -11,42 +11,44 @@
     <% if (items && items.length > 0) { %>
     <div class="row justify-content-center ">
         <% items.forEach(function(item) { %>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 d-flex justify-content-center  ">
-            <a href="/webid/items/<%= item._id %>">
-                <div class="item-card">
-                    <a class="item-image" href="/webid/items/<%= item._id %>">
-                        <img src="/images/items-images/<%= item.image %>" alt="Product Image" style="height: 15rem;">
-                    </a>
-                    <div class="card-content">
-                        <a href="/webid/items/<%= item._id %>" class="product-name"><%= item.name %></a>
-                        <div class="product-description">
-                            <%= item.description %>
+            <% if(item.isListing === true){ %>
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 d-flex justify-content-center  ">
+                    <a href="/webid/items/<%= item._id %>">
+                        <div class="item-card">
+                            <a class="item-image" href="/webid/items/<%= item._id %>">
+                                <img src="/images/items-images/<%= item.image %>" alt="Product Image" style="height: 15rem;">
+                            </a>
+                            <div class="card-content">
+                                <a href="/webid/items/<%= item._id %>" class="product-name"><%= item.name %></a>
+                                <div class="product-description">
+                                    <%= item.description %>
+                                </div>
+                                <div class="price">$19.99</div>
+        
+                                <% if(user){ %>
+                                    <% if (item.owner._id.equals(user._id))  { %>
+                                        <div class="add-to-cart">
+                                            <button class="heart-icon">&#10084;</button>
+                                            <a href="/webid/items/edit/<%= item._id %>">
+                                                <button class="add-to-cart-btn">Edit</button>
+                                            </a>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="add-to-cart">
+                                            <button class="heart-icon">&#10084;</button>
+                                            <button class="add-to-cart-btn">Add to Cart</button>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                            </div>
                         </div>
-                        <div class="price">$19.99</div>
-
-                        <% if(user){ %>
-                            <% if (item.owner._id.equals(user._id))  { %>
-                                <div class="add-to-cart">
-                                    <button class="heart-icon">&#10084;</button>
-                                    <a href="/webid/items/edit/<%= item._id %>">
-                                        <button class="add-to-cart-btn">Edit</button>
-                                    </a>
-                                </div>
-                            <% } else { %>
-                                <div class="add-to-cart">
-                                    <button class="heart-icon">&#10084;</button>
-                                    <button class="add-to-cart-btn">Add to Cart</button>
-                                </div>
-                            <% } %>
-                        <% } %>
-                    </div>
+                    </a>
                 </div>
-            </a>
-        </div>
+            <% } %>
         <% }); %>
     </div>
     <% } else { %>
-    <div style="font-size: 1.6rem; margin-top: 30vh" class="alert alert-warning " role="alert">No items available</div>
+        <div style="font-size: 1.6rem; margin-top: 30vh" class="alert alert-warning " role="alert">No items available</div>
     <% } %>
 </div>
 

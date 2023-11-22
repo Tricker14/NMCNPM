@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const User = require("./user");
-const Item = require("./item");
+const { Item } = require("./item");
 
 const bidSchema = new mongoose.Schema({
+    bidIncrement:{
+        type: Number,
+        require: [true, "Please enter a bid increment"],
+    },
     price:{
         type: Number,
-        require: [true, "Please enter a price"],
     },
     product:{
         type: mongoose.Schema.Types.ObjectId,
