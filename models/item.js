@@ -42,22 +42,22 @@ const itemSchema = new mongoose.Schema({
   },
   countdown: {
     day: {
-        type: Number,
-        required: [true, "Please choose day"],
+      type: Number,
+      required: [true, "Please choose day"],
     },
     hour: {
-        type: Number,
-        required: [true, "Please choose hour"],
+      type: Number,
+      required: [true, "Please choose hour"],
     },
     minute: {
-        type: Number,
-        required: [true, "Please choose minute"],
+      type: Number,
+      required: [true, "Please choose minute"],
     },
     second: {
-        type: Number,
-        required: [true, "Please choose second"],
-    }
-  }
+      type: Number,
+      required: [true, "Please choose second"],
+    },
+  },
 });
 
 function deleteMainImage(image) {
@@ -89,22 +89,26 @@ itemSchema.post("findOneAndDelete", async function (doc) {
 });
 
 // delete item when the countdown over
-const deleteItem = async function(id){
-  try{
+const deleteItem = async function (id) {
+  try {
     await Item.findByIdAndDelete(id);
-    console.log('deleteItem completed');
-  }
-  catch(err){
+    console.log("deleteItem completed");
+  } catch (err) {
     console.log(err);
   }
-}
+};
 
-const countdownDeleteItem = function(item){
-  const time = (item.countdown.day * 24 * 60 * 60 + item.countdown.hour * 60 * 60 + item.countdown.minute * 60 + item.countdown.second) * 1000;
-  setTimeout(function(){
-    deleteItem(item._id)
+const countdownDeleteItem = function (item) {
+  const time =
+    (item.countdown.day * 24 * 60 * 60 +
+      item.countdown.hour * 60 * 60 +
+      item.countdown.minute * 60 +
+      item.countdown.second) *
+    1000;
+  setTimeout(function () {
+    deleteItem(item._id);
   }, time);
-}
+};
 
 const Item = mongoose.model("item", itemSchema);
 
