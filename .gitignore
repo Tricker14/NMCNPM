@@ -116,3 +116,4 @@ dist
 .pnp.*
 
 # public directory
+public/images/items-images/*
