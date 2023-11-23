@@ -111,9 +111,27 @@ function deletePreviewImages(images) {
 }
 
 // clean up image when delete an item
-itemSchema.post("findOneAndDelete", async function (doc) {
-  deleteMainImage(doc.image);
-  deletePreviewImages(doc.previewImages);
+// itemSchema.post("findOneAndDelete", async function (doc) {
+//   deleteMainImage(doc.image);
+//   deletePreviewImages(doc.previewImages);
+    
+// });
+
+itemSchema.pre("findOneAndDelete", async function (next) {
+  console.log('access this shit');
+  const doc = await this.findOne();
+  if(doc){
+    deleteMainImage(doc.image);
+    deletePreviewImages(doc.previewImages);
+
+    console.log('start');
+    await Bid.deleteMany({ product: doc._id });
+    console.log('end');
+  }
+  else{
+    console.log('wtf');
+  }
+  next();
 });
 
 // delete item when the countdown over
