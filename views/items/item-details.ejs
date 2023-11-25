@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/stylesheets/item/item-detail.css">
-  <link rel="stylesheet" href="/stylesheets/header.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/item/item-detail.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  </head>
 
   <body>
     <%- include('../partials/headerNavOnly'); -%>
-
 
     <% if(createMessage != null) { %>
     <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -155,6 +154,10 @@
           <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
             <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
           </form>
+
+          <form action="/webid/items/delete/<%= item._id %>" method="post">
+            <input type="submit" value="Delete Item">
+          </form>
           
         </div>
       </div>
@@ -268,7 +271,7 @@
           var currentQuantity = parseInt(quantityInput.value, 10);
           var bidIncrementInput = document.getElementById("bidIncrementInput");
 
-          if (currentQuantity > 1) {
+          if (currentQuantity > 0) {
             quantityInput.value = currentQuantity - 1;
             bidIncrementInput.value = currentQuantity - 1;
             updateBid();
