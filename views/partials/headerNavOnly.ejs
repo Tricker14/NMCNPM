@@ -1,24 +1,8 @@
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/stylesheets/styles.css">
-  <link rel="stylesheet" href="/stylesheets/header.css">
-  <link rel="stylesheet" href="/stylesheets/item-card.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> -->
-</head>
-
-<body>
-
-  <nav class="navbar navbar-expand justify-content-between position-relative large-screen" id="header-nav">
+<nav class="navbar navbar-expand justify-content-between position-relative large-screen" id="header-nav">
     <a class="navbar-brand " aria-current="page" href="/webid/home">
       <img src="/images/brands-logos/brand.png" id="brandImg" />
     </a>
-
+  
     <ul class="navbar-nav align-items-center d-flex justify-content-around">
       <li>
         <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/home">Home</a>
@@ -33,41 +17,41 @@
         <a style="margin-right: 22rem;" class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
       </li>
     </ul>
-
+  
     <div id="userAvatarField" class="position-absolute d-flex justify-content-around dropdown">
       <i id="userAvatar" class="fa fa-user align-self-center fa-sm"></i>
       <button id="dropDownAvatar" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       </button>
       <% if(user){ %>
-        <span id="greetings" class="align-self-center">Hi, <%= currentUser.username %></span>
-        <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/webid/profile/<%= user._id %>">User Profile</a></li>
-            <li><a class="dropdown-item" href="/webid/history/<%= user._id %>">Bid History</a></li>
-            <li><a class="dropdown-item" href="/webid/logout">Log out</a></li>
-        </ul>
+      <span id="greetings" class="align-self-center">Hi, <%= currentUser.username %></span>
+      <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/webid/profile/<%= user._id %>">User Profile</a></li>
+        <li><a class="dropdown-item" href="/webid/users/history">Bid History</a></li>
+        <li><a class="dropdown-item" href="/webid/logout">Log out</a></li>
+      </ul>
       <% }else{ %>
-        <span id="greetings" class="align-self-center">Hi, Anonymous</span>
-        <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="/webid/signup">Signup</a></li>
-            <li><a class="dropdown-item" href="/webid/login">Login</a></li>
-        </ul>
+      <span id="greetings" class="align-self-center">Hi, Anonymous</span>
+      <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/webid/signup">Signup</a></li>
+        <li><a class="dropdown-item" href="/webid/login">Login</a></li>
+      </ul>
       <% } %>
     </div>
   </nav>
-
+  
   <nav class="navbar w-100 p-1 small-screen" style="background-color: var(--header-background);">
-
+  
     <div class="d-flex justify-content-between align-items-center ">
       <a class="navbar-brand " aria-current="page" href="/webid">
         <img src="/images/brands-logos/brand.png" id="brandImg" style="margin-left: 1rem;" />
       </a>
-
+  
       <button class="navbar-toggler toggler-example m-2 h-25 " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i class="fas fa-bars fa-2x"></i></span></button>
     </div>
-
-
+  
+  
     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-
+  
       <ul class="navbar-nav" style="font-size: 1.75rem;">
         <% if(user){ %>
         <li>
@@ -90,35 +74,35 @@
           <hr />
         </li>
         <% if(user){ %>
-          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/profile/<%= user._id %>">User Profile</a></li>
-          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/history/<%= user._id %>">Bid History</a></li>
-          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/logout">Log out</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/profile/<%= user._id %>">User Profile</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="#">Bid History</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/logout">Log out</a></li>
         <% }else{ %>
-          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/signup">Signup</a></li>
-          <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/login">Login</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end " href="/webid/signup">Signup</a></li>
+        <li><a style="padding-right:2rem" id="nav-link" class="nav-link active text-end" href="/webid/login">Login</a></li>
         <% } %>
       </ul>
-
+  
     </div>
-
+  
   </nav>
-
+  
+  
   <script src="https://kit.fontawesome.com/8f0e5e6d04.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
+  
   <script>
     $(document).ready(function () {
       // Add slideDown animation to Bootstrap dropdown when expanding.
       $('.dropdown').on('show.bs.dropdown', function () {
         $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
       });
-
+  
       // Add slideUp animation to Bootstrap dropdown when collapsing.
       $('.dropdown').on('hide.bs.dropdown', function () {
         $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
       });
     })
-
+  
   </script>
-</body>
