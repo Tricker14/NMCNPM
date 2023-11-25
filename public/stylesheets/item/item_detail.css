@@ -9,14 +9,6 @@
   --background: #e6ccb2;
 }
 
-body,
-html {
-  font-size: 1rem !important;
-  font-family: arial, sans-serif !important;
-  font-family: consolas, "Courier New" !important;
-  background-color: var(--background) !important;
-}
-
 img {
   vertical-align: middle;
 }
@@ -38,7 +30,7 @@ img {
 }
 
 .wrapper {
-  width: 100rem;
+  width: 100%;
   margin: 0 auto;
   display: flex;
 }
@@ -274,9 +266,9 @@ img {
   }
 }
 
-@media only screen and (max-width: 1600px) {
+@media only screen and (max-width: 1280px) {
   .wrapper {
-    width: 70%;
+    width: 100%;
     display: block;
   }
 
