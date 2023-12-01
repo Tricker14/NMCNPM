@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
             last_bid: 50.00,
             last_bid_time: "2023-01-17 12:30:00",
             timestamp: "2023-01-15 10:30:00",
-            time_to_end_bid: "2024-02-09 19:00:00",
+            time_to_end_bid: "2023-02-09 19:00:00",
             status: "Win"
         },
         {
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
             last_bid: 20.00,
             last_bid_time: "2023-01-17 12:30:00",
             timestamp: "2023-01-14 15:45:00",
-            time_to_end_bid: "2024-01-01 19:00:00",
+            time_to_end_bid: "2024-05-03 16:30",
             status: "Win"
         },
         {
@@ -186,10 +186,34 @@ document.addEventListener("DOMContentLoaded", function () {
     let timelineMarkers = "";
     let dayIndex = 0;
 
+    function updateCountdown(element, targetDate) {
+        function padZero(number) {
+            return (number < 10 ? '0' : '') + number;
+        }
+
+        function calculateCountdown() {
+            const now = new Date();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            element.querySelector('#days').innerText = `${padZero(days)}d`;
+            element.querySelector('#hours').innerText = `${padZero(hours)}h`;
+            element.querySelector('#minutes').innerText = `${padZero(minutes)}m`;
+            element.querySelector('#seconds').innerText = `${padZero(seconds)}s`;
+        }
+
+        calculateCountdown();
+        setInterval(calculateCountdown, 1000);
+    }
+
     // Populate the transaction list and time axis
     bids.forEach(bid => {
         const listItem = document.createElement("li");
-        listItem.classList.add("history-item", "d-flex", "justify-content-between", "align-items-center");
+        listItem.classList.add("history-item", "d-flex", "align-items-center", "row");
     
         const timestampDate = bid.timestamp.split(" ")[0];
         if (timestampDate !== currentDate) {
@@ -209,14 +233,14 @@ document.addEventListener("DOMContentLoaded", function () {
     
         listItem.innerHTML = `
             
-            <div class="information">
+            <div class="information col-5">
                 <h3>${bid.name}</h3>
                 <p>Last bid: $${bid.last_bid.toFixed(2)}</p>
                 <div class="tooltip">Your last bid was on ${bid.last_bid_time}</div>
             </div>
-            <div class="row countdown-container">
+            <div class="countdown-container col-4">
                 <div class="countdown">
-                    <i class="fa-regular fa-clock">BID ENDS IN</i> 
+                    <i class="bi bi-clock-fill"></i>
                     <div class="countdown-item">
                         <span class="countdown-number" id="days">00</span>
                     </div>
@@ -231,13 +255,35 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
             </div>
-            <div class="d-flex align-items-center">
+            <div class="col-3">
                 <button class="shortcut-button">
                     Go to bid
                 </button>
             </div>
         `;
+
+        let isProductActive = false;
     
+        const targetDate = new Date(bid.time_to_end_bid);
+
+        if(targetDate > new Date()){
+            isProductActive = true;
+            updateCountdown(listItem, targetDate);
+        }else {
+            const statusContainer = listItem.querySelector('.countdown-container');
+
+            if (bid.status === 'Win') {
+                statusContainer.innerHTML = `<p class="win-status">${bid.status}</p>`;
+            } else {
+                statusContainer.innerHTML = `<p class="lose-status">${bid.status}</p>`;
+            }
+        }
+
+        const goToBidButton = listItem.querySelector(".shortcut-button");
+        if (!isProductActive) {
+            goToBidButton.disabled = true;
+        }
+        
         listItem.querySelector(".shortcut-button").addEventListener("click", function () {
             // Replace the URL with the desired destination
             window.location.href = "your_destination_url";

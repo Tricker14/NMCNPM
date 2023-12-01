@@ -162,7 +162,8 @@ hr {
 
 .shortcut-button{
     border: none;
-    border: .1rem solid black;
+    border-radius: .5rem;
+    height: 2rem;
     background-color: #ffe4c4;
 }
 
@@ -187,5 +188,48 @@ hr {
     display: flex;
   }
 
+  .countdown {
+    align-items: flex-end;
+  }
 
+  .countdown {
+    display: flex;
+    align-items: center;
+  }
   
+  .countdown i {
+    margin-right: 10px;
+  }
+  
+  
+  .countdown-item{
+    display: flex;
+    flex-direction: column;
+    margin: .2rem;
+
+  }
+  
+  .countdown-number {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+
+.win-status {
+    color: rgb(98, 228, 98) !important;
+    font-weight: 1000;
+    font-size: 1.5rem;
+}
+
+.lose-status {
+    color: red !important;
+    font-weight: 1000;
+    font-size: 1.5rem;
+}
+
+/* CSS cho nút "Go to bid" đã bị vô hiệu hóa */
+.shortcut-button[disabled] {
+    background-color: #ddd; /* Màu nền xám nhạt */
+    cursor: not-allowed; /* Đổi con trỏ chuột thành "not-allowed" */
+}
