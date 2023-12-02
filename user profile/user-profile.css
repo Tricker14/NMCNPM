@@ -1,0 +1,235 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bold-background: #cb997e;
+  --background: #F5F5F5;
+}
+
+body,
+html {
+  font-size: 1rem !important;
+  font-family: arial, sans-serif !important;
+  font-family: consolas, "Courier New" !important;
+  background-color: var(--background) !important;
+}
+
+.userprofile-menu {
+    background-color: #ffe4c4;
+}
+
+.ava-name-area {
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.avatar-frame {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0 !important;
+}
+
+.avatar-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+
+}
+
+.username-area p{
+    margin-bottom: 0;
+}
+
+.edit-profile {
+    opacity: 0.5;
+}
+
+.menu-items {
+    padding: 0 !important;
+}
+
+
+li button {
+    border: none;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+}
+
+.list-group-item:hover {
+    background-color: #cb997e;
+}
+
+
+.display-area {
+    background-color: #fff;
+    
+}
+
+hr {
+    border: .2rem solid #cb997e;
+}
+
+.choose-file-btn {
+    margin-top: 0.5rem;
+    border: 0.1rem solid black;
+    border-radius: .2rem;
+}
+
+.choose-file-btn label {
+    border-radius: .2rem;
+    background-color: #ffe4c4;
+    border: 0.1rem solid black;
+}
+
+
+.edit a {
+    text-decoration: none;
+    color: black;
+    opacity: 50%;
+}
+
+.edit a:hover {
+    text-decoration: underline;
+}
+
+
+#saveChangesBtn {
+    border: none;
+    border-radius: .2rem;
+    background-color: #ffe4c4;
+}
+
+
+
+/* css for bid-history */
+
+
+.history-list {
+    list-style: none;
+    padding: 0;
+}
+
+.history-item {
+    border: .1rem solid #ddd;
+    border-radius: 1rem;
+    padding: 1rem 1rem;
+    position: relative; 
+    margin-left: 1rem;
+}
+
+
+.history-item h3 {
+    margin: 0;
+}
+
+.history-item p {
+    margin: .5rem 0;
+    color: #555;
+}
+
+
+.day {
+    position: relative;
+}
+
+.time-axis {
+    position: relative;
+    width: 1rem;    
+    border-left: .1rem solid #ddd;
+}
+
+.timeline-marker {
+    position: absolute;
+    width: .8rem;
+    height: .8rem;
+    background-color: #007bff;
+    border-radius: 50%;
+    top: 50%;
+    left: 0; 
+    transform: translate(-50%, -50%);
+}
+
+.shortcut-button{
+    border: none;
+    border-radius: .5rem;
+    height: 2rem;
+    background-color: #ffe4c4;
+}
+
+
+.tooltip {
+    position: absolute;
+    background-color: #cb997e;
+    color: #fff;
+    padding: .8rem;
+    border-radius: .4rem;
+    opacity: 0;
+    display: none;
+    transition: opacity 1s;
+    z-index: 1;
+    bottom: 100%; 
+    left: 60%;
+    transform: translateX(-50%);
+  }
+  
+.information:hover .tooltip {
+    opacity: 1;
+    display: flex;
+  }
+
+  .countdown {
+    align-items: flex-end;
+  }
+
+  .countdown {
+    display: flex;
+    align-items: center;
+  }
+  
+  .countdown i {
+    margin-right: 10px;
+  }
+  
+  
+  .countdown-item{
+    display: flex;
+    flex-direction: column;
+    margin: .2rem;
+
+  }
+  
+  .countdown-number {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+
+.win-status {
+    color: rgb(98, 228, 98) !important;
+    font-weight: 1000;
+    font-size: 1.5rem;
+}
+
+.lose-status {
+    color: red !important;
+    font-weight: 1000;
+    font-size: 1.5rem;
+}
+
+/* CSS cho nút "Go to bid" đã bị vô hiệu hóa */
+.shortcut-button[disabled] {
+    background-color: #ddd; /* Màu nền xám nhạt */
+    cursor: not-allowed; /* Đổi con trỏ chuột thành "not-allowed" */
+}
