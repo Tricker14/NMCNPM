@@ -49,11 +49,120 @@ function populateDays() {
     daySelect.innerHTML = "";
 
     for (var i = 1; i <= 31; i++) {
-        var option = document.createElement("option");
-        option.value = i;
-        option.text = i;
-        daySelect.add(option);
+        if(i === parseInt(day)){
+            console.log('this is day', day);
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            daySelect.add(option);
+        }
     }
+
+    for (var i = 1; i <= 31; i++) {
+        if(i !== parseInt(day)){
+            console.log('not this day', i);
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            daySelect.add(option);
+        }
+    }
+}
+
+function populateMonths() {
+    var monthSelect = document.getElementById("month");
+
+    monthSelect.innerHTML = "";
+
+    let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    console.log(month);
+    monthNames.forEach(function(monthName){
+        if(monthName === month){
+            var option = document.createElement("option");
+            if(monthName === 'January'){
+                option.value = 1;
+            }
+            if(monthName === 'February'){
+                option.value = 2;
+            }
+            if(monthName === 'March'){
+                option.value = 3;
+            }
+            if(monthName === 'April'){
+                option.value = 1;
+            }
+            if(monthName === 'May'){
+                option.value = 5;
+            }
+            if(monthName === 'June'){
+                option.value = 6;
+            }
+            if(monthName === 'July'){
+                option.value = 7;
+            }
+            if(monthName === 'August'){
+                option.value = 8;
+            }
+            if(monthName === 'September'){
+                option.value = 9;
+            }
+            if(monthName === 'October'){
+                option.value = 10;
+            }
+            if(monthName === 'November'){
+                option.value = 11;
+            }
+            if(monthName === 'December'){
+                option.value = 12;
+            }
+            option.text = monthName;
+            monthSelect.add(option);
+        }
+    })
+
+    monthNames.forEach(function(monthName){
+        if(monthName !== month){
+            var option = document.createElement("option");
+            if(monthName === 'January'){
+                option.value = 1;
+            }
+            if(monthName === 'February'){
+                option.value = 2;
+            }
+            if(monthName === 'March'){
+                option.value = 3;
+            }
+            if(monthName === 'April'){
+                option.value = 1;
+            }
+            if(monthName === 'May'){
+                option.value = 5;
+            }
+            if(monthName === 'June'){
+                option.value = 6;
+            }
+            if(monthName === 'July'){
+                option.value = 7;
+            }
+            if(monthName === 'August'){
+                option.value = 8;
+            }
+            if(monthName === 'September'){
+                option.value = 9;
+            }
+            if(monthName === 'October'){
+                option.value = 10;
+            }
+            if(monthName === 'November'){
+                option.value = 11;
+            }
+            if(monthName === 'December'){
+                option.value = 12;
+            }
+            option.text = monthName;
+            monthSelect.add(option);
+        }
+    })
 }
 
 function populateYears() {
@@ -61,15 +170,27 @@ function populateYears() {
 
     yearSelect.innerHTML = "";
 
-    for (var i = 1945; i <= 2023; i++) {
-        var option = document.createElement("option");
-        option.value = i;
-        option.text = i;
-        yearSelect.add(option);
+    for (var i = 1930; i <= 2023; i++) {
+        if(i === parseInt(year)){
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            yearSelect.add(option);
+        }
+    }
+
+    for (var i = 1930; i <= 2023; i++) {
+        if(i !== parseInt(year)){
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            yearSelect.add(option);
+        }
     }
 }
 
 populateDays();
+populateMonths();
 populateYears();
 
 

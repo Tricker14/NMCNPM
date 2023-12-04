@@ -61,7 +61,7 @@ function populateYears() {
 
     yearSelect.innerHTML = "";
 
-    for (var i = 1945; i <= 2023; i++) {
+    for (var i = 1930; i <= 2023; i++) {
         var option = document.createElement("option");
         option.value = i;
         option.text = i;

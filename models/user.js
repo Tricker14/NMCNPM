@@ -36,7 +36,15 @@ const userSchema = new mongoose.Schema({
     enum: ['male', 'female', null],
   },
   birthday: {
-    type: Date,
+    day: {
+      type: Number,
+    },
+    month: {
+      type: Number,
+    },
+    year: {
+      type: Number,
+    },
   },
   image: {
     type: String,
