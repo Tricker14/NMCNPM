@@ -188,22 +188,11 @@
           
                     <label for="month">Month:</label>
                     <select id="month" name="month">
-                        <!-- <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <option value="4">April</option>
-                        <option value="5">May</option>
-                        <option value="6">June</option>
-                        <option value="7">July</option>
-                        <option value="8">August</option>
-                        <option value="9">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option> -->
                     </select>
             
                     <label for="year">Year:</label>
-                    <select id="year" name="year"></select>
+                    <select id="year" name="year">
+                    </select>
                   </div>
                 </div>
                 <div class="row mt-4">
@@ -228,8 +217,11 @@
         </div>
     </div>
 
+    <ul class="col-9 history-list" id="priceContainer">
+
 
     <script>
+        // profile
         var day = '<%= user.birthday.day %>';
         var Month = '<%= user.birthday.month %>';
         var month = null;
@@ -270,10 +262,19 @@
             month = 'December';
         }
         var year = '<%= user.birthday.year %>';
-
         console.log('day', day);
-    </script>
 
+        var bidsString = '<%- JSON.stringify(bids) %>';
+        var bids = JSON.parse(bidsString);
+
+        bids.forEach(function (bid) {
+            console.log('Bid Price:', bid.price);
+        });
+
+        var user = '<%- JSON.stringify(user) %>'
+        console.log('user ', user);
+    </script>
+ 
     <script src="/stylesheets/profile/user-profile.js"></script>
 
 </body>

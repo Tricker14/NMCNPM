@@ -275,7 +275,7 @@ img {
   }
 }
 
-@media only screen and (max-width: 1600px) {
+@media only screen and (max-width: 1200px) {
   .wrapper {
     width: 70%;
     display: block;
