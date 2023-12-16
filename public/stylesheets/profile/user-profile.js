@@ -276,7 +276,8 @@ function formattedDate(originalDate){
         String(parsedDate.getHours()).padStart(2, "0") +
         ":" +
         String(parsedDate.getMinutes()).padStart(2, "0") +
-        ":00";
+        ":" +
+        String(parsedDate.getSeconds()).padStart(2, "0");
 
     return formattedDate;
 }
@@ -301,41 +302,16 @@ function calculateEndTime(originalDate, day, hour, minute, second) {
         ":" +
         String(endTime.getSeconds()).padStart(2, "0");
 
+    console.log("original ", originalDate);
+    console.log("start ", startDate);
+    console.log("left ", timeLeft);
+    console.log("end ", endTime);
+
     return formattedEndTime;
 }
   
 document.addEventListener("DOMContentLoaded", function () {
-    
-    // const bids = [
-    //     {
-    //         id: 1,
-    //         name: "Purchase Item A",
-    //         last_bid: 50.00,
-    //         last_bid_time: "2023-01-17 12:30:00",
-    //         timestamp: "2023-01-15 10:30:00",
-    //         time_to_end_bid: "2023-02-09 19:00:00",
-    //         status: "Win"
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Withdrawal",
-    //         last_bid: 20.00,
-    //         last_bid_time: "2023-01-17 12:30:00",
-    //         timestamp: "2023-01-14 15:45:00",
-    //         time_to_end_bid: "2024-05-03 16:30",
-    //         status: "Win"
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "Item B",
-    //         last_bid: 30.00,
-    //         last_bid_time: "2023-01-17 12:30:00",
-    //         timestamp: "2023-01-14 20:09:30",
-    //         time_to_end_bid: "2024-01-01 19:00:00",
-    //         status: "Win"
-    //     },
-    //     // Add more transactions as needed
-    // ];
+
 
     // Sort transactions by timestamp in descending order
     bids.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -361,21 +337,23 @@ document.addEventListener("DOMContentLoaded", function () {
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            element.querySelector('#days').innerText = `${padZero(days)}d`;
-            element.querySelector('#hours').innerText = `${padZero(hours)}h`;
-            element.querySelector('#minutes').innerText = `${padZero(minutes)}m`;
-            element.querySelector('#seconds').innerText = `${padZero(seconds)}s`;
+            if(seconds < 0){
+                element.querySelector('#days').innerText = '00d';
+                element.querySelector('#hours').innerText = '00h';
+                element.querySelector('#minutes').innerText = '00m';
+                element.querySelector('#seconds').innerText = '00s';
+            }
+            else{
+                element.querySelector('#days').innerText = `${padZero(days)}d`;
+                element.querySelector('#hours').innerText = `${padZero(hours)}h`;
+                element.querySelector('#minutes').innerText = `${padZero(minutes)}m`;
+                element.querySelector('#seconds').innerText = `${padZero(seconds)}s`;
+            }
         }
 
         calculateCountdown();
         setInterval(calculateCountdown, 1000);
     }
-
-    // const priceContainer = document.getElementById("priceContainer");
-    // bids.forEach(function (bid) {
-    //     console.log('Bid Price In JS:', bid.product.name);
-    //     priceContainer.innerHTML += `<div>Bid Price: ${bid.product.name}</div>`;
-    // });
 
     bids.forEach(function (bid) {
         console.log("bid", bid);
@@ -426,23 +404,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             </div>
             <div class="col-3">
+            <a href="/webid/items/${bid.product._id}">
                 <button class="shortcut-button">
                     Go to bid
                 </button>
+            </a>
             </div>
         `;
 
         let isProductActive = false;
     
-        const timeEnd = calculateEndTime(formattedDate(bid.createdDate), 
+        const timeEnd = calculateEndTime(formattedDate(bid.product.createdDate), 
         bid.product.countdown.day, 
         bid.product.countdown.hour, 
         bid.product.countdown.minute, 
         bid.product.countdown.second)
-        console.log("1st end ", timeEnd);
+        console.log("create ", formattedDate(bid.product.createdDate));
+        console.log("minute ", bid.product.countdown.minute);
+        console.log("second ", bid.product.countdown.second);
 
         const targetDate = new Date(timeEnd);
-        console.log("2nd end ", targetDate);
 
         if(targetDate > new Date()){
             console.log(">");
@@ -450,97 +431,18 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCountdown(listItem, targetDate);
         }else {
             console.log("<");
-            console.log("bid ", bid.product.winner._id.toString());
-            console.log("user ", user._id.toString());
             const statusContainer = listItem.querySelector('.countdown-container');
 
-            // if(bid.product.winner._id.toString() === user._id.toString()){
-            //     statusContainer.innerHTML = `<p class="win-status">Win</p>`;
-            // }
-            // else{
-            //     statusContainer.innerHTML = `<p class="lose-status">Lose</p>`;
-            // }
-        }
-
-        // const goToBidButton = listItem.querySelector(".shortcut-button");
-        // if (!isProductActive) {
-        //     goToBidButton.disabled = true;
-        // }
-        
-        // listItem.querySelector(".shortcut-button").addEventListener("click", function () {
-        //     // Replace the URL with the desired destination
-        //     window.location.href = "your_destination_url";
-        // });
-
-        historyList.appendChild(listItem);
-    });
-
-    // Populate the transaction list and time axis
-    bids.forEach(function (bid) {
-        const listItem = document.createElement("li");
-        listItem.classList.add("history-item", "d-flex", "align-items-center", "row");
-    
-        const timestampDate = bid.timestamp.split(" ")[0];
-        if (timestampDate !== currentDate) {
-            currentDate = timestampDate;
-            // Create a new div for each day with an h4 heading
-            const dayDiv = document.createElement("div");
-            dayDiv.classList.add("day");
-            dayDiv.innerHTML = `<h4>${currentDate}</h4>`;
-            historyList.appendChild(dayDiv);
-    
-            // Add a marker to the time axis for each day
-            const marker = document.createElement("div");
-            marker.classList.add("timeline-marker");
-            timelineMarkers += `<div class="timeline-marker" style="left: 0; top: ${calculateMarkerPosition(dayIndex)};"></div>`;
-            dayIndex++;
-        }
-    
-        listItem.innerHTML = `
-            
-            <div class="information col-5">
-                <h3>${bid.product.name}</h3>
-                <p>Last bid: $${bid.last_bid.toFixed(2)}</p>
-                <div class="tooltip">Your last bid was on ${bid.last_bid_time}</div>
-            </div>
-            <div class="countdown-container col-4">
-                <div class="countdown">
-                    <i class="bi bi-clock-fill"></i>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="days">00</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="hours">00</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="minutes">00</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="seconds">00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <button class="shortcut-button">
-                    Go to bid
-                </button>
-            </div>
-        `;
-
-        let isProductActive = false;
-    
-        const targetDate = new Date(bid.time_to_end_bid);
-
-        if(targetDate > new Date()){
-            isProductActive = true;
-            updateCountdown(listItem, targetDate);
-        }else {
-            const statusContainer = listItem.querySelector('.countdown-container');
-
-            if (bid.status === 'Win') {
-                statusContainer.innerHTML = `<p class="win-status">${bid.status}</p>`;
-            } else {
-                statusContainer.innerHTML = `<p class="lose-status">${bid.status}</p>`;
+            if(bid.product.winner){
+                if(bid.product.winner.toString() === user._id.toString()){
+                    statusContainer.innerHTML = `<p class="win-status">Win</p>`;
+                }
+                else{
+                    statusContainer.innerHTML = `<p class="lose-status">Lose</p>`;
+                }
+            }
+            else{
+                console.log("we fucked");
             }
         }
 
@@ -553,11 +455,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // Replace the URL with the desired destination
             window.location.href = "your_destination_url";
         });
-    
+
         historyList.appendChild(listItem);
     });
     
-
     // Add markers to the time axis
     timeAxis.innerHTML = timelineMarkers;
 });

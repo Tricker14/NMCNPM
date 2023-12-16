@@ -28,9 +28,7 @@ module.exports.item_get = async function (req, res) {
       bidder = bid[0].bidder;
       price = bid[0].price;
     }
-
-    const countdown = calculateTimeLeft(item);
-    console.log("countdown",countdown);
+    calculateTimeLeft(item)
 
     res.render("items/item-details", {    
       item: item,
@@ -39,7 +37,6 @@ module.exports.item_get = async function (req, res) {
       price: price,
       createMessage: create,
       updateMessage: update,
-      countdown
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"

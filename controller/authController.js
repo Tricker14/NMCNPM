@@ -34,6 +34,7 @@ module.exports.profile = async (req, res) => {
         if(!bidsId.has(bid.product._id)){
           bids.add(bid);
           bidsId.add(bid.product._id);
+
           calculateTimeLeft(bid.product);
         }
         else{
@@ -53,7 +54,7 @@ module.exports.profile = async (req, res) => {
     res.render("users/profile", {
       user: user,
       userSchema: User.schema,
-      bids: bids
+      bids: bids,
     });
   }
   catch(err){

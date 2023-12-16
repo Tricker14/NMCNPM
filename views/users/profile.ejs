@@ -66,10 +66,12 @@
                                 </button>
                             </li>
                             <li class="list-group-item">
+                              <a href="/webid/logout">
                                 <button>
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    Log Out
+                                  <i class="bi bi-box-arrow-right"></i>
+                                  Log Out
                                 </button>
+                              </a>
                             </li>
                         </ul>
                     </div>
@@ -271,7 +273,8 @@
             console.log('Bid Price:', bid.price);
         });
 
-        var user = '<%- JSON.stringify(user) %>'
+        var userString = '<%- JSON.stringify(user) %>'
+        var user = JSON.parse(userString);
         console.log('user ', user);
     </script>
  
