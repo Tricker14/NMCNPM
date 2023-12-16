@@ -60,12 +60,6 @@ const itemSchema = new mongoose.Schema({
       required: [true, "Please choose minute"],
     },
     second: {
-<<<<<<< HEAD
-      type: Number,
-      required: [true, "Please choose second"],
-    },
-  },
-=======
         type: Number,
         required: [true, "Please choose second"],
     }
@@ -92,7 +86,6 @@ const itemSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   }
->>>>>>> main
 });
 
 function deleteMainImage(image) {
@@ -142,13 +135,7 @@ itemSchema.pre("findOneAndDelete", async function (next) {
 });
 
 // delete item when the countdown over
-<<<<<<< HEAD
-const deleteItem = async function (id) {
-  try {
-    await Item.findByIdAndDelete(id);
-    console.log("deleteItem completed");
-  } catch (err) {
-=======
+
 const deleteItem = async function(id){
   try{
     const item = await Item.findById(id);
@@ -162,7 +149,6 @@ const deleteItem = async function(id){
     await Item.findByIdAndUpdate(id, update);
   }
   catch(err){
->>>>>>> main
     console.log(err);
   }
 };
