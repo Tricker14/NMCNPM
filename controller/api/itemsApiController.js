@@ -38,10 +38,7 @@ module.exports.item_post = async function (req, res) {
       previewImages,
       owner,
       winner,
-      day,
-      hour,
-      minute,
-      second
+      countdown
     });
     res.status(201).json({ item, redirect: "/items" });
   } catch (err) {

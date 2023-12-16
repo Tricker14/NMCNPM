@@ -1,3 +1,18 @@
+/* Apply a general style to increase the text size by 1.5 times */
+body {
+  font-size: 1.5rem;
+}
+
+/* Override the font size for the header nav */
+.header-nav {
+  font-size: inherit; /* This will inherit the font size from the body */
+}
+
+/* Add a class to the header to target it specifically */
+.header {
+  font-size: 1rem; /* Set the font size for the header specifically */
+}
+
 .item-card {
   display: flex;
   flex-direction: column;

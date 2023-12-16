@@ -1,15 +1,17 @@
 const Bid = require("../../models/bid");
-const Item = require("../../models/item");
+const { Item } = require("../../models/item");
 const User = require("../../models/user");
 
 module.exports.bid_post = async function(req, res){
     const product = await Item.findById(req.params._id);
     const bidder = res.locals.user;
-    const price = req.body.price;
-    console.log("price ", price);
+    const bidIncrement = req.body.bidIncrement;
+
+    const price = product.highestBid + bidIncrement * product.bidIncrement;
+    console.log("bidIncrement", bidIncrement);
     try{
         if(price > product.highestBid){
-            const bid = await Bid.create({ price, product, bidder });
+            const bid = await Bid.create({ bidIncrement, price, product, bidder });
             product.highestBid = price;
             await product.save();
             // res.status(201).json({bid});

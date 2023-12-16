@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+<<<<<<< HEAD
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/stylesheets/item/item_detail.css">
@@ -9,12 +10,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+=======
+>>>>>>> main
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/item/item-detail.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  </head>
 
   <body>
     <%- include('../partials/headerNavOnly'); -%>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     <% if(createMessage != null) { %>
     <div class="alert alert-info alert-dismissible fade show" role="alert">
       <%= createMessage %>
@@ -80,6 +93,7 @@
               BID ENDS IN
             </div>
             <div class="countdown-item">
+<<<<<<< HEAD
               <span class="countdown-number" id="days">00</span>
             </div>
             <div class="countdown-item">
@@ -90,6 +104,18 @@
             </div>
             <div class="countdown-item">
               <span class="countdown-number" id="seconds">00</span>
+=======
+              <span class="countdown-number" id="days"><%= countdown.days %></span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="hours"><%= countdown.hours %></span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="minutes"><%= countdown.minutes %></span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="seconds"><%= countdown.seconds %></span>
+>>>>>>> main
             </div>
           </div>
         </div>
@@ -106,7 +132,11 @@
           <div class="col-4">
             Bid Increment
           </div>
+<<<<<<< HEAD
           <div class="col-8" id="bid-increment">
+=======
+          <div class="col-8" id="bidIncrement">
+>>>>>>> main
             <i class="fa-solid fa-arrow-trend-up"></i>
             <%= item.bidIncrement %>
           </div>
@@ -136,9 +166,15 @@
             Bid Increment Quantity
           </div>
           <div class="col-8" id="quantity-input">
+<<<<<<< HEAD
             <button id="decrement">-</button>
             <input type="text" id="quantity" value="1" readonly>
             <button id="increment">+</button>
+=======
+            <button id="decrement" type="button">-</button>
+            <input type="text" id="quantity" value="0" readonly>
+            <button id="increment" type="button">+</button>
+>>>>>>> main
           </div>
         </div>
         <div class="row" id="btn-area">
@@ -150,8 +186,22 @@
           </div>
           <div class="col-1"></div>
           <div class="col-3" id="bid-btn">
+<<<<<<< HEAD
             <button><i class="fa-solid fa-gavel"></i></button>
           </div>
+=======
+            <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
+          </div>
+
+          <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
+            <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
+          </form>
+
+          <form action="/webid/items/delete/<%= item._id %>" method="post">
+            <input type="submit" value="Delete Item">
+          </form>
+          
+>>>>>>> main
         </div>
       </div>
     </div>
@@ -189,6 +239,7 @@
         captionText.innerHTML = dots[slideIndex - 1].alt;
       }
       document.addEventListener('DOMContentLoaded', function () {
+<<<<<<< HEAD
         const targetDate = new Date('2023-12-31T23:59:59').getTime();
 
         function updateCountdown() {
@@ -199,6 +250,40 @@
           const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+=======
+
+        function updateCountdown() {
+
+          let days = parseInt(document.getElementById('days').innerText);
+          let hours = parseInt(document.getElementById('hours').innerText);
+          let minutes = parseInt(document.getElementById('minutes').innerText);
+          let seconds = parseInt(document.getElementById('seconds').innerText);
+
+          // Decrement each value by 1
+          seconds--;
+
+          if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+
+            if (minutes < 0) {
+              minutes = 59;
+              hours--;
+
+              if (hours < 0) {
+                hours = 23;
+                days--;
+
+                if (days < 0) {
+                  days = 0;
+                  hours = 0;
+                  minutes = 0;
+                  seconds = 0;
+                }
+              }
+            }
+          }
+>>>>>>> main
 
           document.getElementById('days').innerText = padZero(days);
           document.getElementById('hours').innerText = padZero(hours);
@@ -217,20 +302,36 @@
 
 
         function updateBid() {
+<<<<<<< HEAD
           var bidIncrement = parseFloat(document.getElementById("bid-increment").innerText);
+=======
+          var bidIncrement = parseFloat(document.getElementById("bidIncrement").innerText);
+>>>>>>> main
           var quantity = parseInt(document.getElementById("quantity").value, 10);
           var currentPrice = parseFloat(document.getElementById("current-price-container").innerText);
 
           var totalBid = bidIncrement * quantity + currentPrice;
+<<<<<<< HEAD
           document.getElementById("your-bid").innerHTML = '<i class="fas fa-dollar-sign"></i> ' + totalBid.toFixed(3);
+=======
+          document.getElementById("your-bid").innerHTML = '<i class="fas fa-dollar-sign"></i> ' + totalBid;
+>>>>>>> main
         }
 
         function increment() {
           var quantityInput = document.getElementById("quantity");
           var currentQuantity = parseInt(quantityInput.value, 10);
+<<<<<<< HEAD
 
           if (currentQuantity < 9) {
             quantityInput.value = currentQuantity + 1;
+=======
+          var bidIncrementInput = document.getElementById("bidIncrementInput");
+
+          if (currentQuantity < 9) {
+            quantityInput.value = currentQuantity + 1;
+            bidIncrementInput.value = currentQuantity + 1;
+>>>>>>> main
             updateBid();
           }
         }
@@ -238,13 +339,28 @@
         function decrement() {
           var quantityInput = document.getElementById("quantity");
           var currentQuantity = parseInt(quantityInput.value, 10);
+<<<<<<< HEAD
 
           if (currentQuantity > 1) {
             quantityInput.value = currentQuantity - 1;
+=======
+          var bidIncrementInput = document.getElementById("bidIncrementInput");
+
+          if (currentQuantity > 0) {
+            quantityInput.value = currentQuantity - 1;
+            bidIncrementInput.value = currentQuantity - 1;
+>>>>>>> main
             updateBid();
           }
         }
 
+<<<<<<< HEAD
+=======
+        document.getElementById('submitButton').addEventListener('click', function () {
+          document.getElementById('bidForm').submit();
+        });
+
+>>>>>>> main
         document.getElementById('prevButton').addEventListener('click', function () {
           plusSlides(-1);
         });

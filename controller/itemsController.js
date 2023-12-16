@@ -5,7 +5,7 @@ const Bid= require("../models/bid");
 const jwt = require("jsonwebtoken");
 const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
-const { countdownDeleteItem } = require("../models/item");
+const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
 
 module.exports.item_get = async function (req, res) {
   const id = req.params._id;
@@ -29,6 +29,9 @@ module.exports.item_get = async function (req, res) {
       price = bid[0].price;
     }
 
+    const countdown = calculateTimeLeft(item);
+    console.log("countdown",countdown);
+
     res.render("items/item-details", {    
       item: item,
       highestBidder: highestBidder,
@@ -36,6 +39,7 @@ module.exports.item_get = async function (req, res) {
       price: price,
       createMessage: create,
       updateMessage: update,
+      countdown
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
@@ -53,7 +57,7 @@ module.exports.item_create_page = async function (req, res) {
 };
 
 module.exports.listing_get = async function (req, res) {
-  const items = await Item.find({}).populate("owner");
+  const items = await Item.find({ isListing: true }).populate("owner");
   const message =
     req.query.delete != undefined ? "Deleted item successfully" : null;
   res.render("items/listing", {
@@ -64,7 +68,7 @@ module.exports.listing_get = async function (req, res) {
 };
 
 module.exports.get_edit_page = async function (req, res) {
-  const id = req.params.id;
+  const id = req.params._id;
   const item = await Item.findById(id);
 
   res.render("items/edit-item", { item: item, categories: [] });
@@ -77,7 +81,7 @@ module.exports.create_item = async function (req, res) {
   let second = req.body.second;
   const countdown = { day, hour, minute, second };
 
-  const { name, description, date, category, startingBid } = req.body;
+  const { name, description, date, category, startingBid, bidIncrement } = req.body;
 
   const images = req.files;
   let image = null;
@@ -90,7 +94,6 @@ module.exports.create_item = async function (req, res) {
   });
   const highestBid = startingBid;
   const owner = res.locals.user;
-  const winner = null;
   try {
     const item = await Item.create({
       name,
@@ -98,11 +101,11 @@ module.exports.create_item = async function (req, res) {
       date,
       category,
       startingBid,
+      bidIncrement,
       highestBid,
       image,
       previewImages,
       owner,
-      winner,
       countdown
     });
     countdownDeleteItem(item);
@@ -181,7 +184,7 @@ module.exports.item_edit = async function (req, res) {
 };
 
 module.exports.delete_item = async function (req, res) {
-  const id = req.body._id;
+  const id = req.params._id;
   await Item.findByIdAndDelete(id);
   res.redirect("/webid/items?delete=succeed");
 };

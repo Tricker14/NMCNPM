@@ -1,0 +1,295 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bold-background: #cb997e;
+  --background: #e6ccb2;
+}
+
+body,
+html {
+  font-size: 1rem !important;
+  font-family: arial, sans-serif !important;
+  font-family: consolas, "Courier New" !important;
+  background-color: var(--background) !important;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+  width: 47rem;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 1.6rem;
+  margin-top: -5rem;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  border-radius: 0 0.3rem 0.3rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0.8rem;
+  border-radius: 0.3rem 0 0 0.3rem;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.2rem;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 0.2rem 1.6rem;
+  color: white;
+}
+
+.row1:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+.product-area {
+  background-color: #fff;
+  width: 50rem;
+  padding: 2rem;
+}
+
+.row {
+  margin: 2rem 2rem;
+}
+
+#product-name {
+  font-size: 1.5rem;
+  font-weight: 50rem;
+}
+
+#category-tag {
+  color: #fff;
+  background-color: #cb997e;
+  vertical-align: center;
+}
+
+.countdown-container {
+  background-color: #ffe4c4;
+}
+
+.countdown {
+  display: flex;
+  align-items: center;
+}
+
+.countdown i {
+  margin-right: 1rem;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  margin: 1rem;
+}
+
+.countdown-number {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #cb997e;
+  color: #fff;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  opacity: 0;
+  display: none;
+  transition: opacity 1s;
+  z-index: 1;
+  bottom: 100%;
+  left: 60%;
+  transform: translateX(-50%);
+}
+
+.tooltip-container:hover .tooltip {
+  opacity: 1;
+  display: block;
+}
+
+#quantity-input {
+  display: flex;
+  align-items: center;
+}
+
+#quantity-input input {
+  width: 4rem;
+  text-align: center;
+  font-size: 1.6rem;
+  padding: 0.8rem;
+  border: 0.1rem solid #ccc;
+}
+
+#quantity-input button {
+  padding: 0.8rem;
+  font-size: 1.6rem;
+  border: 0.1rem solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+#quantity-input button:hover {
+  background-color: #f0f0f0;
+}
+
+#quantity-input button:active {
+  background-color: #ffe4c4;
+}
+
+#btn-area {
+  display: flex;
+  justify-content: center;
+}
+
+#bid-btn,
+#add-to-fav {
+  display: flex;
+  padding: 0 !important;
+  height: 4.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #ffe4ce;
+  justify-content: center;
+  align-items: center;
+}
+
+#bid-btn button,
+#add-to-fav button {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+}
+
+#bid-btn button:hover {
+  color: #cd853f;
+  filter: brightness(1.2);
+}
+
+#bid-btn button:active i {
+  animation: rotate 0.3s ease;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(100deg);
+  }
+}
+
+.container {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  max-width: none !important;
+}
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    width: 100% !important;
+    display: block;
+  }
+
+  .product-area {
+    width: 100%;
+  }
+
+  .container {
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .wrapper {
+    width: 70%;
+    display: block;
+  }
+
+  .product-area {
+    width: 100%;
+  }
+
+  .container {
+    padding: 0 !important;
+  }
+
+  .next {
+    right: 0rem;
+  }
+}
