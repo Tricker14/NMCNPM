@@ -57,16 +57,16 @@
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1024px) {
   .large-screen {
-    display: none !important;
+    display: flex !important;
   }
   .small-screen {
-    display: block !important;
+    display: none !important;
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .large-screen {
     display: flex !important;
   }
