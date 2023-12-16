@@ -167,6 +167,10 @@ body {
   text-decoration: underline;
 }
 
+.email.error, .password.error {
+  font-size: 1.6rem;
+}
+
 @media screen and (max-width: 768px){
   .header {
     display: block;

@@ -78,16 +78,16 @@
               BID ENDS IN
             </div>
             <div class="countdown-item">
-              <span class="countdown-number" id="days"><%= countdown.days %></span>
+              <span class="countdown-number" id="days"><%= item.timeLeft.day %></span>
             </div>
             <div class="countdown-item">
-              <span class="countdown-number" id="hours"><%= countdown.hours %></span>
+              <span class="countdown-number" id="hours"><%= item.timeLeft.hour %></span>
             </div>
             <div class="countdown-item">
-              <span class="countdown-number" id="minutes"><%= countdown.minutes %></span>
+              <span class="countdown-number" id="minutes"><%= item.timeLeft.minute %></span>
             </div>
             <div class="countdown-item">
-              <span class="countdown-number" id="seconds"><%= countdown.seconds %></span>
+              <span class="countdown-number" id="seconds"><%= item.timeLeft.second %></span>
             </div>
           </div>
         </div>
@@ -155,9 +155,9 @@
             <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
           </form>
 
-          <form action="/webid/items/delete/<%= item._id %>" method="post">
+          <!-- <form action="/webid/items/delete/<%= item._id %>" method="post">
             <input type="submit" value="Delete Item">
-          </form>
+          </form> -->
           
         </div>
       </div>
