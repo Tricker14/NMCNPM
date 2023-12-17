@@ -12,4 +12,8 @@
     No category
 <% } %>
 
+<% if(user && user.role === 'admin'){ %>
+    <h4>+</h4>
+<% } %>
+
 <%- include('../partials/footer'); -%>
