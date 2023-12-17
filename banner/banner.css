@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Brixton';
+  src: url('path/to/Brixton.woff2') format('woff2'),
+       url('path/to/Brixton.woff') format('woff');
+  /* Add additional font formats if necessary */
+}
+
+:root {
+  --bold-background: #cb997e;
+  --background: #F5F5F5;
+}
+
+body,
+html {
+  font-size: 1rem !important;
+  font-family: arial, sans-serif !important;
+  font-family: 'Brixton' !important;
+  background-color: var(--background) !important;
+}
+
+
+.banner {
+  background-color: #ffe4c4;
+}
