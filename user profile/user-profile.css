@@ -70,6 +70,12 @@ li button {
     background-color: #cb997e;
 }
 
+.list-group-item.active-item {
+    background-color: #cb997e; 
+    color: #ffffff; 
+}
+
+
 
 .display-area {
     background-color: #fff;
@@ -228,8 +234,130 @@ hr {
     font-size: 1.5rem;
 }
 
+
 /* CSS cho nút "Go to bid" đã bị vô hiệu hóa */
 .shortcut-button[disabled] {
     background-color: #ddd; /* Màu nền xám nhạt */
     cursor: not-allowed; /* Đổi con trỏ chuột thành "not-allowed" */
+}
+
+
+.card-product {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+    padding: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-product > a{
+    display: block;
+    padding: 1rem;
+    background-color: rgba(255, 228, 206, 0.9);
+  }
+
+  .card-product img {
+    width: 100%;
+    height: auto;
+    max-height: 20rem; /* Điều chỉnh độ cao tối đa của hình ảnh */
+    object-fit: cover;
+    border-radius: 0.8rem;
+  }
+
+  .card-content {
+    background-color: rgba(255, 228, 206, 0.9);
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .product-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .product-name:hover {
+    text-decoration: underline;
+  }
+
+  .product-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Số dòng hiển thị tối đa */
+    -webkit-box-orient: vertical;
+  }
+
+  .price {
+    font-size: 1.2rem;
+    color: #888;
+    margin-bottom: 0.8rem;
+  }
+
+  .add-to-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .heart-icon {
+    cursor: pointer;
+    font-size: 1.8rem;
+    transition: color 0.3s;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .heart-icon.clicked {
+    color: red;
+  }
+
+  .go-to-bid-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Khoảng cách giữa các card */
+    
+  }
+ 
+  .row{
+    margin-top: 20px;
+  }
+
+  .scrollable-area{
+    height: 531px;
+    overflow-X: hidden;
+    border: 1px, solid #333;
+    padding:0;
+  }
+
+@media only screen and (max-width: 768px) {
+  .row, .col-4 {
+    display: inline;
+    margin-bottom: 20px;
+  } 
+  
+}
+.card-product {
+  width: calc(33.3333% - 15px); /* Chiều rộng của mỗi card, trừ đi khoảng cách giữa chúng */
 }
