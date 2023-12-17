@@ -250,6 +250,11 @@ align-items: center;
   animation: rotate 0.3s ease;
 }
 
+#delete-btn {
+  width: 100%;
+  height: 100%;
+}
+
 @keyframes rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(100deg); }
