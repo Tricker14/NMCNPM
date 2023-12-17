@@ -122,7 +122,6 @@ function deletePreviewImages(images) {
 // });
 
 itemSchema.pre("findOneAndDelete", async function (next) {
-  console.log("access this shit");
   const doc = await this.findOne();
   if (doc) {
     deleteMainImage(doc.image);
@@ -131,8 +130,6 @@ itemSchema.pre("findOneAndDelete", async function (next) {
     console.log("start");
     await Bid.deleteMany({ product: doc._id });
     console.log("end");
-  } else {
-    console.log("wtf");
   }
   next();
 });
