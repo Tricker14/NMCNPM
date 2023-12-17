@@ -72,13 +72,15 @@ module.exports.get_edit_page = async function (req, res) {
 };
 
 module.exports.create_item = async function (req, res) {
+  console.log("body ", req.body);
+
   let day = req.body.day;
   let hour = req.body.hour;
   let minute = req.body.minute;
   let second = req.body.second;
   const countdown = { day, hour, minute, second };
 
-  const { name, description, date, category, startingBid, bidIncrement } = req.body;
+  const { name, description, date, startingBid, bidIncrement } = req.body;
 
   const images = req.files;
   let image = null;
@@ -91,6 +93,9 @@ module.exports.create_item = async function (req, res) {
   });
   const highestBid = startingBid;
   const owner = res.locals.user;
+
+  const categoryString = req.body.category;
+  const category = await Category.findOne({name: categoryString});
   try {
     const item = await Item.create({
       name,

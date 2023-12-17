@@ -2,8 +2,14 @@
 
 <h2>Category Page</h2>
 
-<% categories.forEach(function(category){ %>
-    <h4><%= category.name %></h4>
-<% }) %>
+<% if(categories){ %>
+    <% categories.forEach(function(category){ %>
+        <a href="/webid/categories/<%= category._id %>">
+            <h4><%= category.name %></h4>
+        </a>
+    <% }) %>    
+<% }else{ %>
+    No category
+<% } %>
 
 <%- include('../partials/footer'); -%>

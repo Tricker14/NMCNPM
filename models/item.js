@@ -16,6 +16,10 @@ const itemSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "category",
+  },
   startingBid: {
     type: Number,
     required: [true, "Please enter an item bid price"],

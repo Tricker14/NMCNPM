@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const Category = require("../models/category");
-const Item = require("../models/item");
+const {Item} = require("../models/item");
 const jwt = require("jsonwebtoken");
 
 module.exports.category_get_all = async function (req, res) {
@@ -14,13 +14,18 @@ module.exports.category_get = async function (req, res) {
   const id = req.params._id;
   let category = null;
   try {
-    category = await Category.findById({ id });
-  } catch (e) {
-    res.send("Something went wrong");
-    return;
+    category = await Category.findById(id);
+  } 
+  catch (err) {
+    res.status(400).json({err});
   }
   const items = await Item.find({ category });
-  res.redirect('/items/listing', {
+  console.log('items ', items);
+  const message =
+  req.query.delete != undefined ? "Deleted item successfully" : null;
+  res.render('items/listing', {
     items: items,
+    user: res.locals.user,
+    message: message,
   });
 };
