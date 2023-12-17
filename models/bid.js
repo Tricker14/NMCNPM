@@ -17,7 +17,11 @@ const bidSchema = new mongoose.Schema({
     bidder:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
-    }
+    },
+    createdDate: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const Bid = mongoose.model('bid', bidSchema);

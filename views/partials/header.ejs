@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
   <link rel="stylesheet" href="/stylesheets/styles.css">
   <link rel="stylesheet" href="/stylesheets/header.css">
   <link rel="stylesheet" href="/stylesheets/item-card.css">
@@ -35,10 +34,17 @@
     </ul>
 
     <div id="userAvatarField" class="position-absolute d-flex justify-content-around dropdown">
-      <i id="userAvatar" class="fa fa-user align-self-center fa-sm"></i>
-      <button id="dropDownAvatar" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       </button>
       <% if(user){ %>
+        <div class="d-flex align-items-center">
+          <a href="/webid/profile/<%= user._id %>">
+            <% if(user.image){ %>
+              <img src="<%= '/images/users-images/' + user.image %>" alt="Profile" style="width: 5rem;">
+            <% }else{ %>
+              <img src="/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
+            <% } %>
+          </a>
+        </div>
         <span id="greetings" class="align-self-center">Hi, <%= currentUser.username %></span>
         <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="/webid/profile/<%= user._id %>">User Profile</a></li>
@@ -46,6 +52,11 @@
             <li><a class="dropdown-item" href="/webid/logout">Log out</a></li>
         </ul>
       <% }else{ %>
+        <div class="d-flex align-items-center">
+          <a href="/webid/signup %>">
+            <img src="/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
+          </a>
+        </div>
         <span id="greetings" class="align-self-center">Hi, Anonymous</span>
         <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="/webid/signup">Signup</a></li>

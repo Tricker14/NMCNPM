@@ -1,13 +1,10 @@
-<%- include('../partials/header'); -%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/brands-logos/logo.png">
-    <link rel="shortcut icon" href="/images/brands-logos/logo.png">
+    <link rel="icon" href="./image/favicon.png">
+    <link rel="shortcut icon" href="./image/favicon.png">
     <link 
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
       rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
@@ -17,25 +14,19 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="/stylesheets/profile/user-profile.css">
-
+    <link rel="stylesheet" href="./user-profile.css">
     <title>WeBid</title>
 </head>
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-md-3 userprofile-menu">
                 <div class="row ava-name-area">
                     <div class="col-6 avatar-frame">
-                        <% if(user.image){ %>
-                            <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
-                        <% }else{ %>
-                            <img src="/auth-image/anonymous.jpg" alt="" id="secondAvatar">
-                        <% } %>
+                        <img src="./image/dog.jpg" alt="" id="firstAvatar">
                     </div>
                     <div class="col-6 username-area">
-                        <p><strong><%= user.username %></strong></p>
+                        <p><strong>hohuutam287</strong></p>
                         <p class="edit-profile">
                             <i class="bi bi-pencil-square"></i>
                             edit profile
@@ -66,19 +57,17 @@
                                 </button>
                             </li>
                             <li class="list-group-item">
-                              <a href="/webid/logout">
                                 <button>
-                                  <i class="bi bi-box-arrow-right"></i>
-                                  Log Out
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Log Out
                                 </button>
-                              </a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-md-8 display-area">
-              <form id="profileForm" action="/api/webid/profile/<%= user._id %>" method="post" enctype="multipart/form-data" class="profile-form">
+              <form id="profileForm" action="" class="profile-form">
                 <div class="row">
                   <h1 class="m-3">User Profile</h1>
                   <hr>
@@ -89,14 +78,10 @@
                   </div>
                   <div class="col-9 profile-picture">
                     <div class="avatar-frame">
-                        <% if(user.image){ %>
-                            <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
-                        <% }else{ %>
-                            <img src="/auth-image/anonymous.jpg" alt="" id="secondAvatar">
-                        <% } %>
+                      <img src="" alt="" id="secondAvatar">
                     </div>
                     <div class="choosen-file-btn mt-4">
-                      <input type="file" id="fileInput" accept="image/png, image/jpeg" name="image">
+                      <input type="file" id="fileInput">
                   </div>
                   </div>
                 </div>
@@ -105,7 +90,7 @@
                     <strong>Username</strong>
                   </div>
                   <div class="col-9 d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1"><%= user.username %></div>
+                    <div class="flex-grow-1">hohuutam287</div>
                   </div>
                 </div>
                 <div class="row mt-4">
@@ -113,7 +98,7 @@
                     <strong>Role</strong>
                   </div>
                   <div class="col-9 d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1"><%= user.role %></div>
+                    <div class="flex-grow-1">admin</div>
                   </div>
                 </div>
                 <div class="row mt-4">
@@ -121,11 +106,7 @@
                     <strong>Name</strong>
                   </div>
                   <div class="col-9 d-flex justify-content-between align-items-center">
-                    <% if(user.name){ %>
-                        <input type="text" name="name" id="name" placeholder="<%= user.name %>">
-                    <% }else{ %>
-                        <input type="text" name="name" id="name" placeholder="Your full name">
-                    <% } %>
+                    <input type="text" name="Name" id="Name" placeholder="Your full name">
                   </div>
                 </div>
                 <div class="row mt-4">
@@ -133,7 +114,7 @@
                     <strong>Email</strong>
                   </div>
                   <div class="col-9 d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1"><%= user.email %></div>
+                    <div class="flex-grow-1">hohuutam287@gmeo.com</div>
                     <div class="edit" id="edit-email">
                       <a href="">
                         <i class="bi bi-pencil-square"></i>
@@ -148,17 +129,17 @@
                   </div>
                   <div class="col-9 d-flex justify-content-between align-items-center">
                     <div class="flex-grow-1 gender-container">
-                        <% userSchema.paths['gender'].enumValues.forEach(function(value){ %>
-                            <% if(value !== null){ %>
-                                <label class="gender-label">
-                                    <% if(user.gender === value){ %>
-                                        <input type="radio" name="gender" value="<%= value %>" checked> <%= value.charAt(0).toUpperCase() + value.slice(1) %> 
-                                    <% }else{ %>
-                                        <input type="radio" name="gender" value="<%= value %>"> <%= value.charAt(0).toUpperCase() + value.slice(1) %>
-                                    <% } %>
-                                </label>    
-                            <% } %>
-                        <% }); %>
+                      <label class="gender-label">
+                        <input type="radio" name="gender" value="male"> Male
+                    </label>
+            
+                    <label class="gender-label">
+                        <input type="radio" name="gender" value="female"> Female
+                    </label>
+            
+                    <label class="gender-label">
+                        <input type="radio" name="gender" value="other"> Other
+                    </label>
                     </div>
                   </div>
                 </div>
@@ -167,11 +148,7 @@
                     <strong>Phone</strong>
                   </div>
                   <div class="col-9 d-flex justify-content-between align-items-center">
-                    <% if(user.phone){ %>
-                        <div class="flex-grow-1"><%= user.phone %></div>
-                    <% }else{ %>
-                        <div class="flex-grow-1">No phone</div>
-                    <% } %>
+                    <div class="flex-grow-1">0123456789</div>
                     <div class="edit" id="edit-phone">
                       <a href="">
                         <i class="bi bi-pencil-square"></i>
@@ -190,18 +167,28 @@
           
                     <label for="month">Month:</label>
                     <select id="month" name="month">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
                     </select>
             
                     <label for="year">Year:</label>
-                    <select id="year" name="year">
-                    </select>
+                    <select id="year" name="year"></select>
                   </div>
                 </div>
                 <div class="row mt-4">
                   <div class="col-3"></div>
                   <div class="col-9">
-                    <!-- <button id="saveChangesBtn" type="submit" disabled>Save Change</button> -->
-                    <button id="save" type="submit" class="btn btn-primary">Save</button>
+                    <button id="saveChangesBtn" type="submit" disabled>Save Change</button>
                   </div>
                 </div>
               </form>
@@ -219,68 +206,10 @@
         </div>
     </div>
 
-    <ul class="col-9 history-list" id="priceContainer">
 
 
-    <script>
-        // profile
-        var day = '<%= user.birthday.day %>';
-        var Month = '<%= user.birthday.month %>';
-        var month = null;
-        if (parseInt(Month) === 1) {
-            month = 'January';
-        }
-        if (parseInt(Month) === 2) {
-            month = 'February';
-        }
-        if (parseInt(Month) === 3) {
-            month = 'March';
-        }
-        if (parseInt(Month) === 4) {
-            month = 'April';
-        }
-        if (parseInt(Month) === 5) {
-            month = 'May';
-        }
-        if (parseInt(Month) === 6) {
-            month = 'June';
-        }
-        if (parseInt(Month) === 7) {
-            month = 'July';
-        }
-        if (parseInt(Month) === 8) {
-            month = 'August';
-        }
-        if (parseInt(Month) === 9) {
-            month = 'September';
-        }
-        if (parseInt(Month) === 10) {
-            month = 'October';
-        }
-        if (parseInt(Month) === 11) {
-            month = 'November';
-        }
-        if (parseInt(Month) === 12) {
-            month = 'December';
-        }
-        var year = '<%= user.birthday.year %>';
-        console.log('day', day);
 
-        var bidsString = '<%- JSON.stringify(bids) %>';
-        var bids = JSON.parse(bidsString);
-
-        bids.forEach(function (bid) {
-            console.log('Bid Price:', bid.price);
-        });
-
-        var userString = '<%- JSON.stringify(user) %>'
-        var user = JSON.parse(userString);
-        console.log('user ', user);
-    </script>
- 
-    <script src="/stylesheets/profile/user-profile.js"></script>
+    <script src="./user-profile.js"></script>
 
 </body>
 </html>
-
-<%- include('../partials/footer'); -%>

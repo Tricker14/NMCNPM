@@ -103,10 +103,42 @@ module.exports.delete_user = async function (req, res) {
 module.exports.profile = async function(req, res){
   const id = req.params._id;
   try{
-    const { name, phone, birthday } = req.body;
-    const image = req.file.filename;
+    console.log('body', req.body);
+    let day = req.body.day;
+    let month = req.body.month;
+    let year = req.body.year;
 
-    const updatedAttribute = { name, phone, birthday, image };
+    let { name, phone, gender } = req.body;
+    let image = null;
+    if(req.file){
+      image = req.file.filename;
+    }
+    const user = await User.findById(id);
+    if(user.name && !name){
+      name = user.name;
+    }
+    if(user.phone && !phone){
+      phone = user.phone;
+    }
+    if(user.gender && !gender){
+      gender = user.gender;
+    }
+    if(user.birthday.day && !day){
+      day = user.birthday.day;
+    }
+    if(user.birthday.month && !month){
+      month = user.birthday.month;
+    }
+    if(user.birthday.year && !year){
+      year = user.birthday.year;
+    }
+    if(user.image && !image){
+      image = user.image;
+    }
+
+    let birthday = { day, month, year };
+
+    const updatedAttribute = { name, phone, gender, birthday, image };
 
     const userUpdate = await User.findByIdAndUpdate(id, updatedAttribute, {new: true});
     res.status(200).json({ userUpdate });
