@@ -9,14 +9,6 @@
   --background: #e6ccb2;
 }
 
-body,
-html {
-  font-size: 1rem !important;
-  font-family: arial, sans-serif !important;
-  font-family: consolas, "Courier New" !important;
-  background-color: var(--background) !important;
-}
-
 img {
   vertical-align: middle;
 }
@@ -219,7 +211,6 @@ img {
 
 #bid-btn,
 #add-to-fav {
-  display: flex;
   padding: 0 !important;
   height: 4.5rem;
   border: none;
@@ -277,7 +268,7 @@ img {
 
 @media only screen and (max-width: 1200px) {
   .wrapper {
-    width: 70%;
+    width: 100%;
     display: block;
   }
 
