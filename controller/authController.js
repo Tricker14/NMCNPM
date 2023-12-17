@@ -1,98 +1,101 @@
 const User = require("../models/user");
-const jwt = require('jsonwebtoken');
-
-//handle errors
-const handleErrors = function(err){
-    console.log(err.message, err.code);
-    let errors = {email: '', password: ''};
-
-    // incorrect username
-    if(err.message === 'incorrect username'){
-        errors.username = 'that username already exist';
-    }
-
-    // incorrect email
-    if(err.message === 'incorrect email'){
-        errors.email = 'that email is not registered';
-    }
-
-    // incorrect password
-    if(err.message === 'incorrect password'){
-        errors.password = 'that password is incorrect';
-    }
-
-    // duplicate errors
-    if(err.code === 11000){
-        errors.email = 'that email is already registered';
-        return errors;
-    }
-
-    // validation errors
-    if(err.message.includes('user validation failed')){
-        Object.values(err.errors).forEach(function({properties}){
-            errors[properties.path] = properties.message;
-        })
-    }
-
-    return errors;
-}
-
-const handleConfirmation = function(err){
-
-}
-
-const maxAge = 3 * 24 * 60 * 60;
-const createToken = function(id){
-    return jwt.sign({id}, process.env.JWT_SECRET_TOKEN, {
-        expiresIn: maxAge
-    });
-}
+const Category = require("../models/category");
+const Bid = require("../models/bid");
+const { Item, calculateTimeLeft } = require("../models/item");
+const jwt = require("jsonwebtoken");
 
 // controller actions
-module.exports.signup_get = (req, res) => {
-    res.render('signup');
-  }
-  
-  module.exports.login_get = (req, res) => {
-    res.render('login');
-  }
-  
-  module.exports.signup_post = async (req, res) => {
-    const {username, email, password, confirmation} = req.body;
-    if(password === confirmation){
-        try {
-            const user = await User.create({ username, email, password });
-            const token = createToken(user._id);
-            res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-            res.status(201).json({user, redirect: '/'});
-        }
-        catch(err) {
-            const errors = handleErrors(err);
-            res.status(400).json({errors});
-        }
-    }
-    else{
-        let errors = {email: '', password: '', confirmation: ''};
-        errors.confirmation = 'Password and confirmation must match';
-        res.status(400).json({errors});
-    }
-  }
-  
-  module.exports.login_post = async (req, res) => {
-    const {email, password} = req.body;
-    try{
-        const user = await User.login(email, password);
-        const token = createToken(user._id);
-        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-        res.status(200).json({user, redirect: '/'});
-    }
-    catch(err){
-        const errors = handleErrors(err);
-        res.status(400).json({errors});
-    }
-  }
+module.exports.signup = (req, res) => {
+  res.render("users/signup", {
+    userSchema: User.schema,
+  });
+};
 
-  module.exports.logout_get = function(req, res){
-    res.cookie('jwt', '', {maxAge: 1});
-    res.redirect('/');
-  }     
+module.exports.login = (req, res) => {
+  res.render("users/login");
+};
+
+module.exports.logout = function (req, res) {
+  res.cookie("jwt", "", { maxAge: 1 });
+  res.redirect("/webid/home");
+};
+
+module.exports.profile = async (req, res) => {
+  const id = req.params._id;
+  try{
+    const user = await User.findById(id);
+    const duplicateBids = await Bid.find({ bidder: user }).populate('product');
+    let bids = null;
+
+    if(duplicateBids){
+      bids = new Set();
+      const bidsId = new Set();
+      duplicateBids.forEach(function(bid){
+        if(!bidsId.has(bid.product._id)){
+          bids.add(bid);
+          bidsId.add(bid.product._id);
+
+          calculateTimeLeft(bid.product);
+        }
+        else{
+          bids.forEach(function(oldBid){
+            if(oldBid.product._id === bid.product._id && oldBid.price < bid.price){
+              bids.delete(oldBid);
+              bids.add(bid);
+            }
+          })
+        }
+      });
+    }
+
+    // Convert Set to an array
+    bids = Array.from(bids);
+
+    res.render("users/profile", {
+      user: user,
+      userSchema: User.schema,
+      bids: bids,
+    });
+  }
+  catch(err){
+    console.log(err);
+    res.status(400).json({ err });
+  }
+};
+
+module.exports.history = async function(req, res){
+  const id = req.params._id;
+  try{
+    const user = await User.findById(id);
+    const duplicateBids = await Bid.find({ bidder: user }).populate('product');
+    let bids = null;
+
+    if(duplicateBids){
+      bids = new Set();
+      const bidsId = new Set();
+      duplicateBids.forEach(function(bid){
+        if(!bidsId.has(bid.product._id)){
+          bids.add(bid);
+          bidsId.add(bid.product._id);
+          calculateTimeLeft(bid.product);
+        }
+        else{
+          bids.forEach(function(oldBid){
+            if(oldBid.product._id === bid.product._id && oldBid.price < bid.price){
+              bids.delete(oldBid);
+              bids.add(bid);
+            }
+          })
+        }
+      });
+    }
+
+    res.render('users/history', {
+      bids: bids
+    })
+  }
+  catch(err){
+    console.log(err);
+    res.status(400).json({ err });
+  }
+}

@@ -1,0 +1,70 @@
+<%- include('../partials/header'); -%>
+
+<h2 class="text-center mt-5">Edit Auction</h2>
+
+<form action="/webid/items/edit/<%= item._id %>" method="post" enctype="multipart/form-data" style="max-width: 700px; margin: 0 auto">
+  <input type="hidden" name="_id" value="<%= item._id %>" />
+  <div class="border border-secondary rounded p-3" style="font-size: 1.2rem;">
+    <div class="mb-3 form-group row">
+      <label for="name" class="form-label col-3">Name</label>
+      <div class="col-9">
+        <input readonly type="text" class="form-control-plaintext " id="name" name="name" value="<%= item.name %>">
+      </div>
+    </div>
+
+    <div class="mb-3 form-group row">
+      <label for="description" class="form-label col-3">Description</label>
+      <div class="col-9">
+        <textarea class="form-control col-sm-8" id="description" name="description" rows="5"><%= item.description %></textarea>
+      </div>
+    </div>
+
+    <div class="mb-3 form-group row">
+      <label for="category" class="form-label col-3">Category</label>
+      <div class="col-9">
+        <select name="category" class="form-select">
+          <% categories.forEach(function(category){ %>
+          <option value="<%= category.name %>"><%= category.name %></option>
+          <% }); %>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="mb-3 form-group row">
+      <label for="startingBid" class="form-label col-3">Starting bid</label>
+      <div class="col-9">
+        <input type="number" class="form-control-plaintext" id="startingBid" name="startingBid" value="<%= item.startingBid %>" readonly>
+      </div>
+    </div>
+
+    <div class="mb-3 form-group row">
+      <label for="image" class="form-label col-3">Choose image (Dont choose to keep old image)</label>
+      <div class="col-9">
+        <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg">
+      </div>
+    </div>
+
+    <div class="mb-3 form-group row">
+      <label for="image" class="form-label col-3">Choose images ((Dont choose to keep old images))</label>
+      <div class="col-9">
+        <input type="file" class="form-control" id="previewImages" name="previewImages" multiple accept="image/png, image/jpeg">
+      </div>
+
+    </div>
+
+    <div id="submit-btn-container" class="d-flex justify-content-center ">
+      <button style="border: 0; border-radius: 5%; font-size: 2rem; background-color: var(--bold-background);" id="submit-btn" type=" submit" class="m-2">Save</button>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-12 d-flex justify-content-center ">
+    <form action="/webid/items/delete" method="post">
+      <input type="hidden" name="_id" value="<%= item._id %>" />
+      <button style="width: 10rem;border: 0; border-radius: 5%; font-size: 2rem; background-color: var(--light-red);" class="m-3">Remove</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer'); -%>

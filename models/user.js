@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
+const { Item } = require("../models/item");
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Please enter a username"],
     unique: true,
-},
+  },
   email: {
     type: String,
     required: [true, 'Please enter an email'],
@@ -19,6 +20,34 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please enter a password'],
     minlength: [6, 'Minimum password length is 6 characters'],
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'user'],
+  },
+  name: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', null],
+  },
+  birthday: {
+    day: {
+      type: Number,
+    },
+    month: {
+      type: Number,
+    },
+    year: {
+      type: Number,
+    },
+  },
+  image: {
+    type: String,
   },
 });
 
@@ -41,6 +70,11 @@ userSchema.statics.login = async function(email, password){
     }
     throw Error('incorrect email');
 }
+
+userSchema.pre('remove', async function(next){
+    await Item.deleteMany({owner: this._id});
+    next();
+})
 
 const User = mongoose.model('user', userSchema);
 

@@ -1,0 +1,167 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/stylesheets/auth/signup.css">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> -->
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <a href="/webid/home"><img src="../auth-image/logo.png" alt=""></a>
+            <p>Dare to bid - Dare to win</p>
+        </div>
+
+        <div class="main">
+            <div class="right-side-bg">
+                <img src="../auth-image/number-bid.png" alt="">
+            </div>
+            <div class="wrapper">
+                <form action="/signup" method="post">
+                    <h1>Sign Up</h1>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="form-control" name="email" required>
+                        <i class='bx bxs-envelope'></i>
+                    </div>
+                    <div class="email error"></div>
+        
+                    <div class="form-group">
+                        <input type="text" placeholder="Username" class="form-control" name="username" required>
+                        <i class='bx bxs-user' ></i>
+                    </div>
+                    <div class="username error"></div>
+          
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control" id="password" name="password" required>
+                        <i class='bx bxs-lock'></i>
+                        <div class="show">
+                            <i class='bx bxs-show' id="show-icon-pw"></i>
+                        </div>
+                    </div>
+                    <div class="password error"></div>
+        
+                    <div class="form-group">
+                        <input type="password" name="confirmation" id="cfpw" placeholder="Confirm Password" class="form-control" required>
+                        <i class='bx bxs-lock'></i>
+                        <div class="show">
+                            <i class='bx bxs-show' id="show-icon-cfpw"></i>
+                        </div>
+                    </div>
+                    <div class="confirmation error"></div>
+        
+                    <div class="form-group">
+                        <select name="role" id="role" required>
+                            <option value="" disabled selected>Pick a role</option>
+                            <% userSchema.paths['role'].enumValues.forEach(function(value){ %>
+                                <option value="<%= value %>"><%= value.charAt(0).toUpperCase() + value.slice(1) %></option>
+                            <% }); %>
+                        </select>
+                        <i class='bx bxs-user-circle' ></i>
+                        <div class="down-arrow-div">
+                            <i class='bx bxs-chevron-down' id="down-arrow"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <label for="remember" class="form-check-label">
+                            <input type="checkbox" name="remember" id="remember" class="form-check-input" required>
+                            I argee with privacy and policy
+                        </label>
+                    </div>
+          
+                    <button type="submit" id="login-btn">Sign up</button>
+          
+                    <div class="register">
+                        <p>Already have an accout ?  <a href="/webid/login">Log in</a></p>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const usernameError = document.querySelector('.username.error');
+        const emailError = document.querySelector('.email.error');
+        const passwordError = document.querySelector('.password.error');
+        const confirmationError = document.querySelector('.confirmation.error');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // reset errors
+            usernameError.textContent = '';
+            emailError.textContent = '';
+            passwordError.textContent = '';
+            confirmationError.textContent = '';
+
+            // get values
+            const username = form.username.value;
+            const email = form.email.value;
+            const password = form.password.value;
+            const confirmation = form.confirmation.value;
+            const role = form.role.value;
+
+            try {
+                const res = await fetch('/api/webid/signup', {
+                    method: 'POST',
+                    body: JSON.stringify({ username, email, role, password, confirmation }),
+                    headers: { 'Content-type': 'application/json' }
+                })
+                const data = await res.json();
+                console.log(data);
+                if (data.errors) {
+                    usernameError.textContent = data.errors.username;
+                    emailError.textContent = data.errors.email;
+                    passwordError.textContent = data.errors.password;
+                    confirmationError.textContent = data.errors.confirmation;
+                }
+                if (data.user) {
+                    location.assign('/webid/home');
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-pw').onmousedown = function(){
+                document.querySelector('#password').type = 'text';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-pw').onmouseup = function(){
+                document.querySelector('#password').type = 'password';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-cfpw').onmousedown = function(){
+                document.querySelector('#cfpw').type = 'text';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#show-icon-cfpw').onmouseup = function(){
+                document.querySelector('#cfpw').type = 'password';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('#down-arrow').click = function() {
+                document.querySelector('#role').style.display = (select.style.display === 'none') ? 'block' : 'none';
+            }
+        });
+    </script>
+
+    <%- include('../partials/footer'); -%>

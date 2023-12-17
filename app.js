@@ -1,34 +1,79 @@
-require('dotenv').config();
+require("dotenv").config();
+const path = require("path");
+const express = require("express");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
-const express = require('express');
-const mongoose = require('mongoose');
-const authRoutes = require('./routes/authRoutes');
-const cookieParser = require('cookie-parser');
-const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+// routes and api
+const authRoutes = require("./routes/authRoutes");
+const itemsRoutes = require("./routes/items");
+const itemsApi = require("./routes/api/itemsApi");
+const categoriesRoutes = require("./routes/categories");
+const categoriesApi = require("./routes/api/categoriesApi");
+const authApi = require("./routes/api/authApi");
+const bidsApi = require("./routes/api/bidsApi");
+const appRoutes = require("./routes/appRoutes");
+
+const {
+  requireAuth,
+  checkUser,
+  upload,
+} = require("./middleware/authMiddleware");
 
 const app = express();
 
 // middleware
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
 // view engine
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 // database connection
 const dbURI = process.env.dbURI;
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
+mongoose
+  .connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false, // Set this option to false to suppress the deprecation warning
+  })
   .then((result) => {
     app.listen(process.env.PORT);
-    console.log('connected');
+    console.log("connected");
   })
   .catch((err) => console.log(err));
 
 // routes
-app.get('*', checkUser);
-app.get('/', (req, res) => res.render('home', {
-  test: 'testing'
-}));
-app.get('/index', requireAuth, (req, res) => res.render('index'));
-app.use(authRoutes);
+app.get("*", checkUser);
+app.post("*", checkUser);
+
+app.use("/webid", authRoutes);
+app.use("/api/webid", authApi);
+app.use("/webid", itemsRoutes);
+app.use("/api/webid", itemsApi);
+app.use("/webid", categoriesRoutes);
+app.use("/api/webid", categoriesApi);
+app.use("/api/webid", bidsApi);
+app.use("/webid", appRoutes);
+
+app.use(function (req, res, next) {
+  if (req.statusCode === 400) {
+    res.status(400);
+    res.send("400 BAD REQUEST !");
+    return;
+  } else if (req.statusCode === 403) {
+    res.status(403);
+    res.send("403 NOT AUTHORIZED !");
+    return;
+  } else if (req.statusCode === 500) {
+    res.status(500);
+    res.send("500 INTERNAL SERVER ERROR !");
+    return;
+  }
+  res.status(404);
+  res.send("404 NOT FOUND !");
+});

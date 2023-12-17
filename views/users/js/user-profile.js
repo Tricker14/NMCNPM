@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Lấy các nút trong menu
-    const menuButtons = document.querySelectorAll('.list-group-item button');
+    const menuButtons = document.querySelectorAll('.menu-items li button');
 
     // Lặp qua từng nút để thêm sự kiện click
     menuButtons.forEach(function (button, index) {
@@ -18,14 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.style.display = 'none';
             });
 
-            menuButtons.forEach(function (btn) {
-                btn.classList.remove('active');
-                btn.closest('.list-group-item').classList.remove('active-item'); // Remove 'active-item' class from all list-group-items
-            });
-
-            button.classList.add('active');
-            button.closest('.list-group-item').classList.add('active-item'); // Add 'active-item' class to the parent list-group-item
-
             // Hiển thị nội dung tương ứng
             const displayArea = document.querySelector('.display-area');
             switch (index) {
@@ -34,32 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     displayArea.querySelector('.bid-title').style.display = 'none';
                     displayArea.querySelector('.bid-history-area').style.display = 'none';
                     break;
-
+            
                 case 1: // Bid History
                     document.querySelector('.profile-form').style.display = 'none';
                     displayArea.querySelector('.bid-title').style.display = 'block';
                     displayArea.querySelector('.bid-history-area').style.display = 'flex';
                     break;
-                
-                case 2: // Favorite Items
-                    document.querySelector('.profile-form').style.display = 'none';
-                    displayArea.querySelector('.bid-title').style.display = 'none';
-                    displayArea.querySelector('.bid-history-area').style.display = 'none';
-                    displayArea.querySelector('.favorite-title').style.display = 'block';
-                    displayArea.querySelector('.scrollable-area').style.display = 'flex';
-                    break;
+                // Các trường hợp khác cho các nút khác
             }
         });
-
-        // Set the default state for the "User Profile" button and its parent list-group-item
-        if (index === 0) {
-            button.classList.add('active');
-            button.closest('.list-group-item').classList.add('active-item');
-        }
     });
+
+    // ...
 });
-
-
 
 
 
@@ -82,7 +61,7 @@ function populateYears() {
 
     yearSelect.innerHTML = "";
 
-    for (var i = 1930; i <= 2023; i++) {
+    for (var i = 1945; i <= 2023; i++) {
         var option = document.createElement("option");
         option.value = i;
         option.text = i;
@@ -345,102 +324,3 @@ function calculateMarkerPosition(dayIndex) {
     const percentage = (totalItems / historyList.offsetHeight) * 100;
     return `${percentage}%`;
 }
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const productsData = [
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 1",
-        productDescription: "Description for Product 1",
-        price: "$19.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 2",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 3",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 4",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 5",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 6",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 7",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      }
-      // Thêm dữ liệu cho các sản phẩm khác nếu cần
-    ];
-
-    function createProductCard(product) {
-      const card = document.createElement("div");
-      card.classList.add("col-4", "card-product");
-
-      card.innerHTML = `
-        <a href="your-product-page.html">
-          <img src="${product.imageSrc}" alt="Product Image">
-        </a>
-        <div class="card-content">
-          <a href="your-product-page.html" class="product-name">${product.productName}</a>
-          <div class="product-description">${product.productDescription}</div>
-          <div class="price">${product.price}</div>
-          <div class="add-to-cart">
-            <button class="heart-icon clicked">&#10084;</button>
-            <button class="go-to-bid-btn">Go to bid</button>
-          </div>
-        </div>
-      `;
-
-      return card;
-    }
-
-    function renderProductCards() {
-      const container = document.getElementById("product-container");
-
-      productsData.forEach((product) => {
-        const productCard = createProductCard(product);
-        container.appendChild(productCard);
-      });
-    }
-
-    renderProductCards();
-
-
-    // Function to remove a product card
-    function removeProductCard(card) {
-        card.remove();
-    }
-
-    // Event listener for heart icon button click
-    document.getElementById("product-container").addEventListener("click", function (event) {
-        const heartIcon = event.target.closest(".heart-icon.clicked");
-        if (heartIcon) {
-            const productCard = heartIcon.closest(".card-product");
-            if (productCard) {
-                removeProductCard(productCard);
-            }
-        }
-    });
-  });

@@ -30,7 +30,7 @@ body {
 
 
 .main {
-  background: url(./image/main-bg.jpg);
+  background: url(/auth-image/main-bg.jpg);
 }
 
 .main .right-side-bg img {
@@ -78,6 +78,26 @@ body {
   -webkit-text-fill-color: var(--text-color);
 }
 
+::-ms-reveal {
+  display: none;
+}
+
+.form-group select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 0.2rem solid #333;
+  border-radius: 4rem;
+  padding: 0 4.5rem 0 4.9rem;
+  font-size: 1.6rem;
+  color: var(--text-color);
+  -webkit-appearance: none; /* Loại bỏ mũi tên trên Chrome/Safari */
+  -moz-appearance: none; /* Loại bỏ mũi tên trên Firefox */
+  appearance: none; /* Loại bỏ mũi tên trên các trình duyệt khác */
+}
+
 .form-group .form-control:focus {
   background: transparent;
   outline: none;
@@ -96,7 +116,7 @@ body {
   font-size: 2.5rem;
 }
 
-.form-group .show {
+.form-group .show, .down-arrow-div {
   position: absolute;
   right: 6rem;
   top: 50%;
