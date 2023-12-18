@@ -1,16 +1,15 @@
-const User = require("../../models/user");
 const Category = require("../../models/category");
-const Item = require("../../models/item");
 const jwt = require("jsonwebtoken");
 
 module.exports.category_post = async function (req, res) {
+  console.log("body, ", req.body);
+  console.log("file ", req.file);
   const { name } = req.body;
+  const image  = req.file.filename;
   try {
-    const category = await Category.create({ name });
-    res.status(201).json({ category, redirect: "/category/category" });
-    return;
+    await Category.create({ name, image });
+    res.redirect('/webid/categories');
   } catch (err) {
-    const errors = handleItemErrors(err);
-    res.status(400).json({ errors });
+    res.status(400).json({ err });
   }
 };

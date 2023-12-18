@@ -10,10 +10,5 @@ const { uploadUser } = require("../../middleware/fileUploadMiddleware");
 
 router.post("/signup", authApiController.signup);
 router.post("/login", authApiController.login);
-router.delete("/user/:_id", requireAuth, authApiController.delete_user);
-router.post('/profile/:_id', 
-  requireAuth, 
-  uploadUser.single('image'),
-  authApiController.profile);
 
 module.exports = router;

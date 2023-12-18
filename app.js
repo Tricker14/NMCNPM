@@ -6,12 +6,14 @@ const cookieParser = require("cookie-parser");
 
 // routes and api
 const authRoutes = require("./routes/authRoutes");
+const authApi = require("./routes/api/authApi");
 const itemsRoutes = require("./routes/items");
 const itemsApi = require("./routes/api/itemsApi");
 const categoriesRoutes = require("./routes/categories");
 const categoriesApi = require("./routes/api/categoriesApi");
-const authApi = require("./routes/api/authApi");
 const bidsApi = require("./routes/api/bidsApi");
+const usersRoutes = require("./routes/usersRoutes");
+const usersApi = require("./routes/api/usersApi");
 const appRoutes = require("./routes/appRoutes");
 
 const {
@@ -58,6 +60,8 @@ app.use("/api/webid", itemsApi);
 app.use("/webid", categoriesRoutes);
 app.use("/api/webid", categoriesApi);
 app.use("/api/webid", bidsApi);
+app.use("/webid", usersRoutes);
+app.use("/api/webid", usersApi);
 app.use("/webid", appRoutes);
 
 app.use(function (req, res, next) {

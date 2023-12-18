@@ -11,7 +11,5 @@ const {
 router.get("/signup", authController.signup);
 router.get("/login", authController.login);
 router.get("/logout", authController.logout);
-router.get('/profile/:_id', requireAuth, authController.profile);
-router.get('/history/:_id', requireAuth, authController.history);
 
 module.exports = router;
