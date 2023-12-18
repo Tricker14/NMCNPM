@@ -2,21 +2,71 @@
 
 <h2>Category Page</h2>
 
-<% if(categories){ %>
+<% if(categories && categories.length > 0){ %>
     <% categories.forEach(function(category){ %>
         <a href="/webid/categories/<%= category._id %>">
+            <img src="<%= '/images/categories-images/' + category.image %>" alt="img" style="height: 50px">
             <h4><%= category.name %></h4>
         </a>
     <% }) %>    
 <% }else{ %>
-    No category
+    <h4>No category</h4>
 <% } %>
 
 <% if(user && user.role === 'admin'){ %>
-    <a href="">
-        
-    </a>
-    <h4>+</h4>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+        +
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for name and image fields -->
+                    <form action="/api/webid/categories" method="post" enctype="multipart/form-data" id="addCategoryForm">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image URL:</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <% } %>
 
 <%- include('../partials/footer'); -%>
+
+ <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
