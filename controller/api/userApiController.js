@@ -65,3 +65,19 @@ module.exports.profile = async function(req, res){
     }
 }
   
+module.exports.addToFavorite = async function(req, res){
+  const id = req.params.itemId
+  theUser = await User.findById(res.locals.user._id)
+  theUser.favorites.push(id)
+  theUser.save();
+  res.status(200).send("OK")
+}
+
+module.exports.removeFromFavorite = async function(req, res){
+  const id = req.params.itemId
+  theUser = await User.findById(res.locals.user._id)
+  const idx = theUser.favorites.indexOf(id)
+  theUser.favorites.splice(idx, 1);
+  theUser.save();
+  res.status(200).send("OK")
+}
