@@ -14,7 +14,7 @@ module.exports.item_get = async function (req, res) {
   const update =
     req.query.update !== undefined ? "Updated item successfully" : null;
   try {
-    const item = await Item.findById(id).populate("owner");
+    const item = await Item.findById(id).populate("owner").populate("category");
     const highestBid = await Bid.find({product: item}).sort({price: -1}).limit(1).populate('bidder');
     let highestBidder = null
     if(highestBid[0]){
