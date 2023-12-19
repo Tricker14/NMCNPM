@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/stylesheets/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
 </head>
 
@@ -140,9 +141,10 @@
           <button id="increment" type="button">+</button>
         </div>
       </div>
-      <div class="row" id="btn-area">
+      <% if(item.isOwned === false) { %>
+      <div class="row" id="btn-area-add">
         <div class="col-6" id="add-to-fav">
-          <button>
+          <button id="favorite-btn">
             <i class="fa-solid fa-heart"></i>
             ADD TO FAVOR LIST
           </button>
@@ -151,18 +153,43 @@
         <div class="col-3" id="bid-btn">
           <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
         </div>
+      </div>
+      <div class="row" id="btn-area-remove">
+        <div class="col-6" id="add-to-fav">
+          <button id="unfavorite-btn">
+            <i class="fa-solid fa-heart"></i>
+            REMOVE FROM FAVOR LIST
+          </button>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-3" id="bid-btn">
+          <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
+        </div>
+      </div>
 
-        <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
-          <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
-        </form>
-
-        <!-- <form action="/webid/items/delete/<%= item._id %>" method="post">
-            <input type="submit" value="Delete Item">
-          </form> -->
-
+      <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
+        <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
+      </form>
+    </div>
+    <% } else { %>
+    <div class="row" id="edit-area">
+      <div class="col-12" id="add-to-fav">
+        <a href="/webid/items/edit/<%- item._id %>">
+          <button id="edit-btn">
+            <i class="fa-solid fa-edit"></i>
+            Edit
+          </button>
+        </a>
       </div>
     </div>
+    <% } %>
+
   </div>
+  </div>
+  <script>
+    var item = '<%- JSON.stringify(item) %>';
+  </script>
+  <script src="/js/items/items_details.js"></script>
   <script>
     let slideIndex = 1;
     showSlides(slideIndex);
@@ -306,7 +333,6 @@
       }
     }
     );
-
   </script>
 </body>
 

@@ -1,11 +1,31 @@
 const User = require("../models/user");
 const Category = require("../models/category");
 const { Item } = require("../models/item");
-const Bid= require("../models/bid");
+const Bid = require("../models/bid");
 const jwt = require("jsonwebtoken");
 const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
 const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
+
+async function isFavorite(user, item){
+  if(user.favorites.length == 0){
+    return false;
+  }
+  else{
+    let count = 0;
+    user.favorites.forEach(favorite=>{
+      if(favorite.equals(item._id)){
+        count = 1;
+      }
+    })
+    if(count === 0){
+      return false
+    }
+    else{
+      return true;
+    }
+  }
+}
 
 module.exports.item_get = async function (req, res) {
   const id = req.params._id;
@@ -15,23 +35,41 @@ module.exports.item_get = async function (req, res) {
     req.query.update !== undefined ? "Updated item successfully" : null;
   try {
     const item = await Item.findById(id).populate("owner");
-    const highestBid = await Bid.find({product: item}).sort({price: -1}).limit(1).populate('bidder');
-    let highestBidder = null
-    if(highestBid[0]){
+    
+    const highestBid = await Bid.find({ product: item })
+      .sort({ price: -1 })
+      .limit(1)
+      .populate("bidder");
+    let highestBidder = null;
+    if (highestBid[0]) {
       highestBidder = highestBid[0].bidder;
     }
-    
-    const bid = await Bid.find({product: item, bidder: res.locals.user}).sort({price: -1}).limit(1).populate('bidder');
+
+    const bid = await Bid.find({ product: item, bidder: res.locals.user })
+      .sort({ price: -1 })
+      .limit(1)
+      .populate("bidder");
     let bidder = null;
     let price = 0;
-    if(bid[0]){
+    if (bid[0]) {
       bidder = bid[0].bidder;
       price = bid[0].price;
     }
-    calculateTimeLeft(item)
+    calculateTimeLeft(item);
 
-    res.render("items/item-details", {    
-      item: item,
+    theItem = item.toObject();
+
+    theItem.isFavorite = await isFavorite(res.locals.user, item)
+    console.log(theItem.isFavorite)
+
+    if (res.locals.user.username === theItem.owner.username) {
+      theItem.isOwned = true;
+    } else {
+      theItem.isOwned = false;
+    }
+
+    res.render("items/item-details", {
+      item: theItem,
       highestBidder: highestBidder,
       bidder: bidder,
       price: price,
@@ -54,7 +92,16 @@ module.exports.item_create_page = async function (req, res) {
 };
 
 module.exports.listing_get = async function (req, res) {
+  console.log(res.locals.user);
   const items = await Item.find({ isListing: true }).populate("owner");
+  items.forEach(function (item) {
+    item.isFavorite = false;
+    if (res.locals.user.username === item.owner.username) {
+      item.isOwned = true;
+    } else {
+      item.isOwned = false;
+    }
+  });
   const message =
     req.query.delete != undefined ? "Deleted item successfully" : null;
   res.render("items/listing", {
@@ -95,7 +142,7 @@ module.exports.create_item = async function (req, res) {
   const owner = res.locals.user;
 
   const categoryString = req.body.category;
-  const category = await Category.findOne({name: categoryString});
+  const category = await Category.findOne({ name: categoryString });
   try {
     const item = await Item.create({
       name,
@@ -108,7 +155,7 @@ module.exports.create_item = async function (req, res) {
       image,
       previewImages,
       owner,
-      countdown
+      countdown,
     });
     countdownDeleteItem(item);
 
