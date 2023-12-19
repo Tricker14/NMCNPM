@@ -94,6 +94,19 @@ body {
   left: 1rem;
 }
 
+.red-heart-icon {
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: color 0.3s;
+  color: red;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
 .add-to-cart-btn {
   background-color: #4caf50;
   color: #fff;

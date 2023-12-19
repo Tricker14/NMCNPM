@@ -7,7 +7,7 @@ const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
 const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
 
-async function isFavorite(user, item){
+function isFavorite(user, item){
   if(user.favorites.length == 0){
     return false;
   }
@@ -59,7 +59,7 @@ module.exports.item_get = async function (req, res) {
 
     theItem = item.toObject();
 
-    theItem.isFavorite = await isFavorite(res.locals.user, item)
+    theItem.isFavorite = isFavorite(res.locals.user, item)
     console.log(theItem.isFavorite)
 
     if (res.locals.user.username === theItem.owner.username) {
@@ -92,20 +92,23 @@ module.exports.item_create_page = async function (req, res) {
 };
 
 module.exports.listing_get = async function (req, res) {
-  console.log(res.locals.user);
+
+  const theItems = []
   const items = await Item.find({ isListing: true }).populate("owner");
-  items.forEach(function (item) {
-    item.isFavorite = false;
+  await items.forEach(async function (item) {
+    tempItem = item.toObject();
     if (res.locals.user.username === item.owner.username) {
-      item.isOwned = true;
+      tempItem.isOwned = true;
     } else {
-      item.isOwned = false;
+      tempItem.isOwned = false;
+      tempItem.isFavorite = isFavorite(res.locals.user, item)
     }
+    theItems.push(tempItem)
   });
   const message =
     req.query.delete != undefined ? "Deleted item successfully" : null;
   res.render("items/listing", {
-    items: items,
+    items: theItems,
     user: res.locals.user,
     message: message,
   });
