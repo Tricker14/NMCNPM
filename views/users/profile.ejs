@@ -2,266 +2,288 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/brands-logos/logo.png">
-    <link rel="shortcut icon" href="/images/brands-logos/logo.png">
-    <link 
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-      rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="/stylesheets/profile/user-profile.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/images/brands-logos/logo.png">
+  <link rel="shortcut icon" href="/images/brands-logos/logo.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="/stylesheets/profile/user-profile.css">
 
-    <title>WeBid</title>
+  <title>WeBid</title>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 userprofile-menu">
-                <div class="row ava-name-area">
-                    <div class="col-6 avatar-frame">
-                        <% if(user.image){ %>
-                            <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
-                        <% }else{ %>
-                            <img src="/auth-image/anonymous.jpg" alt="" id="secondAvatar">
-                        <% } %>
-                    </div>
-                    <div class="col-6 username-area">
-                        <p><strong><%= user.username %></strong></p>
-                        <p class="edit-profile">
-                            <i class="bi bi-pencil-square"></i>
-                            edit profile
-                        </p>    
-                    </div>
-                </div>
-                <div class="row">&nbsp;</div>
-                <div class="row">&nbsp;</div>
-                <div class="row menu">
-                    <div class="card mb-3 menu-items">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <button>
-                                    <i class="bi bi-person-fill"></i>
-                                    User Profile
-                                </button>
-                            </li>
-                            <li class="list-group-item">
-                                <button>
-                                    <i class="bi bi-clock-history"></i>
-                                    Bid History
-                                </button>   
-                            </li>
-                            <li class="list-group-item">
-                                <button>
-                                    <i class="bi bi-heart-fill"></i>
-                                    Favorite Items
-                                </button>
-                            </li>
-                            <li class="list-group-item">
-                              <a href="/webid/logout">
-                                <button>
-                                  <i class="bi bi-box-arrow-right"></i>
-                                  Log Out
-                                </button>
-                              </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8 display-area">
-              <form id="profileForm" action="/api/webid/profile/<%= user._id %>" method="post" enctype="multipart/form-data" class="profile-form">
-                <div class="row">
-                  <h1 class="m-3">User Profile</h1>
-                  <hr>
-                </div>
-                <div class="row">
-                  <div class="col-3">
-                    <strong>Profile Picture</strong>
-                  </div>
-                  <div class="col-9 profile-picture">
-                    <div class="avatar-frame">
-                        <% if(user.image){ %>
-                            <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
-                        <% }else{ %>
-                            <img src="/auth-image/anonymous.jpg" alt="" id="secondAvatar">
-                        <% } %>
-                    </div>
-                    <div class="choosen-file-btn mt-4">
-                      <input type="file" id="fileInput" accept="image/png, image/jpeg" name="image">
-                  </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3">
-                    <strong>Username</strong>
-                  </div>
-                  <div class="col-9 d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1"><%= user.username %></div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3">
-                    <strong>Role</strong>
-                  </div>
-                  <div class="col-9 d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1"><%= user.role %></div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3">
-                    <strong>Name</strong>
-                  </div>
-                  <div class="col-9 d-flex justify-content-between align-items-center">
-                    <% if(user.name){ %>
-                        <input type="text" name="name" id="name" placeholder="<%= user.name %>">
-                    <% }else{ %>
-                        <input type="text" name="name" id="name" placeholder="Your full name">
-                    <% } %>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3">
-                    <strong>Email</strong>
-                  </div>
-                  <div class="col-9 d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1"><%= user.email %></div>
-                    <div class="edit" id="edit-email">
-                      <a href="">
-                        <i class="bi bi-pencil-square"></i>
-                        edit
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3">
-                    <strong>Gender</strong>
-                  </div>
-                  <div class="col-9 d-flex justify-content-between align-items-center">
-                    <div class="flex-grow-1 gender-container">
-                        <% userSchema.paths['gender'].enumValues.forEach(function(value){ %>
-                            <% if(value !== null){ %>
-                                <label class="gender-label">
-                                    <% if(user.gender === value){ %>
-                                        <input type="radio" name="gender" value="<%= value %>" checked> <%= value.charAt(0).toUpperCase() + value.slice(1) %> 
-                                    <% }else{ %>
-                                        <input type="radio" name="gender" value="<%= value %>"> <%= value.charAt(0).toUpperCase() + value.slice(1) %>
-                                    <% } %>
-                                </label>    
-                            <% } %>
-                        <% }); %>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3">
-                    <strong>Phone</strong>
-                  </div>
-                  <div class="col-9 d-flex justify-content-between align-items-center">
-                    <% if(user.phone){ %>
-                        <div class="flex-grow-1"><%= user.phone %></div>
-                    <% }else{ %>
-                        <div class="flex-grow-1">No phone</div>
-                    <% } %>
-                    <div class="edit" id="edit-phone">
-                      <a href="">
-                        <i class="bi bi-pencil-square"></i>
-                        edit
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3">
-                    <strong>Date of Birth</strong>
-                  </div>
-                  <div class="col-9">
-                    <label for="day">Day:</label>
-                    <select id="day" name="day"></select>
-          
-                    <label for="month">Month:</label>
-                    <select id="month" name="month">
-                    </select>
-            
-                    <label for="year">Year:</label>
-                    <select id="year" name="year">
-                    </select>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-3"></div>
-                  <div class="col-9">
-                    <!-- <button id="saveChangesBtn" type="submit" disabled>Save Change</button> -->
-                    <button id="save" type="submit" class="btn btn-primary">Save</button>
-                  </div>
-                </div>
-              </form>
-              <div class="row bid-title">
-                <h1 class="m-3">Bid History</h1>
-                <hr>
-              </div>
-              <div class="row bid-history-area m-3">
-                <div class="col-3 time-axis">
-                </div>
-                <ul class="col-9 history-list" id="historyList">
-                </ul>
-              </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 userprofile-menu">
+        <div class="row ava-name-area">
+          <div class="col-6 avatar-frame">
+            <% if(user.image){ %>
+            <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
+            <% }else{ %>
+            <img src="/auth-image/anonymous.jpg" alt="" id="secondAvatar">
+            <% } %>
+          </div>
+          <div class="col-6 username-area">
+            <p><strong><%= user.username %></strong></p>
+            <p class="edit-profile">
+              <i class="bi bi-pencil-square"></i>
+              edit profile
+            </p>
+          </div>
         </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+        <div class="row menu">
+          <div class="card mb-3 menu-items">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <button>
+                  <i class="bi bi-person-fill"></i>
+                  User Profile
+                </button>
+              </li>
+              <li class="list-group-item">
+                <button>
+                  <i class="bi bi-clock-history"></i>
+                  Bid History
+                </button>
+              </li>
+              <li class="list-group-item">
+                <button>
+                  <i class="bi bi-heart-fill"></i>
+                  Favorite Items
+                </button>
+              </li>
+              <li class="list-group-item">
+                <a href="/webid/logout">
+                  <button>
+                    <i class="bi bi-box-arrow-right"></i>
+                    Log Out
+                  </button>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 display-area">
+        <form id="profileForm" action="/api/webid/profile/<%= user._id %>" method="post" enctype="multipart/form-data" class="profile-form">
+          <div class="row">
+            <h1 class="m-3">User Profile</h1>
+            <hr>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <strong>Profile Picture</strong>
+            </div>
+            <div class="col-9 profile-picture">
+              <div class="avatar-frame">
+                <% if(user.image){ %>
+                <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
+                <% }else{ %>
+                <img src="/auth-image/anonymous.jpg" alt="" id="secondAvatar">
+                <% } %>
+              </div>
+              <div class="choosen-file-btn mt-4">
+                <input type="file" id="fileInput" accept="image/png, image/jpeg" name="image">
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <strong>Username</strong>
+            </div>
+            <div class="col-9 d-flex justify-content-between align-items-center">
+              <div class="flex-grow-1"><%= user.username %></div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <strong>Role</strong>
+            </div>
+            <div class="col-9 d-flex justify-content-between align-items-center">
+              <div class="flex-grow-1"><%= user.role %></div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <strong>Name</strong>
+            </div>
+            <div class="col-9 d-flex justify-content-between align-items-center">
+              <% if(user.name){ %>
+              <input type="text" name="name" id="name" placeholder="<%= user.name %>">
+              <% }else{ %>
+              <input type="text" name="name" id="name" placeholder="Your full name">
+              <% } %>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <strong>Email</strong>
+            </div>
+            <div class="col-9 d-flex justify-content-between align-items-center">
+              <div class="flex-grow-1"><%= user.email %></div>
+              <div class="edit" id="edit-email">
+                <a href="">
+                  <i class="bi bi-pencil-square"></i>
+                  edit
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <strong>Gender</strong>
+            </div>
+            <div class="col-9 d-flex justify-content-between align-items-center">
+              <div class="flex-grow-1 gender-container">
+                <% userSchema.paths['gender'].enumValues.forEach(function(value){ %>
+                <% if(value !== null){ %>
+                <label class="gender-label">
+                  <% if(user.gender === value){ %>
+                  <input type="radio" name="gender" value="<%= value %>" checked> <%= value.charAt(0).toUpperCase() + value.slice(1) %>
+                  <% }else{ %>
+                  <input type="radio" name="gender" value="<%= value %>"> <%= value.charAt(0).toUpperCase() + value.slice(1) %>
+                  <% } %>
+                </label>
+                <% } %>
+                <% }); %>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <strong>Phone</strong>
+            </div>
+            <div class="col-9 d-flex justify-content-between align-items-center">
+              <% if(user.phone){ %>
+              <div class="flex-grow-1"><%= user.phone %></div>
+              <% }else{ %>
+              <div class="flex-grow-1">No phone</div>
+              <% } %>
+              <div class="edit" id="edit-phone">
+                <a href="">
+                  <i class="bi bi-pencil-square"></i>
+                  edit
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3">
+              <strong>Date of Birth</strong>
+            </div>
+            <div class="col-9">
+              <label for="day">Day:</label>
+              <select id="day" name="day"></select>
+
+              <label for="month">Month:</label>
+              <select id="month" name="month">
+              </select>
+
+              <label for="year">Year:</label>
+              <select id="year" name="year">
+              </select>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-3"></div>
+            <div class="col-9">
+              <!-- <button id="saveChangesBtn" type="submit" disabled>Save Change</button> -->
+              <button id="save" type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+        <div class="row bid-title">
+          <h1 class="m-3">Bid History</h1>
+          <hr>
+        </div>
+        <div class="row bid-history-area m-3">
+          <div class="col-3 time-axis">
+          </div>
+          <ul class="col-9 history-list" id="historyList">
+          </ul>
+        </div>
+        <div class="row favorite-title">
+          <h1 class="m-3">Favorite Items</h1>
+          <hr>
+        </div>
+        <div class="scrollable-area">
+          <div class="container">
+            <div class="row" id="product-container">
+
+              <% products.forEach(function(product) { %>
+              <div class="col-4 card-product">
+                <a href="/webid/items/<%- product._id %>">
+                  <img src="/images/items-images/<%- product.image %>" style="width: 100px;" alt="Product Image">
+                </a>
+                <div class="card-content">
+                  <a href="/webid/items/<%- product._id %>" class="product-name"><%- product.name %></a>
+                  <div class="product-description"><%- product.description %></div>
+                  <div class="price"><%- product.price %></div>
+                  <div class="add-to-cart d-flex justify-content-end">
+                    <a href="/webid/items/<%- product._id %>">
+                      <button class="add-to-cart-btn">Go to bid</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <ul class="col-9 history-list" id="priceContainer">
 
 
-    <script>
+      <script>
         // profile
         var day = '<%= user.birthday.day %>';
         var Month = '<%= user.birthday.month %>';
         var month = null;
         if (parseInt(Month) === 1) {
-            month = 'January';
+          month = 'January';
         }
         if (parseInt(Month) === 2) {
-            month = 'February';
+          month = 'February';
         }
         if (parseInt(Month) === 3) {
-            month = 'March';
+          month = 'March';
         }
         if (parseInt(Month) === 4) {
-            month = 'April';
+          month = 'April';
         }
         if (parseInt(Month) === 5) {
-            month = 'May';
+          month = 'May';
         }
         if (parseInt(Month) === 6) {
-            month = 'June';
+          month = 'June';
         }
         if (parseInt(Month) === 7) {
-            month = 'July';
+          month = 'July';
         }
         if (parseInt(Month) === 8) {
-            month = 'August';
+          month = 'August';
         }
         if (parseInt(Month) === 9) {
-            month = 'September';
+          month = 'September';
         }
         if (parseInt(Month) === 10) {
-            month = 'October';
+          month = 'October';
         }
         if (parseInt(Month) === 11) {
-            month = 'November';
+          month = 'November';
         }
         if (parseInt(Month) === 12) {
-            month = 'December';
+          month = 'December';
         }
         var year = '<%= user.birthday.year %>';
         console.log('day', day);
@@ -270,17 +292,18 @@
         var bids = JSON.parse(bidsString);
 
         bids.forEach(function (bid) {
-            console.log('Bid Price:', bid.price);
+          console.log('Bid Price:', bid.price);
         });
 
         var userString = '<%- JSON.stringify(user) %>'
         var user = JSON.parse(userString);
         console.log('user ', user);
-    </script>
- 
-    <script src="/stylesheets/profile/user-profile.js"></script>
+      </script>
+
+      <script src="/js/profile/user-profile.js"></script>
 
 </body>
+
 </html>
 
 <%- include('../partials/footer'); -%>

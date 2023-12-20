@@ -5,7 +5,7 @@ const { Item, calculateTimeLeft } = require("../models/item");
 module.exports.profile = async (req, res) => {
     const id = req.params._id;
     try{
-      const user = await User.findById(id);
+      const user = await User.findById(id).populate("favorites");
       const duplicateBids = await Bid.find({ bidder: user }).populate('product');
       let bids = null;
   
@@ -37,6 +37,7 @@ module.exports.profile = async (req, res) => {
         user: user,
         userSchema: User.schema,
         bids: bids,
+        products: user.favorites
       });
     }
     catch(err){
