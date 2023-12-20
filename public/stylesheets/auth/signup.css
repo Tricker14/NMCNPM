@@ -187,6 +187,12 @@ body {
   text-decoration: underline;
 }
 
+.email.error, .password.error, .confirmation.error {
+  font-size: 1.6rem;
+  color: red;
+  text-align: center;
+}
+
 @media screen and (max-width: 768px){
   .header {
     display: block;

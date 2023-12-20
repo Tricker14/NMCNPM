@@ -1,7 +1,6 @@
 const User = require("../models/user");
 const Category = require("../models/category");
 const Bid = require("../models/bid");
-const { Item, calculateTimeLeft } = require("../models/item");
 const jwt = require("jsonwebtoken");
 
 // controller actions

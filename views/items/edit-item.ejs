@@ -8,7 +8,7 @@
     <div class="mb-3 form-group row">
       <label for="name" class="form-label col-3">Name</label>
       <div class="col-9">
-        <input readonly type="text" class="form-control-plaintext " id="name" name="name" value="<%= item.name %>">
+        <input disabled readonly type="text" class="form-control" id="name" name="name" value="<%= item.name %>">
       </div>
     </div>
 
@@ -24,7 +24,7 @@
       <div class="col-9">
         <select name="category" class="form-select">
           <% categories.forEach(function(category){ %>
-          <option value="<%= category.name %>"><%= category.name %></option>
+            <option value="<%= category.name %>"><%= category.name %></option>
           <% }); %>
         </select>
       </div>
@@ -34,7 +34,21 @@
     <div class="mb-3 form-group row">
       <label for="startingBid" class="form-label col-3">Starting bid</label>
       <div class="col-9">
-        <input type="number" class="form-control-plaintext" id="startingBid" name="startingBid" value="<%= item.startingBid %>" readonly>
+        <input type="number" class="form-control" id="startingBid" name="startingBid" value="<%= item.startingBid %>" disabled readonly>
+      </div>
+    </div>
+
+    <!-- <div class="mb-3 form-group row">
+      <label for="bidIncrement" class="form-label col-3">Bid increment</label>
+      <div class="col-9">
+          <input type="number" class="form-control" id="bidIncrement" name="bidIncrement" value="<%= item.bidIncrement %>" disabled readonly>
+      </div>
+    </div> -->
+
+    <div class="mb-3 form-group row">
+      <label for="bidIncrement" class="form-label col-3">Bid increment</label>
+      <div class="col-9">
+          <input type="number" class="form-control" id="bidIncrement" name="bidIncrement" value="<%= item.bidIncrement %>">
       </div>
     </div>
 
@@ -46,11 +60,33 @@
     </div>
 
     <div class="mb-3 form-group row">
-      <label for="image" class="form-label col-3">Choose images ((Dont choose to keep old images))</label>
+      <label for="image" class="form-label col-3">Choose images (Dont choose to keep old images)</label>
       <div class="col-9">
         <input type="file" class="form-control" id="previewImages" name="previewImages" multiple accept="image/png, image/jpeg">
       </div>
 
+    </div>
+
+    <div class="mb-3 form-group row">
+      <label for="day" class="col-3">Choose day</label>
+      <div class="col-9 mb-2">
+          <input class="form-control" type="text" value="<%= item.countdown.day %>" disabled readonly>
+      </div>
+
+      <label for="hour" class="col-3">Choose hour</label>
+      <div class="col-9 mb-2">
+        <input class="form-control" type="text" value="<%= item.countdown.hour %>" disabled readonly>
+      </div>
+
+      <label for="minute" class="col-3">Choose minute</label>
+      <div class="col-9 mb-2">
+        <input class="form-control" type="text" value="<%= item.countdown.minute %>" disabled readonly>
+      </div>
+
+      <label for="second" class="col-3">Choose second</label>
+      <div class="col-9 mb-2">
+        <input class="form-control" type="text" value="<%= item.countdown.second %>" disabled readonly>
+      </div>
     </div>
 
     <div id="submit-btn-container" class="d-flex justify-content-center ">
