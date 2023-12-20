@@ -63,19 +63,23 @@
     <div class="product-area">
       <div class="row">
         <div class="col" id="product-name-area">
-          <span id="category-tag">category</span>
+          <% if(item.category){ %>
+            <span id="category-tag"><%= item.category.name %></span>
+          <% }else{ %>
+            <span id="category-tag">no category</span>
+          <% } %>
           <span id="product-name"><%= item.name %></span>
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col description">
           <%= item.description %>
         </div>
       </div>
       <div class="row countdown-container">
         <div class="countdown">
           <i class="fa-regular fa-clock"></i>
-          <div class="col">
+          <div class="col bid-label">
             BID ENDS IN
           </div>
           <div class="countdown-item">
@@ -93,28 +97,28 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-5">
           Starting Bid
         </div>
-        <div class="col-8" id="starting-bid">
+        <div class="col-7" id="starting-bid">
           <i class="fa-solid fa-sack-dollar"></i>
           <%= item.startingBid %>
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-5">
           Bid Increment
         </div>
-        <div class="col-8" id="bidIncrement">
+        <div class="col-7" id="bidIncrement">
           <i class="fa-solid fa-arrow-trend-up"></i>
           <%= item.bidIncrement %>
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-5">
           Current Price
         </div>
-        <div class="col-8 tooltip-container" id="current-price-container">
+        <div class="col-7 tooltip-container" id="current-price-container">
           <i class="fa-solid fa-trophy"></i>
           <%= item.highestBid %>
           <div class="tooltip" id="current-price-tooltip">
@@ -123,18 +127,18 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-5">
           Your Bid
         </div>
-        <div class="col-8" id="your-bid">
+        <div class="col-7" id="your-bid">
           <i class="fa-solid fa-dollar-sign"><%= price %></i>
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-5">
           Bid Increment Quantity
         </div>
-        <div class="col-8" id="quantity-input">
+        <div class="col-7" id="quantity-input">
           <button id="decrement" type="button">-</button>
           <input type="text" id="quantity" value="0" readonly>
           <button id="increment" type="button">+</button>
@@ -148,23 +152,37 @@
           </button>
         </div>
         <div class="col-1"></div>
-        <div class="col-3" id="bid-btn">
-          <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
-        </div>
+        <% if(user && user._id.toString() === item.owner._id.toString()){ %>
+          <div class="col-3" id="un-bid-btn">
+            <button id="un-submitButton" type="button"><i class="fa-solid fa-gavel"></i></button>
+          </div>
+        <% }else{ %>
+          <div class="col-3" id="bid-btn">
+            <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
+          </div>
+        <% } %>
 
         <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
           <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
         </form>
-
-        <!-- <form action="/webid/items/delete/<%= item._id %>" method="post">
-            <input type="submit" value="Delete Item">
-          </form> -->
-
       </div>
+
+      <% if(user && user._id.toString() === item.owner._id.toString()){ %>
+        <div class="row">
+          <div class="col-3">&nbsp;</div>
+          <div class="col-6">
+            <form action="/webid/items/delete/<%= item._id %>" method="post">
+              <button type="submit" class="btn btn-danger" id="delete-btn">Delete Item</button>
+          </form>
+          </div>
+          <div class="col-3">&nbsp;</div>
+        </div>
+      <% } %>
+
     </div>
   </div>
   <script>
-    let slideIndex = 1;
+    let slideIndex = 1; 
     showSlides(slideIndex);
 
     function plusSlides(n) {

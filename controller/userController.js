@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Bid = require("../models/bid");
+const { Item, calculateTimeLeft } = require("../models/item");
 
 module.exports.profile = async (req, res) => {
     const id = req.params._id;

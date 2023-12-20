@@ -14,7 +14,7 @@ module.exports.item_get = async function (req, res) {
   const update =
     req.query.update !== undefined ? "Updated item successfully" : null;
   try {
-    const item = await Item.findById(id).populate("owner");
+    const item = await Item.findById(id).populate("owner").populate("category");
     const highestBid = await Bid.find({product: item}).sort({price: -1}).limit(1).populate('bidder');
     let highestBidder = null
     if(highestBid[0]){
@@ -67,8 +67,9 @@ module.exports.listing_get = async function (req, res) {
 module.exports.get_edit_page = async function (req, res) {
   const id = req.params._id;
   const item = await Item.findById(id);
+  const categories = await Category.find();
 
-  res.render("items/edit-item", { item: item, categories: [] });
+  res.render("items/edit-item", { item: item, categories: categories });
 };
 
 module.exports.create_item = async function (req, res) {
@@ -142,17 +143,24 @@ function deletePreviewImages(images) {
 }
 
 module.exports.item_edit = async function (req, res) {
-  const { name, description, date, category, startingBid } = req.body;
-  const id = req.body._id;
+  console.log('body ', req.body);
+  const { description, bidIncrement } = req.body;
 
+  const id = req.body._id;
   const item = await Item.findById(id);
-  item.description = req.body.description;
+
+  item.description = description;
+  item.bidIncrement = bidIncrement;
+  const categoryString = req.body.category;
+  const category = await Category.findOne({name: categoryString});
+  item.category = category;
 
   const images = req.files;
   let image = null;
   let previewImages = [];
   if (Object.values(images)[0] == undefined) {
     console.log("User didnt edit any images");
+    item.save();
   } else {
     if (Object.values(images)[0][0].fieldname === "previewImages") {
       deletePreviewImages(item.previewImages);
