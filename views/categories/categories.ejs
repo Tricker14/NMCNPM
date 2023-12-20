@@ -25,15 +25,18 @@
             <hr>
         </div>
         <div id="categoryContainer" class="row">
-            
+
         </div>
     </div>
 
     <script>
         var categoriesString = '<%- JSON.stringify(categories) %>';
         var categories = JSON.parse(categoriesString);
+
+        var userString = '<%- JSON.stringify(user) %>';
+        var user = JSON.parse(userString);
     </script>
-    <script src="./js/category.js"></script>
+    <script src="/stylesheets/category/category.js"></script>
 
     <!-- Modal -->
     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">

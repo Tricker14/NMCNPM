@@ -9,10 +9,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
         
         const link = document.createElement('a');
-        link.href = '#'; 
+        link.href = `/webid/categories/${category._id}`; 
 
         const image = document.createElement('img');
-        image.src = category.image;
+        console.log('image ', category.image);
+        image.src = `/images/categories-images/${category.image}`;
         image.alt = '';
 
         link.appendChild(image);
@@ -39,9 +40,10 @@ document.addEventListener("DOMContentLoaded", function(){
             container.appendChild(categoryElement);
         });
 
-        
-        const addButton = createAddButton();
-        container.appendChild(addButton);
+        if(user && user.role === 'admin'){
+            const addButton = createAddButton();
+            container.appendChild(addButton);
+        }
     }
 
     function createAddButton() {
