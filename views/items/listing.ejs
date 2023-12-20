@@ -23,7 +23,7 @@
                                 <div class="product-description">
                                     <%= item.description %>
                                 </div>
-                                <div class="price">$19.99</div>
+                                <div class="price">$<%= item.highestBid %></div>
         
                                 <% if(user){ %>
                                     <% if (item.owner._id.equals(user._id))  { %>

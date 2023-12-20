@@ -152,24 +152,32 @@
           </button>
         </div>
         <div class="col-1"></div>
-        <div class="col-3" id="bid-btn">
-          <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
-        </div>
+        <% if(user && user._id.toString() === item.owner._id.toString()){ %>
+          <div class="col-3" id="un-bid-btn">
+            <button id="un-submitButton" type="button"><i class="fa-solid fa-gavel"></i></button>
+          </div>
+        <% }else{ %>
+          <div class="col-3" id="bid-btn">
+            <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
+          </div>
+        <% } %>
 
         <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
           <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
         </form>
       </div>
 
-      <div class="row">
-        <div class="col-3">&nbsp;</div>
-        <div class="col-6">
-          <form action="/webid/items/delete/<%= item._id %>" method="post">
-            <button type="submit" class="btn btn-danger" id="delete-btn">Delete Item</button>
-        </form>
+      <% if(user && user._id.toString() === item.owner._id.toString()){ %>
+        <div class="row">
+          <div class="col-3">&nbsp;</div>
+          <div class="col-6">
+            <form action="/webid/items/delete/<%= item._id %>" method="post">
+              <button type="submit" class="btn btn-danger" id="delete-btn">Delete Item</button>
+          </form>
+          </div>
+          <div class="col-3">&nbsp;</div>
         </div>
-        <div class="col-3">&nbsp;</div>
-      </div>
+      <% } %>
 
     </div>
   </div>
