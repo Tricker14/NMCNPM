@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Lấy các nút trong menu
-    const menuButtons = document.querySelectorAll('.list-group-item button');
+    const menuButtons = document.querySelectorAll('.menu-items li button');
 
     // Lặp qua từng nút để thêm sự kiện click
     menuButtons.forEach(function (button, index) {
@@ -18,14 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.style.display = 'none';
             });
 
-            menuButtons.forEach(function (btn) {
-                btn.classList.remove('active');
-                btn.closest('.list-group-item').classList.remove('active-item'); // Remove 'active-item' class from all list-group-items
-            });
-
-            button.classList.add('active');
-            button.closest('.list-group-item').classList.add('active-item'); // Add 'active-item' class to the parent list-group-item
-
             // Hiển thị nội dung tương ứng
             const displayArea = document.querySelector('.display-area');
             switch (index) {
@@ -34,32 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     displayArea.querySelector('.bid-title').style.display = 'none';
                     displayArea.querySelector('.bid-history-area').style.display = 'none';
                     break;
-
+            
                 case 1: // Bid History
                     document.querySelector('.profile-form').style.display = 'none';
                     displayArea.querySelector('.bid-title').style.display = 'block';
                     displayArea.querySelector('.bid-history-area').style.display = 'flex';
                     break;
-                
-                case 2: // Favorite Items
-                    document.querySelector('.profile-form').style.display = 'none';
-                    displayArea.querySelector('.bid-title').style.display = 'none';
-                    displayArea.querySelector('.bid-history-area').style.display = 'none';
-                    displayArea.querySelector('.favorite-title').style.display = 'block';
-                    displayArea.querySelector('.scrollable-area').style.display = 'flex';
-                    break;
+                // Các trường hợp khác cho các nút khác
             }
         });
-
-        // Set the default state for the "User Profile" button and its parent list-group-item
-        if (index === 0) {
-            button.classList.add('active');
-            button.closest('.list-group-item').classList.add('active-item');
-        }
     });
+
+    // ...
 });
-
-
 
 
 
@@ -70,11 +49,120 @@ function populateDays() {
     daySelect.innerHTML = "";
 
     for (var i = 1; i <= 31; i++) {
-        var option = document.createElement("option");
-        option.value = i;
-        option.text = i;
-        daySelect.add(option);
+        if(i === parseInt(day)){
+            console.log('this is day', day);
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            daySelect.add(option);
+        }
     }
+
+    for (var i = 1; i <= 31; i++) {
+        if(i !== parseInt(day)){
+            console.log('not this day', i);
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            daySelect.add(option);
+        }
+    }
+}
+
+function populateMonths() {
+    var monthSelect = document.getElementById("month");
+
+    monthSelect.innerHTML = "";
+
+    let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    console.log(month);
+    monthNames.forEach(function(monthName){
+        if(monthName === month){
+            var option = document.createElement("option");
+            if(monthName === 'January'){
+                option.value = 1;
+            }
+            if(monthName === 'February'){
+                option.value = 2;
+            }
+            if(monthName === 'March'){
+                option.value = 3;
+            }
+            if(monthName === 'April'){
+                option.value = 1;
+            }
+            if(monthName === 'May'){
+                option.value = 5;
+            }
+            if(monthName === 'June'){
+                option.value = 6;
+            }
+            if(monthName === 'July'){
+                option.value = 7;
+            }
+            if(monthName === 'August'){
+                option.value = 8;
+            }
+            if(monthName === 'September'){
+                option.value = 9;
+            }
+            if(monthName === 'October'){
+                option.value = 10;
+            }
+            if(monthName === 'November'){
+                option.value = 11;
+            }
+            if(monthName === 'December'){
+                option.value = 12;
+            }
+            option.text = monthName;
+            monthSelect.add(option);
+        }
+    })
+
+    monthNames.forEach(function(monthName){
+        if(monthName !== month){
+            var option = document.createElement("option");
+            if(monthName === 'January'){
+                option.value = 1;
+            }
+            if(monthName === 'February'){
+                option.value = 2;
+            }
+            if(monthName === 'March'){
+                option.value = 3;
+            }
+            if(monthName === 'April'){
+                option.value = 1;
+            }
+            if(monthName === 'May'){
+                option.value = 5;
+            }
+            if(monthName === 'June'){
+                option.value = 6;
+            }
+            if(monthName === 'July'){
+                option.value = 7;
+            }
+            if(monthName === 'August'){
+                option.value = 8;
+            }
+            if(monthName === 'September'){
+                option.value = 9;
+            }
+            if(monthName === 'October'){
+                option.value = 10;
+            }
+            if(monthName === 'November'){
+                option.value = 11;
+            }
+            if(monthName === 'December'){
+                option.value = 12;
+            }
+            option.text = monthName;
+            monthSelect.add(option);
+        }
+    })
 }
 
 function populateYears() {
@@ -83,14 +171,26 @@ function populateYears() {
     yearSelect.innerHTML = "";
 
     for (var i = 1930; i <= 2023; i++) {
-        var option = document.createElement("option");
-        option.value = i;
-        option.text = i;
-        yearSelect.add(option);
+        if(i === parseInt(year)){
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            yearSelect.add(option);
+        }
+    }
+
+    for (var i = 1930; i <= 2023; i++) {
+        if(i !== parseInt(year)){
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            yearSelect.add(option);
+        }
     }
 }
 
 populateDays();
+populateMonths();
 populateYears();
 
 
@@ -163,39 +263,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function formattedDate(originalDate){
+    const parsedDate = new Date(originalDate);
 
+    const formattedDate = 
+        parsedDate.getFullYear() +
+        "-" +
+        String(parsedDate.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(parsedDate.getDate()).padStart(2, "0") +
+        " " +
+        String(parsedDate.getHours()).padStart(2, "0") +
+        ":" +
+        String(parsedDate.getMinutes()).padStart(2, "0") +
+        ":" +
+        String(parsedDate.getSeconds()).padStart(2, "0");
+
+    return formattedDate;
+}
+
+function calculateEndTime(originalDate, day, hour, minute, second) {
+    console.log(day, hour, minute, second);
+
+    const startDate = new Date(originalDate);
+    const timeLeft = (day * 24 * 3600) + (hour * 3600) + (minute * 60) + second;
+    const endTime = new Date(startDate.getTime() + timeLeft * 1000);
+
+    const formattedEndTime =
+        endTime.getFullYear() +
+        "-" +
+        String(endTime.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(endTime.getDate()).padStart(2, "0") +
+        " " +
+        String(endTime.getHours()).padStart(2, "0") +
+        ":" +
+        String(endTime.getMinutes()).padStart(2, "0") +
+        ":" +
+        String(endTime.getSeconds()).padStart(2, "0");
+
+    console.log("original ", originalDate);
+    console.log("start ", startDate);
+    console.log("left ", timeLeft);
+    console.log("end ", endTime);
+
+    return formattedEndTime;
+}
+  
 document.addEventListener("DOMContentLoaded", function () {
-    
-    const bids = [
-        {
-            id: 1,
-            name: "Purchase Item A",
-            last_bid: 50.00,
-            last_bid_time: "2023-01-17 12:30:00",
-            timestamp: "2023-01-15 10:30:00",
-            time_to_end_bid: "2023-02-09 19:00:00",
-            status: "Win"
-        },
-        {
-            id: 2,
-            name: "Withdrawal",
-            last_bid: 20.00,
-            last_bid_time: "2023-01-17 12:30:00",
-            timestamp: "2023-01-14 15:45:00",
-            time_to_end_bid: "2024-05-03 16:30",
-            status: "Win"
-        },
-        {
-            id: 3,
-            name: "Item B",
-            last_bid: 30.00,
-            last_bid_time: "2023-01-17 12:30:00",
-            timestamp: "2023-01-14 20:09:30",
-            time_to_end_bid: "2024-01-01 19:00:00",
-            status: "Win"
-        },
-        // Add more transactions as needed
-    ];
+
 
     // Sort transactions by timestamp in descending order
     bids.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -221,22 +337,34 @@ document.addEventListener("DOMContentLoaded", function () {
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            element.querySelector('#days').innerText = `${padZero(days)}d`;
-            element.querySelector('#hours').innerText = `${padZero(hours)}h`;
-            element.querySelector('#minutes').innerText = `${padZero(minutes)}m`;
-            element.querySelector('#seconds').innerText = `${padZero(seconds)}s`;
+            if(seconds < 0){
+                element.querySelector('#days').innerText = '00d';
+                element.querySelector('#hours').innerText = '00h';
+                element.querySelector('#minutes').innerText = '00m';
+                element.querySelector('#seconds').innerText = '00s';
+            }
+            else{
+                element.querySelector('#days').innerText = `${padZero(days)}d`;
+                element.querySelector('#hours').innerText = `${padZero(hours)}h`;
+                element.querySelector('#minutes').innerText = `${padZero(minutes)}m`;
+                element.querySelector('#seconds').innerText = `${padZero(seconds)}s`;
+            }
         }
 
         calculateCountdown();
         setInterval(calculateCountdown, 1000);
     }
 
-    // Populate the transaction list and time axis
-    bids.forEach(bid => {
+    bids.forEach(function (bid) {
+        console.log("bid", bid);
+        
         const listItem = document.createElement("li");
         listItem.classList.add("history-item", "d-flex", "align-items-center", "row");
-    
-        const timestampDate = bid.timestamp.split(" ")[0];
+
+        console.log("date", formattedDate(bid.createdDate));
+        console.log("price", bid.price);
+
+        const timestampDate = formattedDate(bid.createdDate).split(" ")[0];
         if (timestampDate !== currentDate) {
             currentDate = timestampDate;
             // Create a new div for each day with an h4 heading
@@ -251,52 +379,70 @@ document.addEventListener("DOMContentLoaded", function () {
             timelineMarkers += `<div class="timeline-marker" style="left: 0; top: ${calculateMarkerPosition(dayIndex)};"></div>`;
             dayIndex++;
         }
-    
+
         listItem.innerHTML = `
-            
             <div class="information col-5">
-                <h3>${bid.name}</h3>
-                <p>Last bid: $${bid.last_bid.toFixed(2)}</p>
-                <div class="tooltip">Your last bid was on ${bid.last_bid_time}</div>
+                <h3>${bid.product.name}</h3>
+                <p>Last bid: ${bid.price.toFixed(2)}</p>
+                <div class="tooltip">Your last bid was on ${formattedDate(bid.createdDate)}</div>
             </div>
             <div class="countdown-container col-4">
                 <div class="countdown">
                     <i class="bi bi-clock-fill"></i>
                     <div class="countdown-item">
-                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-number" id="days">${bid.product.timeLeft.day}</span>
                     </div>
                     <div class="countdown-item">
-                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-number" id="hours">${bid.product.timeLeft.hour}</span>
                     </div>
                     <div class="countdown-item">
-                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-number" id="minutes">${bid.product.timeLeft.minute}</span>
                     </div>
                     <div class="countdown-item">
-                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-number" id="seconds">${bid.product.timeLeft.second}</span>
                     </div>
                 </div>
             </div>
             <div class="col-3">
+            <a href="/webid/items/${bid.product._id}">
                 <button class="shortcut-button">
                     Go to bid
                 </button>
+            </a>
             </div>
         `;
 
         let isProductActive = false;
     
-        const targetDate = new Date(bid.time_to_end_bid);
+        const timeEnd = calculateEndTime(formattedDate(bid.product.createdDate), 
+        bid.product.countdown.day, 
+        bid.product.countdown.hour, 
+        bid.product.countdown.minute, 
+        bid.product.countdown.second)
+        console.log("create ", formattedDate(bid.product.createdDate));
+        console.log("minute ", bid.product.countdown.minute);
+        console.log("second ", bid.product.countdown.second);
+
+        const targetDate = new Date(timeEnd);
 
         if(targetDate > new Date()){
+            console.log(">");
             isProductActive = true;
             updateCountdown(listItem, targetDate);
         }else {
+            console.log("<");
             const statusContainer = listItem.querySelector('.countdown-container');
 
-            if (bid.status === 'Win') {
-                statusContainer.innerHTML = `<p class="win-status">${bid.status}</p>`;
-            } else {
-                statusContainer.innerHTML = `<p class="lose-status">${bid.status}</p>`;
+            if(bid.product.winner){
+                if(bid.product.winner.toString() === user._id.toString()){
+                    statusContainer.innerHTML = `<p class="win-status">Win</p>`;
+                }
+                else{
+                    statusContainer.innerHTML = `<p class="lose-status">Lose</p>`;
+                }
+            }
+            else{
+                console.log("we fucked");
             }
         }
 
@@ -309,11 +455,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // Replace the URL with the desired destination
             window.location.href = "your_destination_url";
         });
-    
+
         historyList.appendChild(listItem);
     });
     
-
     // Add markers to the time axis
     timeAxis.innerHTML = timelineMarkers;
 });
@@ -347,100 +492,4 @@ function calculateMarkerPosition(dayIndex) {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const productsData = [
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 1",
-        productDescription: "Description for Product 1",
-        price: "$19.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 2",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 3",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 4",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 5",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 6",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      },
-      {
-        imageSrc: "./image/dog.jpg",
-        productName: "Product 7",
-        productDescription: "Description for Product 2",
-        price: "$29.99",
-      }
-      // Thêm dữ liệu cho các sản phẩm khác nếu cần
-    ];
 
-    function createProductCard(product) {
-      const card = document.createElement("div");
-      card.classList.add("col-4", "card-product");
-
-      card.innerHTML = `
-        <a href="your-product-page.html">
-          <img src="${product.imageSrc}" alt="Product Image">
-        </a>
-        <div class="card-content">
-          <a href="your-product-page.html" class="product-name">${product.productName}</a>
-          <div class="product-description">${product.productDescription}</div>
-          <div class="price">${product.price}</div>
-          <div class="add-to-cart">
-            <button class="heart-icon clicked">&#10084;</button>
-            <button class="go-to-bid-btn">Go to bid</button>
-          </div>
-        </div>
-      `;
-
-      return card;
-    }
-
-    function renderProductCards() {
-      const container = document.getElementById("product-container");
-
-      productsData.forEach((product) => {
-        const productCard = createProductCard(product);
-        container.appendChild(productCard);
-      });
-    }
-
-    renderProductCards();
-
-
-    // Function to remove a product card
-    function removeProductCard(card) {
-        card.remove();
-    }
-
-    // Event listener for heart icon button click
-    document.getElementById("product-container").addEventListener("click", function (event) {
-        const heartIcon = event.target.closest(".heart-icon.clicked");
-        if (heartIcon) {
-            const productCard = heartIcon.closest(".card-product");
-            if (productCard) {
-                removeProductCard(productCard);
-            }
-        }
-    });
-  });

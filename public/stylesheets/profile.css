@@ -1,0 +1,7 @@
+#header{
+    font-size: 2rem;
+}
+
+#username, #name, #email, #role, #phone, #gender, #birthday, #image, #save{
+    font-size: 1.5rem;
+}
