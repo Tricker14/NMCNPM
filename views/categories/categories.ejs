@@ -1,22 +1,42 @@
 <%- include('../partials/header'); -%>
 
-<h2>Category Page</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+      rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/category/category.css">
+    <title>Category</title>
+</head>
 
-<% if(categories && categories.length > 0){ %>
-    <% categories.forEach(function(category){ %>
-        <a href="/webid/categories/<%= category._id %>">
-            <img src="<%= '/images/categories-images/' + category.image %>" alt="img" style="height: 50px">
-            <h4><%= category.name %></h4>
-        </a>
-    <% }) %>    
-<% }else{ %>
-    <h4>No category</h4>
-<% } %>
+<body>
+    <div class="container">
+        <div class="row title">
+            <h1>Category</h1>
+            <hr>
+        </div>
+        <div id="categoryContainer" class="row">
 
-<% if(user && user.role === 'admin'){ %>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
-        +
-    </button>
+        </div>
+    </div>
+
+    <script>
+        var categoriesString = '<%- JSON.stringify(categories) %>';
+        var categories = JSON.parse(categoriesString);
+
+        var userString = '<%- JSON.stringify(user) %>';
+        var user = JSON.parse(userString);
+    </script>
+    <script src="/stylesheets/category/category.js"></script>
 
     <!-- Modal -->
     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
@@ -43,6 +63,7 @@
             </div>
         </div>
     </div>
-<% } %>
+  
+</body>
 
 <%- include('../partials/footer'); -%>
