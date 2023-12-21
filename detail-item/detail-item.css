@@ -13,7 +13,8 @@ body,
 html {
   font-size: 1rem !important;
   font-family: arial, sans-serif !important;
-  font-family: consolas, "Courier New" !important;
+  /* font-family: consolas, "Courier New" !important; */
+  font-family: "Roboto Black" !important;
   background-color: var(--background) !important;
 }
 
@@ -196,7 +197,7 @@ align-items: center;
 #quantity-input input {
 width: 40px;
 text-align: center;
-font-size: 20px;
+font-size: 16px;
 padding: 8px;
 border: 1px solid #ccc;
 

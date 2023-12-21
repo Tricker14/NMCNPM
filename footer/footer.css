@@ -1,0 +1,33 @@
+
+.container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.logo img {
+    height: 10rem;
+    width: 11rem;
+}
+
+.footer {
+    background-color: hsl(33, 100%, 88%);
+    display: flex;
+    padding: 30px;
+}
+
+.information strong {
+    padding-left: 30px;
+}
+
+.information i {
+    font-size: 50px;
+}
+
+
+.icon {
+    display: flex;
+}
+
+.about .icon i {
+    font-size: 50px;
+}
