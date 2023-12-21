@@ -8,23 +8,28 @@ const { unlinkSync } = require("node:fs");
 const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
 
 function isFavorite(user, item){
-  if(user.favorites.length == 0){
-    return false;
-  }
-  else{
-    let count = 0;
-    user.favorites.forEach(favorite=>{
-      if(favorite.equals(item._id)){
-        count = 1;
-      }
-    })
-    if(count === 0){
-      return false
+  if(user != null){
+    if(user.favorites.length == 0){
+      return false;
     }
     else{
-      return true;
+      let count = 0;
+      user.favorites.forEach(favorite=>{
+        if(favorite.equals(item._id)){
+          count = 1;
+        }
+      })
+      if(count === 0){
+        return false
+      }
+      else{
+        return true;
+      }
     }
+  }else{
+    return false;
   }
+  
 }
 
 module.exports.item_get = async function (req, res) {
@@ -62,7 +67,7 @@ module.exports.item_get = async function (req, res) {
     theItem.isFavorite = isFavorite(res.locals.user, item)
     console.log(theItem.isFavorite)
 
-    if (res.locals.user.username === theItem.owner.username) {
+    if (res.locals.user != null && res.locals.user.username === theItem.owner.username) {
       theItem.isOwned = true;
     } else {
       theItem.isOwned = false;
@@ -97,7 +102,7 @@ module.exports.listing_get = async function (req, res) {
   const items = await Item.find({ isListing: true }).populate("owner");
   await items.forEach(async function (item) {
     tempItem = item.toObject();
-    if (res.locals.user.username === item.owner.username) {
+    if (res.locals.user != null && res.locals.user.username === item.owner.username) {
       tempItem.isOwned = true;
     } else {
       tempItem.isOwned = false;
