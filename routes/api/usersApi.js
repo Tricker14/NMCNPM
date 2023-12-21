@@ -12,4 +12,8 @@ router.post('/profile/:_id',
   uploadUser.single('image'),
   userApiController.profile);
 
+router.get("/users/addFavorite/:itemId", userApiController.addToFavorite)
+router.get("/users/removeFavorite/:itemId", userApiController.removeFromFavorite)
+
+
 module.exports = router;
