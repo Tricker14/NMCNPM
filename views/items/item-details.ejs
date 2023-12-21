@@ -146,6 +146,7 @@
         </div>
       </div>
       <% if(user != null && item.isOwned === false) { %>
+
       <div class="row" id="btn-area-add">
         <div class="col-6" id="add-to-fav">
           <button id="favorite-btn">
@@ -153,11 +154,12 @@
             ADD TO FAVOR LIST
           </button>
         </div>
-
+        <div class="col-1"></div>
         <div class="col-3" id="bid-btn">
           <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
         </div>
       </div>
+
       <div class="row" id="btn-area-remove">
         <div class="col-6" id="add-to-fav">
           <button id="unfavorite-btn">
@@ -167,7 +169,7 @@
         </div>
         <div class="col-1"></div>
         <div class="col-3" id="bid-btn">
-          <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
+          <button id="submitButton2" type="submit"><i class="fa-solid fa-gavel"></i></button>
         </div>
       </div>
 
@@ -340,6 +342,11 @@
       document.getElementById('submitButton').addEventListener('click', function () {
         document.getElementById('bidForm').submit();
       });
+
+      document.getElementById('submitButton2').addEventListener('click', function () {
+        document.getElementById('bidForm').submit();
+      });
+
 
       document.getElementById('prevButton').addEventListener('click', function () {
         plusSlides(-1);
