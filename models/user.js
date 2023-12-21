@@ -55,13 +55,21 @@ const userSchema = new mongoose.Schema({
       ref: "item",
     },
   ],
+  persisted: {
+    type: Number,
+    default: 0,
+  }
 });
 
 // fire a function before doc save to db
 userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  console.log(this.persisted)
+    if(this.persisted === 0) {
+      this.persised = 1
+      const salt = await bcrypt.genSalt();
+      this.password = await bcrypt.hash(this.password, salt);
+      next();
+    }
 });
 
 // static method to login user
