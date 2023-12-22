@@ -16,7 +16,7 @@
 
 
   <nav class="navbar navbar-expand justify-content-between position-relative large-screen" id="header-nav">
-    <div class="d-flex align-items-center">
+    <div style="width: 10vw;" class="d-flex align-items-center">
       <a class="navbar-brand " aria-current="page" href="/webid/home">
         <img src="/images/brands-logos/brand.png" id="brandImg" />
       </a>
@@ -34,11 +34,11 @@
         <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/categories">Categories</a>
       </li>
       <li>
-        <a style="margin-right: 22rem;" class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
+        <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
       </li>
     </ul>
 
-    <div id="userAvatarField" class="position-absolute d-flex justify-content-around dropdown">
+    <div id="userAvatarField" style="width: 10vw" class=" d-flex justify-content-around dropdown">
       </button>
       <% if(user){ %>
       <div class="d-flex align-items-center">
@@ -123,18 +123,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-  <script>
-    $(document).ready(function () {
-      // Add slideDown animation to Bootstrap dropdown when expanding.
-      $('.dropdown').on('show.bs.dropdown', function () {
-        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
-      });
-
-      // Add slideUp animation to Bootstrap dropdown when collapsing.
-      $('.dropdown').on('hide.bs.dropdown', function () {
-        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-      });
-    })
-
-  </script>
 </body>
