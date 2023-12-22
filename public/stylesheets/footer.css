@@ -1,0 +1,35 @@
+.container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.logo img {
+    height: 10rem;
+    width: 11rem;
+}
+
+.footer {
+    background-color: hsl(33, 100%, 88%);
+    display: flex;
+    padding: 3rem;
+}
+
+.information strong {
+    padding-left: 3rem;
+    font-size: 1.5rem;
+}
+
+.information i {
+    margin-top: 1rem;
+    font-size: 3rem;
+}
+
+
+.icon {
+    display: flex;
+}
+
+.about .icon i {
+    font-size: 5rem;
+}
+
