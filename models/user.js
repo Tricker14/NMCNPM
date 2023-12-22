@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function (next) {
   console.log(this.persisted)
     if(this.persisted === 0) {
-      this.persised = 1
+      this.persisted = 1
       const salt = await bcrypt.genSalt();
       this.password = await bcrypt.hash(this.password, salt);
       next();
