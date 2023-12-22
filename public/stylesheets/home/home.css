@@ -5,16 +5,19 @@
 }
 
 :root {
-  --header-background: #fff;
   --bold-background: #cb997e;
-  --background: #ECEFF7;
-  --light-red: rgb(231, 54, 54);
+  --background: #F5F5F5;
 }
 
 body,
 html {
   font-size: 10px !important;
-  /* font-family: arial, sans-serif !important; */
-  font-family: "Roboto Black" !important;
+  font-family: arial, sans-serif !important;
+  font-family: 'Roboto Black' !important;
   background-color: var(--background) !important;
+}
+
+
+.banner {
+  background-color: #ffe4c4;
 }
