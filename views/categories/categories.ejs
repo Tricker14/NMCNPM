@@ -14,15 +14,13 @@
 
 <body>
     <%- include('../partials/header'); -%>
-    <div class="container">
-        <div class="row title">
-            <h1>Category</h1>
-            <hr>
+        <div class="row title mb-3" style="border-bottom: 1px solid black;">
+            <h1 style="font-size: 4rem; margin-left: 6rem;">Categories</h1>
+            
         </div>
         <div id="categoryContainer" class="row">
 
         </div>
-    </div>
 
     <script>
         var categoriesString = '<%- JSON.stringify(categories) %>';

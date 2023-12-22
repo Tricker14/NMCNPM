@@ -1,28 +1,3 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-:root {
-  --bold-background: #cb997e;
-  --background: #F5F5F5;
-}
-
-@font-face {
-    font-family: 'Brixton';
-    src: url('path/to/Brixton.woff2') format('woff2'),
-         url('path/to/Brixton.woff') format('woff');
-  }
-
-  body,
-  html {
-    font-size: 1rem !important;
-    font-family: arial, sans-serif !important;
-    font-family: 'Brixton' !important;
-    background-color: var(--background) !important;
-  }
-
   .avatar-frame {
     position: relative;
     width: 10rem;
@@ -38,4 +13,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.title {
+  background-color: #ffe4c4;
 }
