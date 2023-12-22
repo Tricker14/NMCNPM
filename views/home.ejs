@@ -1,9 +1,17 @@
 <%- include('./partials/header'); -%>
 
-<header>
-  <div class="headings">
-    <h2>Home Page</h2>
+<div class="headings">
+  <h2>Home Page</h2>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <form action="/webid/home/items">
+        <input type="text" class="form-control" placeholder="Search Item" name="name">
+      </form>
+    </div>
   </div>
-</header>
+</div>
 
 <%- include('./partials/footer'); -%>
