@@ -50,7 +50,7 @@
           <% if(user.image){ %>
           <img src="<%= '/images/users-images/' + user.image %>" alt="Profile" style="width: 5rem;">
           <% }else{ %>
-          <img src="/images/brands-logos/brand.png" alt="Anonymous" style="width: 5rem;">
+          <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
           <% } %>
         </a>
       </div>
@@ -63,7 +63,7 @@
       <% }else{ %>
       <div class="d-flex align-items-center">
         <a href="/webid/signup %>">
-          <img src="/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
+          <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
         </a>
       </div>
       <span id="greetings" class="align-self-center">Hi, Anonymous</span>
