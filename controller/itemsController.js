@@ -97,9 +97,19 @@ module.exports.item_create_page = async function (req, res) {
 };
 
 module.exports.listing_get = async function (req, res) {
+  let perPage = 3;
+  let page = req.params.page || 1;
 
   const theItems = []
-  const items = await Item.find({ isListing: true }).populate("owner");
+  const items = await Item
+    .find({ isListing: true }).populate("owner")
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .exec();
+
+  // Count total number of items
+  const count = await Item.countDocuments({ isListing: true });
+
   await items.forEach(async function (item) {
     tempItem = item.toObject();
     if (res.locals.user != null && res.locals.user.username === item.owner.username) {
@@ -116,6 +126,8 @@ module.exports.listing_get = async function (req, res) {
     items: theItems,
     user: res.locals.user,
     message: message,
+    current: page,
+    pages: Math.ceil(count / perPage),  
   });
 };
 
