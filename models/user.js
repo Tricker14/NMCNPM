@@ -38,12 +38,15 @@ const userSchema = new mongoose.Schema({
   birthday: {
     day: {
       type: Number,
+      default: null
     },
     month: {
       type: Number,
+      default: null
     },
     year: {
       type: Number,
+      default: null
     },
   },
   image: {

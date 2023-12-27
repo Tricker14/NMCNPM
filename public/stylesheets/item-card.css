@@ -19,7 +19,7 @@ body {
   border-radius: 0.8rem;
   overflow: hidden;
   width: 100%;
-  height: 25rem;
+  height: 27rem;
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
   margin: 1rem;
 }
@@ -85,8 +85,8 @@ body {
 .heart-icon {
   cursor: pointer;
   font-size: 1.8rem;
-  transition: color 0.3s;
-  color: white;
+  transition: color 0.1s;
+  color: grey;
   background-color: transparent;
   border: none;
   outline: none;
@@ -98,7 +98,7 @@ body {
 .red-heart-icon {
   cursor: pointer;
   font-size: 1.8rem;
-  transition: color 0.3s;
+  transition: color 0.1s;
   color: red;
   background-color: transparent;
   border: none;

@@ -29,14 +29,14 @@
         var userString = '<%- JSON.stringify(user) %>';
         var user = JSON.parse(userString);
     </script>
-    <script src="/stylesheets/category/category.js"></script>
+    <script src="/js/category/category.js"></script>
 
     <!-- Modal -->
-    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true" style="font-size: 1.5rem;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+                    <h4 class="modal-title" id="addCategoryModalLabel">Add Category</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -44,13 +44,13 @@
                     <form action="/api/webid/categories" method="post" enctype="multipart/form-data" id="addCategoryForm">
                         <div class="form-group">
                             <label for="name">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" name="name" style="font-size: 1.5rem;" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="image">Image URL:</label>
-                            <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg" required>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg" style="font-size: 1.5rem;" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary" style="font-size: 1.5rem;">Save</button>
                     </form>
                 </div>
             </div>

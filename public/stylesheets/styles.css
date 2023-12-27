@@ -14,7 +14,7 @@
 body,
 html {
   font-size: 10px !important;
-  /* font-family: arial, sans-serif !important; */
+  font-family: arial, sans-serif !important;
   font-family: "Roboto Black" !important;
   background-color: var(--background) !important;
 }

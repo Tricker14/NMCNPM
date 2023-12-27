@@ -57,7 +57,8 @@ module.exports.profile = async function(req, res){
       const updatedAttribute = { name, phone, gender, birthday, image };
   
       const userUpdate = await User.findByIdAndUpdate(id, updatedAttribute, {new: true});
-      res.status(200).json({ userUpdate });
+      // res.status(200).json({ userUpdate });
+      res.redirect(`/webid/profile/${id}`);
     }
     catch(err){
       console.log(err);
