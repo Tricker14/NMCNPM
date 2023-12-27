@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
 const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
+const { isInt16Array } = require("node:util/types");
 
 function isFavorite(user, item){
   if(user != null){
@@ -90,45 +91,50 @@ module.exports.item_get = async function (req, res) {
 };
 
 module.exports.item_create_page = async function (req, res) {
-  console.log('access this shit');
   const categories = await Category.find();
   res.render("items/create", {
     categories: categories,
   });
 };
 
-module.exports.listing_get = async function (req, res) {
-  let perPage = 3;
-  let page = req.params.page || 1;
+module.exports.listing_get = async function (req, res, next) {
+  let perPage = 1;
+  let page = 1;
+  if(!isNaN(req.params.page)){
+    page = req.params.page || 1;
 
-  const theItems = []
-  const items = await Item
-    .find({ isListing: true }).populate("owner")
-    .skip((perPage * page) - perPage)
-    .limit(perPage)
-
-  // Count total number of items
-  const count = await Item.countDocuments({ isListing: true });
-
-  await items.forEach(async function (item) {
-    tempItem = item.toObject();
-    if (res.locals.user != null && res.locals.user.username === item.owner.username) {
-      tempItem.isOwned = true;
-    } else {
-      tempItem.isOwned = false;
-      tempItem.isFavorite = isFavorite(res.locals.user, item)
-    }
-    theItems.push(tempItem)
-  });
-  const message =
-    req.query.delete != undefined ? "Deleted item successfully" : null;
-  res.render("items/listing", {
-    items: theItems,
-    user: res.locals.user,
-    message: message,
-    current: page,
-    pages: Math.ceil(count / perPage),  
-  });
+    const theItems = []
+    const items = await Item
+      .find({ isListing: true }).populate("owner")
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+  
+    // Count total number of items
+    const count = await Item.countDocuments({ isListing: true });
+  
+    await items.forEach(async function (item) {
+      tempItem = item.toObject();
+      if (res.locals.user != null && res.locals.user.username === item.owner.username) {
+        tempItem.isOwned = true;
+      } else {
+        tempItem.isOwned = false;
+        tempItem.isFavorite = isFavorite(res.locals.user, item)
+      }
+      theItems.push(tempItem)
+    });
+    const message =
+      req.query.delete != undefined ? "Deleted item successfully" : null;
+    res.render("items/listing", {
+      items: theItems,
+      user: res.locals.user,
+      message: message,
+      current: parseInt(page),
+      pages: Math.ceil(count / perPage),  
+    });
+  }
+  else{
+    next();
+  }
 };
 
 module.exports.get_edit_page = async function (req, res) {
