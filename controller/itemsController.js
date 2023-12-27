@@ -90,6 +90,7 @@ module.exports.item_get = async function (req, res) {
 };
 
 module.exports.item_create_page = async function (req, res) {
+  console.log('access this shit');
   const categories = await Category.find();
   res.render("items/create", {
     categories: categories,
@@ -105,7 +106,6 @@ module.exports.listing_get = async function (req, res) {
     .find({ isListing: true }).populate("owner")
     .skip((perPage * page) - perPage)
     .limit(perPage)
-    .exec();
 
   // Count total number of items
   const count = await Item.countDocuments({ isListing: true });
