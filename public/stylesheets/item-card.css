@@ -45,6 +45,7 @@ body {
   box-sizing: border-box;
   height: 100%;
   position: relative;
+  padding: 5px;
 }
 
 .product-name {
@@ -92,7 +93,6 @@ body {
   outline: none;
   position: absolute;
   bottom: 1rem;
-  left: 1rem;
 }
 
 .red-heart-icon {
@@ -105,7 +105,6 @@ body {
   outline: none;
   position: absolute;
   bottom: 1rem;
-  left: 1rem;
 }
 
 .add-to-cart-btn {
