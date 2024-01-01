@@ -13,7 +13,7 @@ body,
 html {
   font-size: 10px !important;
   font-family: arial, sans-serif !important;
-  font-family: consolas, "Courier New" !important;
+  font-family: "Roboto Black" !important;
   background-color: var(--background) !important;
 }
 
@@ -30,7 +30,7 @@ body {
 
 
 .main {
-  background: url(/auth-image/main-bg.jpg);
+  background: url(/images/auth-image/main-bg.jpg);
 }
 
 .main .right-side-bg img {
@@ -48,7 +48,7 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(0rem);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  font-family: "Lobster Regular";
+  font-family: "Roboto Black" !important;
   background-color: #e6ccb2;
 }
 
@@ -275,7 +275,7 @@ body {
   
   .header p {
     font-size: 5rem !important ;
-    font-family: "Lobster Regular" !important;
+    font-family: "Roboto Black" !important;
     margin-right: 15rem;
   }
 

@@ -5,9 +5,9 @@
 }
 
 :root {
-  --header-background: #ffe4c4;
+  --header-background: #fff;
   --bold-background: #cb997e;
-  --background: #e6ccb2;
+  --background: #ECEFF7;
   --light-red: rgb(231, 54, 54);
 }
 
@@ -15,6 +15,6 @@ body,
 html {
   font-size: 10px !important;
   font-family: arial, sans-serif !important;
-  font-family: consolas, "Courier New" !important;
+  font-family: "Roboto Black" !important;
   background-color: var(--background) !important;
 }

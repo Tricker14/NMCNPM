@@ -1,3 +1,23 @@
-.siu {
-    font-size: 2rem;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bold-background: #cb997e;
+  --background: #F5F5F5;
+}
+
+body,
+html {
+  font-size: 10px !important;
+  font-family: arial, sans-serif !important;
+  font-family: 'Roboto Black' !important;
+  background-color: var(--background) !important;
+}
+
+
+.banner {
+  background-color: #ffe4c4;
 }

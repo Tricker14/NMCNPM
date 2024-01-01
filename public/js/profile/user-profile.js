@@ -64,11 +64,26 @@ function populateDays() {
 
     daySelect.innerHTML = "";
 
-    for (var i = 1; i <= 31; i++) {
+    if(day){
         var option = document.createElement("option");
-        option.value = i;
-        option.text = i;
+        option.value = day;
+        option.text = day;
         daySelect.add(option);
+    } 
+    else{
+        var option = document.createElement("option");
+        option.value = null;
+        option.text = '';
+        daySelect.add(option);
+    }
+
+    for (var i = 1; i <= 31; i++) {
+        if(i !== day){
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            daySelect.add(option);
+        }
     }
 }
 
@@ -76,6 +91,13 @@ function populateMonths() {
     var monthSelect = document.getElementById("month");
 
     monthSelect.innerHTML = "";
+
+    if(!month){
+        var option = document.createElement("option");
+        option.value = null;
+        option.text = '';
+        monthSelect.add(option);
+    } 
 
     let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     console.log(month);
@@ -173,11 +195,26 @@ function populateYears() {
 
     yearSelect.innerHTML = "";
 
-    for (var i = 1930; i <= 2023; i++) {
+    if(year){
         var option = document.createElement("option");
-        option.value = i;
-        option.text = i;
+        option.value = year;
+        option.text = year;
         yearSelect.add(option);
+    } 
+    else{
+        var option = document.createElement("option");
+        option.value = null;
+        option.text = '';
+        yearSelect.add(option);
+    }
+
+    for (var i = 1930; i <= 2023; i++) {
+        if(i !== year){
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            yearSelect.add(option);
+        }
     }
 }
 
@@ -482,5 +519,3 @@ function calculateMarkerPosition(dayIndex) {
     const percentage = (totalItems / historyList.offsetHeight) * 100;
     return `${percentage}%`;
 }
-
-

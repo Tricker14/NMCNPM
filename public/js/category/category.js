@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         const nameCategory = document.createElement('div');
         nameCategory.classList.add('nameCategory');
-        nameCategory.innerHTML = `<p><strong>${category.name}</strong></p>`;
+        nameCategory.innerHTML = `<p><strong style="font-size: 2rem;">${category.name}</strong></p>`;
 
         avatarFrame.appendChild(link); 
         colDiv.appendChild(avatarFrame);
