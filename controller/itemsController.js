@@ -46,7 +46,8 @@ module.exports.item_get = async function (req, res) {
       .limit(1)
       .populate("bidder");
     let highestBidder = null;
-    if(highestBid[0]){
+    console.log('highest bid', highestBid);
+    if(highestBid.length > 0){
       highestBidder = highestBid[0].bidder;
     }
 
@@ -56,7 +57,8 @@ module.exports.item_get = async function (req, res) {
       .populate("bidder");
     let bidder = null;
     let price = 0;
-    if (bid[0]) {
+    console.log('bid', bid);
+    if (bid.length > 0) {
       bidder = bid[0].bidder;
       price = bid[0].price;
     }
@@ -73,6 +75,15 @@ module.exports.item_get = async function (req, res) {
       theItem.isOwned = false;
     }
 
+    let highestBidCurrentUser = null;
+    if(bid.length > 0){
+      highestBidCurrentUser = await Bid.find({product: item, bidder: bid[0].bidder})
+        .sort({ price: -1 })
+        .limit(1);
+      console.log('current', highestBidCurrentUser);
+      // console.log('bidder', bidder)
+    }
+
     res.render("items/item-details", {
       item: theItem,
       highestBidder: highestBidder,
@@ -80,6 +91,7 @@ module.exports.item_get = async function (req, res) {
       price: price,
       createMessage: create,
       updateMessage: update,
+      bid: highestBidCurrentUser !== null ? highestBidCurrentUser[0] : null
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"

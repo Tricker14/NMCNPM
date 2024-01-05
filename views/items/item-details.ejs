@@ -131,9 +131,19 @@
         <div class="col-5">
           Your Bid
         </div>
-        <div class="col-7" id="your-bid">
+        <div class="col-3" id="your-bid">
           <i class="fa-solid fa-dollar-sign"><%= price %></i>
         </div>
+
+        <% if(bid){ %>
+          <div class="col-4" id="your-bid">
+            <form action="/api/webid/bids/delete/<%= bid._id %>" method="post">
+              <label for="remove">REMOVE YOUR LATEST BID</label>
+              <input type="submit" name="remove">
+            </form>
+          </div>
+        <% } %>
+
       </div>
       <div class="row">
         <div class="col-5">
@@ -145,7 +155,7 @@
           <button id="increment" type="button">+</button>
         </div>
       </div>
-      <% if(user != null && item.isOwned === false) { %>
+    <% if(user != null && item.isOwned === false) { %>
 
       <div class="row" id="btn-area-add">
         <div class="col-6" id="add-to-fav">
