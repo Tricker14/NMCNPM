@@ -38,6 +38,8 @@ module.exports.item_get = async function (req, res) {
     req.query.create !== undefined ? "Created item successfully" : null;
   const update =
     req.query.update !== undefined ? "Updated item successfully" : null;
+  const bidFail = 
+    req.query.bid !== undefined ? "Your bid must higher than the starting bid" : null;
   try {
     const item = await Item.findById(id).populate("owner").populate("category");
     
@@ -80,6 +82,7 @@ module.exports.item_get = async function (req, res) {
       price: price,
       createMessage: create,
       updateMessage: update,
+      bidMessage: bidFail,
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
@@ -112,10 +115,18 @@ module.exports.listing_get = async function (req, res) {
   });
   const message =
     req.query.delete != undefined ? "Deleted item successfully" : null;
+
+  let count = 0;
+  items.forEach(function (item){
+    if(item.isListing === true){
+      count++;
+    }
+  });
   res.render("items/listing", {
     items: theItems,
     user: res.locals.user,
     message: message,
+    count: count,
   });
 };
 

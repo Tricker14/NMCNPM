@@ -23,9 +23,17 @@ module.exports.category_get = async function (req, res) {
   console.log('items ', items);
   const message =
   req.query.delete != undefined ? "Deleted item successfully" : null;
+
+  let count = 0;
+  items.forEach(function (item){
+    if(item.isListing === true){
+      count++;
+    }
+  });
   res.render('items/listing', {
     items: items,
     user: res.locals.user,
     message: message,
+    count: count,
   });
 };

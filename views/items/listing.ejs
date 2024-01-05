@@ -9,51 +9,53 @@
 
 <div class="container ">
     <% if (items && items.length > 0) { %>
-    <div class="row justify-content-center ">
-        <% items.forEach(function(item) { %>
-        <% if(item.isListing === true){ %>
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 d-flex justify-content-center">
-            <a href="/webid/items/<%= item._id %>">
-                <div class="item-card">
-                    <a class="item-image" href="/webid/items/<%= item._id %>">
-                        <img src="/images/items-images/<%= item.image %>" alt="Product Image" style="height: 15rem;">
-                    </a>
-                    <div class="card-content">
-                        <a href="/webid/items/<%= item._id %>" class="product-name"><%= item.name %></a>
-                        <div class="product-description">
-                            <%= item.description %>
-                        </div>
-                        <div class="price">$<%= item.highestBid %></div>
-
-                        <% if(user){ %>
-                        <% if (item.owner._id.equals(user._id))  { %>
-                        <div class="add-to-cart">
-                            <a href="/webid/items/edit/<%= item._id %>">
-                                <button class="add-to-cart-btn">Edit</button>
+        <div class="row justify-content-center ">
+            <% if(count === 0){ %>
+                <div style="font-size: 1.6rem; margin-top: 20vh; margin-bottom: 20vh" class="alert alert-warning " role="alert">No items available</div>
+            <% }else{ %>
+                <% items.forEach(function(item) { %>
+                    <% if(item.isListing === true){ %>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 d-flex justify-content-center">
+                            <a href="/webid/items/<%= item._id %>">
+                                <div class="item-card">
+                                    <a class="item-image" href="/webid/items/<%= item._id %>">
+                                        <img src="/images/items-images/<%= item.image %>" alt="Product Image" style="height: 15rem;">
+                                    </a>
+                                    <div class="card-content">
+                                        <a href="/webid/items/<%= item._id %>" class="product-name"><%= item.name %></a>
+                                        <div class="product-description">
+                                            <%= item.description %>
+                                        </div>
+                                        <div class="price">$<%= item.highestBid %></div>
+    
+                                        <% if(user){ %>
+                                            <% if (item.owner._id.equals(user._id))  { %>
+                                            <div class="add-to-cart">
+                                                <a href="/webid/items/edit/<%= item._id %>">
+                                                    <button class="add-to-cart-btn">Edit</button>
+                                                </a>
+                                            </div>
+                                            <% } else { %>
+                                            <div class="add-to-cart">
+                                                <% if(item.isFavorite){ %>
+                                                <button id='<%-item._id %>' onclick="heart('<%-item._id %>')" class="red-heart-icon">&#10084;</button>
+                                                <% } else { %>
+                                                <button id='<%-item._id %>' onclick="heart('<%-item._id %>')" class="heart-icon">&#10084;</button>
+                                                <% } %>
+                                                <button class="add-to-cart-btn">Add to Cart</button>
+                                            </div>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                </div>
                             </a>
                         </div>
-                        <% } else { %>
-                        <div class="add-to-cart">
-                            <% if(item.isFavorite){ %>
-                            <button id='<%-item._id %>' onclick="heart('<%-item._id %>')" class="red-heart-icon">&#10084;</button>
-                            <% } else { %>
-                            <button id='<%-item._id %>' onclick="heart('<%-item._id %>')" class="heart-icon">&#10084;</button>
-                            <% } %>
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                        </div>
-                        <% } %>
-                        <% } %>
-                    </div>
-                </div>
-            </a>
+                    <% } %>
+                <% }); %>
+            <% } %>
         </div>
-        <% }else{ %>
-        <div style="font-size: 1.6rem; margin-top: 30vh" class="alert alert-warning " role="alert">No items available</div>
-        <% } %>
-        <% }); %>
-    </div>
     <% } else { %>
-    <div style="font-size: 1.6rem; margin-top: 30vh" class="alert alert-warning " role="alert">No items available</div>
+    <div style="font-size: 1.6rem; margin-top: 20vh; margin-bottom: 20vh" class="alert alert-warning " role="alert">No items available</div>
     <% } %>
 </div>
 

@@ -18,7 +18,8 @@ module.exports.bid_post = async function(req, res){
             res.redirect(`/webid/items/${product._id}`);
         }
         else{
-            res.status(400).json(`You must bid higher than ${product.highestBid}`);
+            res.redirect(`/webid/items/${product._id}?bid=fail`);
+            // res.status(400).json(`You must bid higher than ${product.highestBid}`);
         }
     }
     catch(err){
