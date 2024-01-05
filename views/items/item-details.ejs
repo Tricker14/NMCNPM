@@ -1,369 +1,319 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/stylesheets/item/item_detail.css">
-  <link rel="stylesheet" href="/stylesheets/header.css">
-  <link rel="stylesheet" href="/stylesheets/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/item/item_detail.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  
+  </head>
 
-</head>
+  <body>
+    <%- include('../partials/headerNavOnly'); -%>
 
-<body>
-  <%- include('../partials/headerNavOnly'); -%>
-
-  <% if(createMessage != null) { %>
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <%= createMessage %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  <% } %>
-  <% if(updateMessage != null) { %>
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
-    <%= updateMessage %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  <% } %>
-
-  <div class="wrapper">
-
-    <div class="container">
-      <div class="mySlides text-center ">
-        <div class="numbertext">1 / <%= item.previewImages.length + 1 %></div>
-        <img src="<%= '/images/items-images/' + item.image %>" style="height:50vh">
-      </div>
-
-      <% for(var i=0; i< item.previewImages.length; i++) {%>
-      <div class="mySlides text-center">
-        <div class="numbertext"> <%= i+2 %> / <%= item.previewImages.length + 1 %></div>
-        <img src="<%= '/images/items-images/' + item.previewImages[i] %>" style="height:50vh">
-      </div>
-      <% } %>
-
-      <a class="prev" id="prevButton">❮</a>
-      <a class="next" id="nextButton">❯</a>
-
-      <div class="caption-container">
-        <p id="caption"></p>
-      </div>
-
-      <div class="row1">
-        <div class="column">
-          <img class="demo cursor" src="<%= '/images/items-images/' + item.image %>" style="width:100%" onclick="currentSlide(1)" alt="The Woods" id="img<%= 1 %>">
-        </div>
-        <% for(var i=0; i< item.previewImages.length; i++) {%>
-        <div class="column">
-          <img class="demo cursor" src="<%= '/images/items-images/' + item.previewImages[i] %>" style="width:100%" onclick="currentSlide('<%= i + 2 %>')" alt="The Woods" id="img<%= i + 2 %>">
-        </div>
-        <% } %>
-      </div>
-    </div>
-    <div class="product-area">
-      <div class="row">
-        <div class="col" id="product-name-area">
-          <% if(item.category){ %>
-            <span id="category-tag"><%= item.category.name %></span>
-          <% }else{ %>
-            <span id="category-tag">no category</span>
-          <% } %>
-          <span id="product-name"><%= item.name %></span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col description">
-          <%= item.description %>
-        </div>
-      </div>
-      <div class="row countdown-container">
-        <div class="countdown">
-          <i class="fa-regular fa-clock"></i>
-          <div class="col bid-label">
-            BID ENDS IN
-          </div>
-          <div class="countdown-item">
-            <span class="countdown-number" id="days"><%= item.timeLeft.day %></span>
-          </div>
-          <div class="countdown-item">
-            <span class="countdown-number" id="hours"><%= item.timeLeft.hour %></span>
-          </div>
-          <div class="countdown-item">
-            <span class="countdown-number" id="minutes"><%= item.timeLeft.minute %></span>
-          </div>
-          <div class="countdown-item">
-            <span class="countdown-number" id="seconds"><%= item.timeLeft.second %></span>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-5">
-          Starting Bid
-        </div>
-        <div class="col-7" id="starting-bid">
-          <i class="fa-solid fa-sack-dollar"></i>
-          <%= item.startingBid %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-5">
-          Bid Increment
-        </div>
-        <div class="col-7" id="bidIncrement">
-          <i class="fa-solid fa-arrow-trend-up"></i>
-          <%= item.bidIncrement %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-5">
-          Current Price
-        </div>
-        <div class="col-7 tooltip-container" id="current-price-container">
-          <i class="fa-solid fa-trophy"></i>
-          <%= item.highestBid %>
-          <div class="tooltip" id="current-price-tooltip">
-            Your tooltip content here.
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-5">
-          Your Bid
-        </div>
-        <div class="col-3" id="your-bid">
-          <i class="fa-solid fa-dollar-sign"><%= price %></i>
-        </div>
-
-      </div>
-      <div class="row">
-        <div class="col-5">
-          Bid Increment Quantity
-        </div>
-        <div class="col-7" id="quantity-input">
-          <button id="decrement" type="button">-</button>
-          <input type="text" id="quantity" value="0" readonly>
-          <button id="increment" type="button">+</button>
-        </div>
-      </div>
-    <% if(user != null && item.isOwned === false) { %>
-
-      <div class="row" id="btn-area-add">
-        <div class="col-6" id="add-to-fav">
-          <button id="favorite-btn">
-            <i class="fa-solid fa-heart"></i>
-            ADD TO FAVOR LIST
-          </button>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-3" id="bid-btn">
-          <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
-        </div>
-      </div>
-
-      <div class="row" id="btn-area-remove">
-        <div class="col-6" id="add-to-fav">
-          <button id="unfavorite-btn">
-            <i class="fa-solid fa-heart"></i>
-            REMOVE FROM FAVOR LIST
-          </button>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-3" id="bid-btn">
-          <button id="submitButton2" type="submit"><i class="fa-solid fa-gavel"></i></button>
-        </div>
-      </div>
-
-      <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
-        <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
-      </form>
-    </div>
-    <% } else if(user != null && item.isOwned === true) { %>
-    <div class="row" id="edit-area">
-      <div class="col-12" id="add-to-fav">
-        <a href="/webid/items/edit/<%- item._id %>">
-          <button id="edit-btn">
-            <i class="fa-solid fa-edit"></i>
-            Edit
-          </button>
-        </a>
-      </div>
-
-
-      <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
-        <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
-      </form>
-    </div>
-
-    <% if(user && user._id.toString() === item.owner._id.toString()){ %>
-    <div class="row">
-      <div class="col-3">&nbsp;</div>
-      <div class="col-6">
-        <form action="/webid/items/delete/<%= item._id %>" method="post">
-          <button type="submit" class="btn btn-danger" id="delete-btn">Delete Item</button>
-        </form>
-      </div>
-      <div class="col-3">&nbsp;</div>
+    <% if(createMessage != null) { %>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <%= createMessage %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <% } %>
-  </div>
-  <% } %>
+    <% if(updateMessage != null) { %>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <%= updateMessage %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
 
-  </div>
-  </div>
-  <script>
-    var item = '<%- JSON.stringify(item) %>';
-  </script>
-  <script src="/js/items/items_details.js"></script>
-  <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+    <div class="wrapper">
 
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
+      <div class="container">
+        <div class="mySlides text-center ">
+          <div class="numbertext">1 / <%= item.previewImages.length + 1 %></div>
+          <img src="<%= '/images/items-images/' + item.image %>" style="height:50vh">
+        </div>
 
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
+        <% for(var i=0; i< item.previewImages.length; i++) {%>
+        <div class="mySlides text-center">
+          <div class="numbertext"> <%= i+2 %> / <%= item.previewImages.length + 1 %></div>
+          <img src="<%= '/images/items-images/' + item.previewImages[i] %>" style="height:50vh">
+        </div>
+        <% } %>
 
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("demo");
-      let captionText = document.getElementById("caption");
+        <a class="prev" id="prevButton">❮</a>
+        <a class="next" id="nextButton">❯</a>
 
-      if (n > slides.length) { slideIndex = 1; }
-      if (n < 1) { slideIndex = slides.length; }
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
 
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        <div class="row1">
+          <div class="column">
+            <img class="demo cursor" src="<%= '/images/items-images/' + item.image %>" style="width:100%" onclick="currentSlide(1)" alt="The Woods" id="img<%= 1 %>">
+          </div>
+          <% for(var i=0; i< item.previewImages.length; i++) {%>
+          <div class="column">
+            <img class="demo cursor" src="<%= '/images/items-images/' + item.previewImages[i] %>" style="width:100%" onclick="currentSlide('<%= i + 2 %>')" alt="The Woods" id="img<%= i + 2 %>">
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="product-area">
+        <div class="row">
+          <div class="col" id="product-name-area">
+            <span id="category-tag">category</span>
+            <span id="product-name"><%= item.name %></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= item.description %>
+          </div>
+        </div>
+        <div class="row countdown-container">
+          <div class="countdown">
+            <i class="fa-regular fa-clock"></i>
+            <div class="col">
+              BID ENDS IN
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="days"><%= item.timeLeft.day %></span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="hours"><%= item.timeLeft.hour %></span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="minutes"><%= item.timeLeft.minute %></span>
+            </div>
+            <div class="countdown-item">
+              <span class="countdown-number" id="seconds"><%= item.timeLeft.second %></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Starting Bid
+          </div>
+          <div class="col-8" id="starting-bid">
+            <i class="fa-solid fa-sack-dollar"></i>
+            <%= item.startingBid %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Bid Increment
+          </div>
+          <div class="col-8" id="bidIncrement">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <%= item.bidIncrement %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Current Price
+          </div>
+          <div class="col-8 tooltip-container" id="current-price-container">
+            <i class="fa-solid fa-trophy"></i>
+            <%= item.highestBid %>
+            <div class="tooltip" id="current-price-tooltip">
+              Your tooltip content here.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Your Bid
+          </div>
+          <div class="col-8" id="your-bid">
+            <i class="fa-solid fa-dollar-sign"><%= price %></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Bid Increment Quantity
+          </div>
+          <div class="col-8" id="quantity-input">
+            <button id="decrement" type="button">-</button>
+            <input type="text" id="quantity" value="0" readonly>
+            <button id="increment" type="button">+</button>
+          </div>
+        </div>
+        <div class="row" id="btn-area">
+          <div class="col-6" id="add-to-fav">
+            <button>
+              <i class="fa-solid fa-heart"></i>
+              ADD TO FAVOR LIST
+            </button>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-3" id="bid-btn">
+            <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
+          </div>
+
+          <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
+            <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
+          </form>
+
+          <!-- <form action="/webid/items/delete/<%= item._id %>" method="post">
+            <input type="submit" value="Delete Item">
+          </form> -->
+          
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var item = '<%- JSON.stringify(item) %>';
+    </script>
+    <script src="/js/items/items_details.js"></script>
+    <script>
+      let slideIndex = 1;
+      showSlides(slideIndex);
+
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
       }
 
-      for (i = 0; i < dots.length; i++) {
-        dots[i].classList.remove("active");
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
       }
 
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].classList.add("active");
-      captionText.innerHTML = dots[slideIndex - 1].alt;
-    }
-    document.addEventListener('DOMContentLoaded', function () {
+      function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("demo");
+        let captionText = document.getElementById("caption");
 
-      function updateCountdown() {
+        if (n > slides.length) { slideIndex = 1; }
+        if (n < 1) { slideIndex = slides.length; }
 
-        let days = parseInt(document.getElementById('days').innerText);
-        let hours = parseInt(document.getElementById('hours').innerText);
-        let minutes = parseInt(document.getElementById('minutes').innerText);
-        let seconds = parseInt(document.getElementById('seconds').innerText);
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
 
-        // Decrement each value by 1
-        seconds--;
+        for (i = 0; i < dots.length; i++) {
+          dots[i].classList.remove("active");
+        }
 
-        if (seconds < 0) {
-          seconds = 59;
-          minutes--;
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].classList.add("active");
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+      }
+      document.addEventListener('DOMContentLoaded', function () {
 
-          if (minutes < 0) {
-            minutes = 59;
-            hours--;
+        function updateCountdown() {
 
-            if (hours < 0) {
-              hours = 23;
-              days--;
+          let days = parseInt(document.getElementById('days').innerText);
+          let hours = parseInt(document.getElementById('hours').innerText);
+          let minutes = parseInt(document.getElementById('minutes').innerText);
+          let seconds = parseInt(document.getElementById('seconds').innerText);
 
-              if (days < 0) {
-                days = 0;
-                hours = 0;
-                minutes = 0;
-                seconds = 0;
+          // Decrement each value by 1
+          seconds--;
+
+          if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+
+            if (minutes < 0) {
+              minutes = 59;
+              hours--;
+
+              if (hours < 0) {
+                hours = 23;
+                days--;
+
+                if (days < 0) {
+                  days = 0;
+                  hours = 0;
+                  minutes = 0;
+                  seconds = 0;
+                }
               }
             }
           }
+
+          document.getElementById('days').innerText = padZero(days);
+          document.getElementById('hours').innerText = padZero(hours);
+          document.getElementById('minutes').innerText = padZero(minutes);
+          document.getElementById('seconds').innerText = padZero(seconds);
         }
 
-        document.getElementById('days').innerText = padZero(days);
-        document.getElementById('hours').innerText = padZero(hours);
-        document.getElementById('minutes').innerText = padZero(minutes);
-        document.getElementById('seconds').innerText = padZero(seconds);
-      }
-
-      function padZero(number) {
-        return (number < 10 ? '0' : '') + number;
-      }
-
-      updateCountdown();
-
-      setInterval(updateCountdown, 1000);
-
-
-
-      function updateBid() {
-        var bidIncrement = parseFloat(document.getElementById("bidIncrement").innerText);
-        var quantity = parseInt(document.getElementById("quantity").value, 10);
-        var currentPrice = parseFloat(document.getElementById("current-price-container").innerText);
-
-        var totalBid = bidIncrement * quantity + currentPrice;
-        document.getElementById("your-bid").innerHTML = '<i class="fas fa-dollar-sign"></i> ' + totalBid;
-      }
-
-      function increment() {
-        var quantityInput = document.getElementById("quantity");
-        var currentQuantity = parseInt(quantityInput.value, 10);
-        var bidIncrementInput = document.getElementById("bidIncrementInput");
-
-        if (currentQuantity < 9) {
-          quantityInput.value = currentQuantity + 1;
-          bidIncrementInput.value = currentQuantity + 1;
-          updateBid();
+        function padZero(number) {
+          return (number < 10 ? '0' : '') + number;
         }
-      }
 
-      function decrement() {
-        var quantityInput = document.getElementById("quantity");
-        var currentQuantity = parseInt(quantityInput.value, 10);
-        var bidIncrementInput = document.getElementById("bidIncrementInput");
+        updateCountdown();
 
-        if (currentQuantity > 0) {
-          quantityInput.value = currentQuantity - 1;
-          bidIncrementInput.value = currentQuantity - 1;
-          updateBid();
+        setInterval(updateCountdown, 1000);
+
+
+
+        function updateBid() {
+          var bidIncrement = parseFloat(document.getElementById("bidIncrement").innerText);
+          var quantity = parseInt(document.getElementById("quantity").value, 10);
+          var currentPrice = parseFloat(document.getElementById("current-price-container").innerText);
+
+          var totalBid = bidIncrement * quantity + currentPrice;
+          document.getElementById("your-bid").innerHTML = '<i class="fas fa-dollar-sign"></i> ' + totalBid;
         }
-      }
 
-      document.getElementById('submitButton').addEventListener('click', function () {
-        document.getElementById('bidForm').submit();
-      });
+        function increment() {
+          var quantityInput = document.getElementById("quantity");
+          var currentQuantity = parseInt(quantityInput.value, 10);
+          var bidIncrementInput = document.getElementById("bidIncrementInput");
 
-      document.getElementById('submitButton2').addEventListener('click', function () {
-        document.getElementById('bidForm').submit();
-      });
+          if (currentQuantity < 9) {
+            quantityInput.value = currentQuantity + 1;
+            bidIncrementInput.value = currentQuantity + 1;
+            updateBid();
+          }
+        }
 
+        function decrement() {
+          var quantityInput = document.getElementById("quantity");
+          var currentQuantity = parseInt(quantityInput.value, 10);
+          var bidIncrementInput = document.getElementById("bidIncrementInput");
 
-      document.getElementById('prevButton').addEventListener('click', function () {
-        plusSlides(-1);
-      });
+          if (currentQuantity > 0) {
+            quantityInput.value = currentQuantity - 1;
+            bidIncrementInput.value = currentQuantity - 1;
+            updateBid();
+          }
+        }
 
-      document.getElementById('nextButton').addEventListener('click', function () {
-        plusSlides(1);
-      });
-
-      document.getElementById('decrement').addEventListener('click', function () {
-        decrement();
-      });
-
-      document.getElementById('increment').addEventListener('click', function () {
-        increment();
-      });
-
-      for (let i = 1; i <= 6; i++) {
-        document.getElementById('img' + i).addEventListener('click', function () {
-          currentSlide(i);
+        document.getElementById('submitButton').addEventListener('click', function () {
+          document.getElementById('bidForm').submit();
         });
+
+        document.getElementById('prevButton').addEventListener('click', function () {
+          plusSlides(-1);
+        });
+
+        document.getElementById('nextButton').addEventListener('click', function () {
+          plusSlides(1);
+        });
+
+        document.getElementById('decrement').addEventListener('click', function () {
+          decrement();
+        });
+
+        document.getElementById('increment').addEventListener('click', function () {
+          increment();
+        });
+
+        for (let i = 1; i <= 6; i++) {
+          document.getElementById('img' + i).addEventListener('click', function () {
+            currentSlide(i);
+          });
+        }
       }
-    }
-    );
-  </script>
-</body>
+      );
+
+    </script>
+  </body>
 
 </html>
