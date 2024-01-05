@@ -131,9 +131,10 @@
         <div class="col-5">
           Your Bid
         </div>
-        <div class="col-7" id="your-bid">
+        <div class="col-3" id="your-bid">
           <i class="fa-solid fa-dollar-sign"><%= price %></i>
         </div>
+
       </div>
       <div class="row">
         <div class="col-5">
@@ -145,7 +146,7 @@
           <button id="increment" type="button">+</button>
         </div>
       </div>
-      <% if(user != null && item.isOwned === false) { %>
+    <% if(user != null && item.isOwned === false) { %>
 
       <div class="row" id="btn-area-add">
         <div class="col-6" id="add-to-fav">
@@ -155,15 +156,9 @@
           </button>
         </div>
         <div class="col-1"></div>
-        <% if(item.isListing){ %>
-          <div class="col-3" id="bid-btn">
-            <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
-          </div>
-        <% }else{ %>
-          <div class="col-3" id="un-bid-btn">
-            <button id="submitButton" type="submit" disabled><i class="fa-solid fa-gavel"></i></button>
-          </div>
-        <% } %>
+        <div class="col-3" id="bid-btn">
+          <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
+        </div>
       </div>
 
       <div class="row" id="btn-area-remove">
@@ -174,15 +169,9 @@
           </button>
         </div>
         <div class="col-1"></div>
-        <% if(item.isListing){ %>
-          <div class="col-3" id="bid-btn">
-            <button id="submitButton" type="submit"><i class="fa-solid fa-gavel"></i></button>
-          </div>
-        <% }else{ %>
-          <div class="col-3" id="un-bid-btn">
-            <button id="submitButton" type="submit" disabled><i class="fa-solid fa-gavel"></i></button>
-          </div>
-        <% } %>
+        <div class="col-3" id="bid-btn">
+          <button id="submitButton2" type="submit"><i class="fa-solid fa-gavel"></i></button>
+        </div>
       </div>
 
       <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
