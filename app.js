@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 // routes and api
 const authRoutes = require("./routes/authRoutes");
 const authApi = require("./routes/api/authApi");
-const itemsRoutes = require("./routes/items");
+const itemsRoutes = require("./routes/itemsRoutes");
 const itemsApi = require("./routes/api/itemsApi");
 const categoriesRoutes = require("./routes/categories");
 const categoriesApi = require("./routes/api/categoriesApi");

@@ -52,9 +52,96 @@
         <% } %>
         <% }); %>
     </div>
+
+    <!-- Pagination links -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <% if (current > 1) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/webid/items/1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            <% } %>
+
+            <% if(pages > 3){ %>
+                <% if(current <= 2){ %>
+                    <% for (let i = 1; i <= 3; i++) { %>
+                        <% if(i === current ){ %>
+                            <li class="page-item active">
+                                <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                            </li>
+                        <% }else{ %>
+                            <li class="page-item">
+                                <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                    <% } %>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-disabled="true">...</a>
+                    </li>
+                <% }else if(current >= pages - 1){ %>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-disabled="true">...</a>
+                    </li>
+                    <% for (let i = pages - 2; i <= pages; i++) { %>
+                        <% if(i === current ){ %>
+                            <li class="page-item active">
+                                <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                            </li>
+                        <% }else{ %>
+                            <li class="page-item">
+                                <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                    <% } %>
+                <% }else{ %>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-disabled="true">...</a>
+                    </li>
+                    <% for (let i = current - 1; i <= current + 1; i++) { %>
+                        <% if(i === current ){ %>
+                            <li class="page-item active">
+                                <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                            </li>
+                        <% }else{ %>
+                            <li class="page-item">
+                                <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                    <% } %>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-disabled="true">...</a>
+                    </li>
+                <% } %>
+            <% }else{ %>
+                <% for (let i = 1; i <= pages; i++) { %>
+                    <% if(i === current ){ %>
+                        <li class="page-item active">
+                            <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                        </li>
+                    <% }else{ %>
+                        <li class="page-item">
+                            <a class="page-link" href="/webid/items/<%= i %>"><%= i %></a>
+                        </li>
+                    <% } %>
+                <% } %>
+            <% } %>
+
+            <% if (current < pages) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/webid/items/<%= pages %>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+
     <% } else { %>
     <div style="font-size: 1.6rem; margin-top: 30vh" class="alert alert-warning " role="alert">No items available</div>
     <% } %>
+
 </div>
 
 <script>

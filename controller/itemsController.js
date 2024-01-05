@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
 const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
+const { isInt16Array } = require("node:util/types");
 
 function isFavorite(user, item){
   if(user != null){
@@ -46,7 +47,8 @@ module.exports.item_get = async function (req, res) {
       .limit(1)
       .populate("bidder");
     let highestBidder = null;
-    if(highestBid[0]){
+    console.log('highest bid', highestBid);
+    if(highestBid.length > 0){
       highestBidder = highestBid[0].bidder;
     }
 
@@ -56,7 +58,8 @@ module.exports.item_get = async function (req, res) {
       .populate("bidder");
     let bidder = null;
     let price = 0;
-    if (bid[0]) {
+    console.log('bid', bid);
+    if (bid.length > 0) {
       bidder = bid[0].bidder;
       price = bid[0].price;
     }
@@ -73,6 +76,15 @@ module.exports.item_get = async function (req, res) {
       theItem.isOwned = false;
     }
 
+    let highestBidCurrentUser = null;
+    if(bid.length > 0){
+      highestBidCurrentUser = await Bid.find({product: item, bidder: bid[0].bidder})
+        .sort({ price: -1 })
+        .limit(1);
+      console.log('current', highestBidCurrentUser);
+      // console.log('bidder', bidder)
+    }
+
     res.render("items/item-details", {
       item: theItem,
       highestBidder: highestBidder,
@@ -80,6 +92,7 @@ module.exports.item_get = async function (req, res) {
       price: price,
       createMessage: create,
       updateMessage: update,
+      bid: highestBidCurrentUser !== null ? highestBidCurrentUser[0] : null
     });
   } catch (e) {
     //can occur CastError: Cast to ObjectId failed for value "create" (type string) at path "_id" for model "item"
@@ -96,27 +109,44 @@ module.exports.item_create_page = async function (req, res) {
   });
 };
 
-module.exports.listing_get = async function (req, res) {
+module.exports.listing_get = async function (req, res, next) {
+  let perPage = 3;
+  let page = 1;
+  if(!isNaN(req.params.page)){
+    page = req.params.page || 1;
 
-  const theItems = []
-  const items = await Item.find({ isListing: true }).populate("owner");
-  await items.forEach(async function (item) {
-    tempItem = item.toObject();
-    if (res.locals.user != null && res.locals.user.username === item.owner.username) {
-      tempItem.isOwned = true;
-    } else {
-      tempItem.isOwned = false;
-      tempItem.isFavorite = isFavorite(res.locals.user, item)
-    }
-    theItems.push(tempItem)
-  });
-  const message =
-    req.query.delete != undefined ? "Deleted item successfully" : null;
-  res.render("items/listing", {
-    items: theItems,
-    user: res.locals.user,
-    message: message,
-  });
+    const theItems = []
+    const items = await Item
+      .find({ isListing: true }).populate("owner")
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+  
+    // Count total number of items
+    const count = await Item.countDocuments({ isListing: true });
+  
+    await items.forEach(async function (item) {
+      tempItem = item.toObject();
+      if (res.locals.user != null && res.locals.user.username === item.owner.username) {
+        tempItem.isOwned = true;
+      } else {
+        tempItem.isOwned = false;
+        tempItem.isFavorite = isFavorite(res.locals.user, item)
+      }
+      theItems.push(tempItem)
+    });
+    const message =
+      req.query.delete != undefined ? "Deleted item successfully" : null;
+    res.render("items/listing", {
+      items: theItems,
+      user: res.locals.user,
+      message: message,
+      current: parseInt(page),
+      pages: Math.ceil(count / perPage),  
+    });
+  }
+  else{
+    next();
+  }
 };
 
 module.exports.get_edit_page = async function (req, res) {

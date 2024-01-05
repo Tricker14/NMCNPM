@@ -26,3 +26,38 @@ module.exports.bid_post = async function(req, res){
         res.status(400).json({message: err});
     }
 }
+
+module.exports.bid_delete = async function(req, res){
+    try{
+        const id = req.params._id;
+        const deleteBid = await Bid.findById(id).populate('product');
+        console.log('delete', deleteBid);
+
+        const item = deleteBid.product;
+        const bid = await Bid.find({product: item._id})
+            .sort({ price: -1 })
+            .skip(1)
+            .limit(1);
+        if(bid.length > 0){
+            console.log('ok', bid);
+            item.highestBid = bid[0].price;
+        }
+        else{
+            console.log('no');
+            item.highestBid = item.startingBid;
+        }
+        await item.save();
+        
+        if (!deleteBid) {
+            return res.status(404).json({ message: 'Bid not found' });
+        }
+
+        await deleteBid.remove();
+
+        res.redirect('/webid/items/1');
+    }
+    catch(err){
+        console.log("error", err);
+        res.status(400).json({message: err});
+    }
+}
