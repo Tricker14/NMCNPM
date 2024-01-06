@@ -42,7 +42,9 @@
                                                 <% } else { %>
                                                 <button id='<%-item._id %>' onclick="heart('<%-item._id %>')" class="heart-icon">&#10084;</button>
                                                 <% } %>
-                                                <button class="add-to-cart-btn">Add to Cart</button>
+                                                <a href="/webid/items/<%= item._id %>">
+                                                    <button class="add-to-cart-btn">Go to bid</button>
+                                                </a>
                                             </div>
                                             <% } %>
                                         <% } %>
