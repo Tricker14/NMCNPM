@@ -210,3 +210,122 @@ hr {
   background-color: #ddd; /* Màu nền xám nhạt */
   cursor: not-allowed; /* Đổi con trỏ chuột thành "not-allowed" */
 }
+
+.card-product {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  width: 100%;
+  height: 27rem;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+  margin: 1.8rem;
+}
+
+.card-product > a{
+  display: block;
+}
+
+.card-product img {
+  width: 100%;
+  height: auto;
+  max-height: 15rem; /* Điều chỉnh độ cao tối đa của hình ảnh */
+  object-fit: cover;
+  border-radius: 0.8rem;
+}
+
+.card-content {
+  background-color: white;
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+  padding: 5px;
+}
+
+.product-name {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+}
+
+.product-name:hover {
+  text-decoration: underline;
+}
+
+.product-description {
+  font-size: 1.4rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Số dòng hiển thị tối đa */
+  -webkit-box-orient: vertical;
+}
+
+.price {
+  font-size: 1.4rem;
+  color: #888;
+  margin-bottom: 0.8rem;
+}
+
+.add-to-cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heart-icon {
+  align-self: left;
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: color 0.1s;
+  color: grey;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+  bottom: 1rem;
+}
+
+.heart-icon.clicked {
+  color: red;
+}
+
+.go-to-bid-btn {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+
+.row{
+  margin-top: 20px;
+}
+
+.card-product {
+width: calc(22% - 15px); /* Chiều rộng của mỗi card, trừ đi khoảng cách giữa chúng */
+}
+
+.scrollable-area{
+  height: 45rem;
+  overflow-X: hidden;
+  border: 1px, solid #333;
+  padding:0;
+}
+
+.card-product {
+  transition: opacity 0.5s ease; /* Adjust the duration and easing as needed */
+}
+
+.remove-transition {
+  opacity: 0;
+}

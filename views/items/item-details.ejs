@@ -16,19 +16,19 @@
     <%- include('../partials/headerNavOnly'); -%>
 
     <% if(createMessage != null) { %>
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <div class="alert alert-info alert-dismissible fade show" role="alert" style="font-size: 1.5rem;">
       <%= createMessage %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <% } %>
     <% if(updateMessage != null) { %>
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <div class="alert alert-info alert-dismissible fade show" role="alert" style="font-size: 1.5rem;">
       <%= updateMessage %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <% } %>
     <% if(bidMessage != null) { %>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" style="font-size: 1.5rem;">
         <%= bidMessage %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
@@ -217,6 +217,10 @@
 
       </div>
     </div>
+
+    <div class="row" style="height: 5rem;">
+    </div>
+    
     <script>
       var item = '<%- JSON.stringify(item) %>';
     </script>

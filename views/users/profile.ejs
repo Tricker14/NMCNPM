@@ -224,21 +224,24 @@
             <div class="row" id="product-container">
 
               <% products.forEach(function(product) { %>
-              <div class="col-4 card-product">
-                <a href="/webid/items/<%- product._id %>">
-                  <img src="/images/items-images/<%- product.image %>" style="width: 100px;" alt="Product Image">
-                </a>
-                <div class="card-content">
-                  <a href="/webid/items/<%- product._id %>" class="product-name"><%- product.name %></a>
-                  <div class="product-description"><%- product.description %></div>
-                  <div class="price"><%- product.price %></div>
-                  <div class="add-to-cart d-flex justify-content-end">
-                    <a href="/webid/items/<%- product._id %>">
-                      <button class="add-to-cart-btn">Go to bid</button>
-                    </a>
+                <div class="col-4 card-product">
+                  <a href="/webid/items/<%- product._id %>">
+                    <img src="/images/items-images/<%- product.image %>" alt="Product Image">
+                  </a>
+                  <div class="card-content">
+                    <a href="/webid/items/<%- product._id %>" class="product-name"><%- product.name %></a>
+                    <div class="product-description"><%- product.description %></div>
+                    <div class="price"><%- product.price %></div>
+                    <div class="add-to-cart">
+                      <a href="javascript:void(0);" class="remove-favorite" data-item-id="<%= product.id %>">
+                        <button class="heart-icon clicked" onclick="removeFavorite(this, '<%= product._id %>')">&#10084;</button>
+                      </a>
+                      <a href="/webid/items/<%- product._id %>">
+                        <button class="go-to-bid-btn">Go to bid</button>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
               <% }); %>
             </div>
           </div>

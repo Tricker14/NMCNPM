@@ -26,8 +26,6 @@ body {
 
 .item-card > .item-image {
   display: block;
-  /* padding: 1rem; */
-  /* background-color: rgba(255, 228, 206, 0.9); */
 }
 
 .item-card img {
@@ -39,8 +37,6 @@ body {
 }
 
 .card-content {
-  /* background-color: rgba(255, 228, 206, 0.9);
-  padding: 1rem; */
   background-color: white;
   box-sizing: border-box;
   height: 100%;
@@ -117,4 +113,5 @@ body {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
+  font-size: 1.2rem;
 }

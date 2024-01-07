@@ -519,3 +519,43 @@ function calculateMarkerPosition(dayIndex) {
     const percentage = (totalItems / historyList.offsetHeight) * 100;
     return `${percentage}%`;
 }
+
+function removeFavorite(link, productId) {
+    const productCard = link.closest('.card-product');
+  
+    if (productCard) {
+      console.log(`Button for product ${productId} clicked!`);
+  
+      productCard.classList.add("remove-transition");
+  
+      // Send a request to the server
+      fetch(`/api/webid/users/removeFavorite/${productId}`, {
+        method: 'GET',
+      })
+        .then(response => {
+          if (response.ok) {
+            console.log('Successfully removed from favorites');
+            // Disable the link to prevent further clicks
+            link.classList.add("disabled");
+          } else {
+            console.error(`Error removing from favorites: ${response.status}`);
+          }
+        })
+        .catch(error => {
+          console.error('Fetch error:', error);
+        });
+  
+      // Wait for the transition to complete before removing the element
+      setTimeout(() => {
+        productCard.remove();
+      }, 500); // Adjust the duration based on your CSS transition duration
+    } else {
+      console.log('Element not found');
+    }
+}
+  
+  
+  
+  
+  
+  
