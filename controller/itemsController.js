@@ -75,6 +75,7 @@ module.exports.item_get = async function (req, res) {
       theItem.isOwned = false;
     }
 
+    console.log(typeof theItem);
     res.render("items/item-details", {
       item: theItem,
       highestBidder: highestBidder,

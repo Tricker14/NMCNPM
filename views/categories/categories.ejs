@@ -58,8 +58,11 @@
         </div>
     </div>
 
-    <div class="row title mb-5">  
-    </div>
+    <% if(categories.length % 6 === 0){ %>
+        <div class="row title mb-5">  
+        </div>
+    <% } %>
+
 </body>
 
 <%- include('../partials/footer'); -%>

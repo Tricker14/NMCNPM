@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col description">
             <%= item.description %>
           </div>
         </div>
@@ -133,7 +133,11 @@
             <i class="fa-solid fa-trophy"></i>
             <%= item.highestBid %>
             <div class="tooltip" id="current-price-tooltip">
-              Your tooltip content here.
+              <% if(highestBidder){ %>
+                <%= highestBidder.username %> is currently the highest bidder
+              <% }else{ %>
+                No bidder yet
+              <% } %>
             </div>
           </div>
         </div>
@@ -158,7 +162,6 @@
         </div>
 
         <% if(user != null && item.isOwned === false) { %>
-
           <div class="row" id="btn-area-add" style="display: none;">
             <div class="col-6" id="add-to-fav">
               <button id="favorite-btn">
@@ -183,11 +186,12 @@
             <div class="col-3" id="bid-btn">
               <button id="submitButton2" type="submit"><i class="fa-solid fa-gavel"></i></button>
             </div>
-            
+
             <form id="bidForm" action="/api/webid/bids/<%= item._id %>" method="post">
               <input type="hidden" id="bidIncrementInput" name="bidIncrement" value="0">
             </form>
           </div>
+          
         <% } else if(user != null && item.isOwned === true) { %>
           <div class="row" id="edit-area">
             <div class="col-12" id="add-to-fav">
@@ -201,6 +205,7 @@
 
             <!-- have to add this line of code, so that owner of this item can view images using arrow -->
             <span id="submitButton"></span>
+            <span id="submitButton2"></span>
           </div>
           
           <% if(user && user._id.toString() === item.owner._id.toString()){ %>
@@ -223,7 +228,7 @@
     </div>
     
     <script>
-      var item = '<%- JSON.stringify(item) %>';
+      var item= '<%- JSON.stringify(item) %>';
     </script>
     <script src="/js/items/items_details.js"></script>
     <script>
@@ -343,6 +348,10 @@
         }
 
         document.getElementById('submitButton').addEventListener('click', function () {
+          document.getElementById('bidForm').submit();
+        });
+
+        document.getElementById('submitButton2').addEventListener('click', function () {
           document.getElementById('bidForm').submit();
         });
 

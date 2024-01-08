@@ -19,7 +19,7 @@ body {
   border-radius: 0.8rem;
   overflow: hidden;
   width: 100%;
-  height: 27rem;
+  height: 30rem;
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
   margin: 1rem;
 }
@@ -58,7 +58,7 @@ body {
 }
 
 .product-description {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #555;
   margin-bottom: 0.8rem;
   overflow: hidden;
