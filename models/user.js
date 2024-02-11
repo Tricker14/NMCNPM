@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please enter a password"],
+    required: [function(){
+      return this.googleID === null;  // required when user does not sign up with google
+    }, "Please enter a password"],
     minlength: [6, "Minimum password length is 6 characters"],
   },
   role: {
@@ -27,9 +30,11 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    default: null
   },
   phone: {
     type: String,
+    default: null
   },
   gender: {
     type: String,
@@ -51,6 +56,7 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
+    default: null
   },
   favorites: [
     {
@@ -58,6 +64,10 @@ const userSchema = new mongoose.Schema({
       ref: "item",
     },
   ],
+  googleID: {
+    type: String,
+    default: null
+  },
   persisted: {
     type: Number,
     default: 0,
@@ -67,7 +77,7 @@ const userSchema = new mongoose.Schema({
 // fire a function before doc save to db
 userSchema.pre("save", async function (next) {
   console.log(this.persisted)
-    if(this.persisted === 0) {
+    if(this.persisted === 0 && this.password) {
       this.persisted = 1
       const salt = await bcrypt.genSalt();
       this.password = await bcrypt.hash(this.password, salt);

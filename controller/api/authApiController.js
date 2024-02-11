@@ -2,6 +2,8 @@ const User = require("../../models/user");
 const Category = require("../../models/category");
 const Item = require("../../models/item");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 // handle errors
 const handleErrors = function (err) {
@@ -50,13 +52,7 @@ module.exports.signup = async (req, res) => {
   const { username, email, role, password, confirmation } = req.body;
   if (password === confirmation) {
     try {
-      const name = null;
-      const phone = null;
-      const gender = null;
-      const birthday = null;
-      const image = null;
-
-      const user = await User.create({ username, email, role, password, name, phone, gender, birthday, image });
+      const user = await User.create({ username, email, role, password });
       const token = createToken(user._id);
       res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(201).json({ user });
@@ -84,3 +80,39 @@ module.exports.login = async (req, res) => {
     res.status(400).json({ errors });
   }
 };
+
+passport.serializeUser(function(user, done){
+  done(null, user._id);
+  console.log("serialize");
+});
+
+passport.deserializeUser(async function(id, done){
+  const user = await User.findById(id);
+  if(user){
+    done(null, user);
+    console.log("deserialize");
+  }
+});
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  callbackURL: "/api/webid/auth/google/callback"
+},
+async function(accessToken, refreshToken, profile, done){
+  const user = await User.findOne({googleID: profile.id});
+  if(user){
+    console.log('old user: ', user);
+    done(null, user);
+  }
+  else{
+    const username = profile.displayName;
+    const email = profile.emails[0].value;
+    const role = "user";
+    const googleID = profile.id;
+    const newUser = await User.create({ username, email, role, googleID });
+
+    console.log('new user: ', newUser);
+    done(null, newUser);
+  }
+}));
