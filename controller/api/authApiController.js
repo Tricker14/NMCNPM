@@ -81,6 +81,13 @@ module.exports.login = async (req, res) => {
   }
 };
 
+module.exports.googleAuth = function(req, res){
+  const user = req.user;
+  const token = createToken(user._id);
+  res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+  res.redirect("/webid/home");
+}
+
 passport.serializeUser(function(user, done){
   done(null, user._id);
   console.log("serialize");
@@ -88,10 +95,8 @@ passport.serializeUser(function(user, done){
 
 passport.deserializeUser(async function(id, done){
   const user = await User.findById(id);
-  if(user){
-    done(null, user);
-    console.log("deserialize");
-  }
+  done(null, user);
+  console.log("deserialize");
 });
 
 passport.use(new GoogleStrategy({
