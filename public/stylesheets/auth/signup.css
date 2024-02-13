@@ -193,6 +193,14 @@ body {
   text-align: center;
 }
 
+.google-btn{
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  background: #ff5353;
+}
+
 @media screen and (max-width: 768px){
   .header {
     display: block;

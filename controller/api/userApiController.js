@@ -26,6 +26,7 @@ module.exports.profile = async function(req, res){
   
       let { name, phone, gender } = req.body;
       let image = null;
+      let googleID = null;
       if(req.file){
         image = req.file.filename;
       }
@@ -51,10 +52,13 @@ module.exports.profile = async function(req, res){
       if(user.image && !image){
         image = user.image;
       }
+      if(user.googleID && !googleID){
+        googleID = user.googleID;
+      }
   
       let birthday = { day, month, year };
   
-      const updatedAttribute = { name, phone, gender, birthday, image };
+      const updatedAttribute = { name, phone, gender, birthday, image, googleID };
   
       const userUpdate = await User.findByIdAndUpdate(id, updatedAttribute, {new: true});
       // res.status(200).json({ userUpdate });

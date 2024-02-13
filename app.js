@@ -3,6 +3,8 @@ const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const passport = require("passport");
+const session = require("express-session");
 
 // routes and api
 const authRoutes = require("./routes/authRoutes");
@@ -31,6 +33,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(session({
+  maxAge: 24 * 60 * 60 * 1000,
+  secret: process.env.KEYS,
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine
 app.set("view engine", "ejs");
