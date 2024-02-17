@@ -114,7 +114,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# public directory
-public/images/items-images/*
-public/images/categories-images/*
