@@ -45,7 +45,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // view engine
-// app.set("views", __dirname + "/views");
+app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
 // database connection
