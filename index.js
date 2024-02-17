@@ -28,7 +28,7 @@ const {
 const app = express();
 
 // middleware
-app.use(express.static(__dirname + "public"));
+app.use(express.static(__dirname + "/public"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -45,7 +45,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // view engine
-app.set("views", __dirname + "/views");
+// app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
 // database connection
