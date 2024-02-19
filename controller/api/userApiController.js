@@ -66,7 +66,12 @@ module.exports.profile = async function(req, res){
       }
       if(user.image && !image){
         image = user.image;
-
+      }
+      if(user.googleID && !googleID){
+        googleID = user.googleID;
+      }
+  
+      if(image){  // only upload image to cloud only image is not null
         // store image into cloud      
         const params = {
           Bucket: bucketName,
@@ -79,10 +84,7 @@ module.exports.profile = async function(req, res){
         await s3.send(command);
         // store image to cloud
       }
-      if(user.googleID && !googleID){
-        googleID = user.googleID;
-      }
-  
+
       let birthday = { day, month, year };
   
       const updatedAttribute = { name, phone, gender, birthday, image, googleID };
