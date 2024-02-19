@@ -94,7 +94,7 @@ module.exports.profile = async function(req, res){
       }
       catch(err){
         console.log('Error during S3 upload:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: err });
       }
 
       let birthday = { day, month, year };
