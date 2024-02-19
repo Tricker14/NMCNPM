@@ -1,4 +1,18 @@
 const User = require("../../models/user");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+
+const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
+  },
+  region: bucketRegion
+});
 
 module.exports.delete_user = async function (req, res) {
     const id = req.params._id;
@@ -30,6 +44,22 @@ module.exports.profile = async function(req, res){
       if(req.file){
         image = req.file.filename;
       }
+
+      // store image into cloud
+      const date = new Date();
+      const imageName = req.file.originalname + date;
+      
+      const params = {
+        Bucket: bucketName,
+        Key: imageName,
+        Body: req.buffer,
+        ContentType: req.file.mimetype,
+      }
+
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+      // store image to cloud
+
       const user = await User.findById(id);
       if(user.name && !name){
         name = user.name;
