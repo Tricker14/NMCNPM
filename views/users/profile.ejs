@@ -29,7 +29,7 @@
         <div class="row ava-name-area">
           <div class="col-6 avatar-frame">
             <% if(user.image){ %>
-            <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
+            <img src="<%= 'https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/' + user.image %>" alt="" id="secondAvatar">
             <% }else{ %>
             <img src="/images/auth-image/anonymous.jpg" alt="" id="secondAvatar">
             <% } %>
@@ -90,7 +90,7 @@
             <div class="col-9 profile-picture">
               <div class="avatar-frame">
                 <% if(user.image){ %>
-                <img src="<%= '/images/users-images/' + user.image %>" alt="" id="secondAvatar">
+                  <img src="<%= 'https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/' + user.image %>" alt="" id="secondAvatar">
                 <% }else{ %>
                 <img src="/images/auth-image/anonymous.jpg" alt="" id="secondAvatar">
                 <% } %>

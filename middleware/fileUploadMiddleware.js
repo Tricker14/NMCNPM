@@ -20,15 +20,7 @@ const storageItem = multer.diskStorage({
   },
 });
 
-const storageUser = multer.diskStorage({
-  destination: (req, file, cb) => {
-    checkExist("public/images/users-images");
-    cb(null, "public/images/users-images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname.replace(/ /g, ""));
-  },
-});
+const storageUser = multer.diskStorage({});
 
 const storageCategory = multer.diskStorage({
   destination: (req, file, cb) => {

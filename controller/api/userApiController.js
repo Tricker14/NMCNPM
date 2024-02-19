@@ -45,21 +45,6 @@ module.exports.profile = async function(req, res){
         image = req.file.filename;
       }
 
-      // store image into cloud
-      const date = new Date();
-      const imageName = req.file.originalname + date;
-      
-      const params = {
-        Bucket: bucketName,
-        Key: imageName,
-        Body: req.buffer,
-        ContentType: req.file.mimetype,
-      }
-
-      const command = new PutObjectCommand(params);
-      await s3.send(command);
-      // store image to cloud
-
       const user = await User.findById(id);
       if(user.name && !name){
         name = user.name;
@@ -85,6 +70,18 @@ module.exports.profile = async function(req, res){
       if(user.googleID && !googleID){
         googleID = user.googleID;
       }
+
+      // store image into cloud      
+      const params = {
+        Bucket: bucketName,
+        Key: image,
+        Body: req.buffer,
+        ContentType: req.file.mimetype,
+      }
+
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+      // store image to cloud
   
       let birthday = { day, month, year };
   
