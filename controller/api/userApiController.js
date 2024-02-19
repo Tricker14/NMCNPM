@@ -32,6 +32,7 @@ module.exports.delete_user = async function (req, res) {
   
 module.exports.profile = async function(req, res){
     const id = req.params._id;
+    let isChangeImage = false;
     try{
       console.log('body', req.body);
       let day = req.body.day;
@@ -43,6 +44,7 @@ module.exports.profile = async function(req, res){
       let googleID = null;
       if(req.file){
         image = req.file.filename;
+        isChangeImage = true;
       }
 
       const user = await User.findById(id);
@@ -71,7 +73,7 @@ module.exports.profile = async function(req, res){
         googleID = user.googleID;
       }
   
-      if(image){  // only upload image to cloud only image is not null
+      if(image && isChangeImage){  // only upload image to cloud only image is not null
         // store image into cloud      
         const params = {
           Bucket: bucketName,
@@ -83,6 +85,7 @@ module.exports.profile = async function(req, res){
         const command = new PutObjectCommand(params);
         await s3.send(command);
         // store image to cloud
+        console.log("execute successfully");
       }
 
       let birthday = { day, month, year };
