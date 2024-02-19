@@ -71,7 +71,7 @@ module.exports.profile = async function(req, res){
         const params = {
           Bucket: bucketName,
           Key: image,
-          Body: req.buffer,
+          Body: req.file.buffer,
           ContentType: req.file.mimetype,
         }
 
