@@ -73,22 +73,28 @@ module.exports.profile = async function(req, res){
         googleID = user.googleID;
       }
   
-      if(image && isChangeImage){  // only upload image to cloud only image is not null
-        // store image into cloud      
-        const params = {
-          Bucket: bucketName,
-          Key: image,
-          Body: req.file.buffer,
-          ContentType: req.file.mimetype,
+      try{
+        if(image && isChangeImage){  // only upload image to cloud only image is not null
+          // store image into cloud      
+          const params = {
+            Bucket: bucketName,
+            Key: image,
+            Body: req.file.buffer,
+            ContentType: req.file.mimetype,
+          }
+  
+          const command = new PutObjectCommand(params);
+          await s3.send(command);
+          // store image to cloud
+          console.log("execute successfully");
         }
-
-        const command = new PutObjectCommand(params);
-        await s3.send(command);
-        // store image to cloud
-        console.log("execute successfully");
+        else{
+          console.log("execute fail");
+        }
       }
-      else{
-        console.log("execute fail");
+      catch(err){
+        console.log('Error during S3 upload:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
       }
 
       let birthday = { day, month, year };
