@@ -87,6 +87,9 @@ module.exports.profile = async function(req, res){
         // store image to cloud
         console.log("execute successfully");
       }
+      else{
+        console.log("execute fail");
+      }
 
       let birthday = { day, month, year };
   
