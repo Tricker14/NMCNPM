@@ -2,7 +2,6 @@ const User = require("../models/user");
 const Bid = require("../models/bid");
 const { Item, calculateTimeLeft } = require("../models/item");
 const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -49,12 +48,7 @@ module.exports.profile = async (req, res) => {
       bids = Array.from(bids);
   
       // get image from cloud
-      const getObjectParams = {
-        Bucket: bucketName,
-        Key: user.image,
-      }
-      const command = new GetObjectCommand(getObjectParams);
-      const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+      const url = "ok";
       user.imageURL = url;
       console.log("check url ", user.imageURL);
       // get image from cloud
