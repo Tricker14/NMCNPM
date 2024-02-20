@@ -48,7 +48,7 @@
       <div class="d-flex align-items-center">
         <a href="/webid/profile/<%= user._id %>">
           <% if(user.image){ %>
-          <img src="<%= '/images/users-images/' + user.image %>" alt="Profile" style="width: 5rem;">
+          <img src="<%= user.imageURL %>" alt="Profile" style="width: 5rem;">
           <% }else{ %>
           <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
           <% } %>
@@ -102,7 +102,7 @@
           <div class="align-self-center">
             <a href="/webid/profile/<%= user._id %>">
               <% if(user.image){ %>
-              <img src="<%= '/images/users-images/' + user.image %>" alt="Profile" style="width: 5rem;">
+              <img src="<%= user.imageURL %>" alt="Profile" style="width: 5rem;">
               <% }else{ %>
               <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
               <% } %>

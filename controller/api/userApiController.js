@@ -1,5 +1,7 @@
 const User = require("../../models/user");
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const fs = require('fs');
+const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -76,12 +78,12 @@ module.exports.profile = async function(req, res){
       try{
         if(image && isChangeImage){  // only upload image to cloud only image is not null
           // store image into cloud     
-          console.log("req.body ", req.body);
-          console.log("req.file ", req.file); 
+          let fileBuffer = fs.readFileSync(req.file.path);
+          console.log("buffer ", fileBuffer);
           const params = {
             Bucket: bucketName,
             Key: image,
-            Body: req.file.buffer,
+            Body: fileBuffer,
             ContentType: req.file.mimetype,
           }
   
