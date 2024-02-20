@@ -1,20 +1,6 @@
 const User = require("../models/user");
 const Bid = require("../models/bid");
 const { Item, calculateTimeLeft } = require("../models/item");
-const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
-
-const bucketName = process.env.BUCKET_NAME;
-const bucketRegion = process.env.BUCKET_REGION;
-const accessKey = process.env.ACCESS_KEY;
-const secretAccessKey = process.env.SECRET_ACCESS_KEY;
-
-const s3 = new S3Client({
-  credentials: {
-    accessKeyId: accessKey,
-    secretAccessKey: secretAccessKey,
-  },
-  region: bucketRegion
-});
 
 module.exports.profile = async (req, res) => {
     const id = req.params._id;
@@ -46,12 +32,6 @@ module.exports.profile = async (req, res) => {
   
       // Convert Set to an array
       bids = Array.from(bids);
-  
-      // get image from cloud
-      const url = "ok";
-      user.imageURL = url;
-      console.log("check url ", user.imageURL);
-      // get image from cloud
 
       res.render("users/profile", {
         user: user,
