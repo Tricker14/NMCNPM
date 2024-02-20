@@ -75,7 +75,9 @@ module.exports.profile = async function(req, res){
   
       try{
         if(image && isChangeImage){  // only upload image to cloud only image is not null
-          // store image into cloud      
+          // store image into cloud     
+          console.log("req.body ", req.body);
+          console.log("req.file ", req.file); 
           const params = {
             Bucket: bucketName,
             Key: image,
