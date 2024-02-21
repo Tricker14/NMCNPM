@@ -114,7 +114,7 @@ function populateMonths() {
                 option.value = 3;
             }
             if(monthName === 'April'){
-                option.value = 1;
+                option.value = 4;
             }
             if(monthName === 'May'){
                 option.value = 5;
@@ -158,7 +158,7 @@ function populateMonths() {
                 option.value = 3;
             }
             if(monthName === 'April'){
-                option.value = 1;
+                option.value = 4;
             }
             if(monthName === 'May'){
                 option.value = 5;

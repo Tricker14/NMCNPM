@@ -3,9 +3,23 @@ const Category = require("../models/category");
 const { Item } = require("../models/item");
 const Bid = require("../models/bid");
 const jwt = require("jsonwebtoken");
-const fs = require("node:fs");
 const { unlinkSync } = require("node:fs");
 const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
+const fs = require('fs');
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+
+const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
+  },
+  region: bucketRegion
+});
 
 function isFavorite(user, item){
   if(user != null){
@@ -164,6 +178,53 @@ module.exports.create_item = async function (req, res) {
 
   const categoryString = req.body.category;
   const category = await Category.findOne({ name: categoryString });
+
+  console.log("file ", req.file);
+  console.log("files ", req.files);
+
+  if(image){  // only upload image to cloud only image is not null
+    // store image into cloud     
+    console.log(Object.values(images)[0][0].path);
+    let fileBuffer = fs.readFileSync(Object.values(images)[0][0].path);
+    console.log("buffer 1", fileBuffer);
+    const params = {
+      Bucket: bucketName,
+      Key: Object.values(images)[0][0].filename,
+      Body: fileBuffer,
+      ContentType: Object.values(images)[0][0].mimetype,
+    }
+
+    console.log("execute successfully 1");
+    const command = new PutObjectCommand(params);
+    await s3.send(command);
+    // store image to cloud
+  }
+  else{
+    console.log("execute fail 1");
+  }
+
+  if(previewImages){  // only upload image to cloud only image is not null
+    // store image into cloud     
+    Object.values(images)[1].forEach(async function(preview){
+      let fileBuffer = fs.readFileSync(preview.path);
+      console.log("buffer 2", fileBuffer);
+      const params = {
+        Bucket: bucketName,
+        Key: preview.filename,
+        Body: fileBuffer,
+        ContentType: preview.mimetype,
+      }
+  
+      console.log("execute successfully 2");
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+    })
+    // store image to cloud
+  }
+  else{
+    console.log("execute fail 2");
+  }
+
   try {
     const item = await Item.create({
       name,

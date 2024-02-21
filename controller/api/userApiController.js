@@ -1,7 +1,6 @@
 const User = require("../../models/user");
 const fs = require('fs');
-const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -40,41 +39,39 @@ module.exports.profile = async function(req, res){
       let day = req.body.day;
       let month = req.body.month;
       let year = req.body.year;
+      console.log(day, month, year);
   
       let { name, phone, gender } = req.body;
       let image = null;
-      let googleID = null;
       if(req.file){
         image = req.file.filename;
         isChangeImage = true;
       }
 
       const user = await User.findById(id);
-      if(user.name && name !== null){
+      if(user.name && name === "null"){
         name = user.name;
       }
-      if(user.phone && phone !== null){
+      if(user.phone && phone === "null"){
         phone = user.phone;
       }
-      if(user.gender && gender !== null){
+      if(user.gender && gender === "null"){
         gender = user.gender;
       }
-      if(user.birthday.day && day !== null){
+      if(user.birthday.day && day === "null"){
         day = user.birthday.day;
       }
-      if(user.birthday.month && month !== null){
+      if(user.birthday.month && month === "null"){
         month = user.birthday.month;
       }
-      if(user.birthday.year && year !== null){
+      if(user.birthday.year && year === "null"){
         year = user.birthday.year;
       }
-      if(user.image && image !== null){
+      if(user.image && image === null){
         image = user.image;
       }
-      if(user.googleID && googleID !== null){
-        googleID = user.googleID;
-      }
 
+      console.log(day, month, year);
       if(day === "null"){
         day = null;
       }
@@ -112,7 +109,7 @@ module.exports.profile = async function(req, res){
         res.status(500).json({ error: err });
       }
   
-      const updatedAttribute = { name, phone, gender, birthday, image, googleID };
+      const updatedAttribute = { name, phone, gender, birthday, image };
   
       await User.findByIdAndUpdate(id, updatedAttribute, {new: true});
       // res.status(200).json({ userUpdate });
