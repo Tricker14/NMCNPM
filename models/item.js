@@ -3,6 +3,20 @@ const User = require("./user");
 const Category = require("./category");
 const Bid = require("./bid");
 const { unlinkSync } = require("node:fs");
+const { S3Client, PutObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
+
+const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
+  },
+  region: bucketRegion
+});
 
 const itemSchema = new mongoose.Schema({
   name: {
@@ -92,11 +106,21 @@ const itemSchema = new mongoose.Schema({
   },
 });
 
-function deleteMainImage(image) {
+async function deleteMainImage(image) {
   console.log(image);
 
   try {
-    unlinkSync(`public/images/items-images/${image}`);
+    // unlinkSync(`public/images/items-images/${image}`);
+
+    // delete image from cloud
+    const params = {
+      Bucket: bucketName,
+      Key: image
+    }
+    const command = new DeleteObjectCommand(params);
+    await s3.send(command);
+    // delete image from cloud
+
   } catch (err) {
     console.log("cannot delete image");
     console.log(err);
@@ -104,9 +128,19 @@ function deleteMainImage(image) {
 }
 
 function deletePreviewImages(images) {
-  images.forEach((image) => {
+  images.forEach(async (image) => {
     try {
-      unlinkSync(`public/images/items-images/${image}`);
+      // unlinkSync(`public/images/items-images/${image}`);
+
+      // delete image from cloud
+      const params = {
+        Bucket: bucketName,
+        Key: image
+      }
+      const command = new DeleteObjectCommand(params);
+      await s3.send(command);
+      // delete image from cloud
+      
     } catch (err) {
       console.log("cannot delete image");
       console.log(err);

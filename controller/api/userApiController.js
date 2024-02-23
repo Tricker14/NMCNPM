@@ -1,4 +1,5 @@
 const User = require("../../models/user");
+const fs = require('fs');
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
 const bucketName = process.env.BUCKET_NAME;
@@ -38,50 +39,58 @@ module.exports.profile = async function(req, res){
       let day = req.body.day;
       let month = req.body.month;
       let year = req.body.year;
+      console.log(day, month, year);
   
       let { name, phone, gender } = req.body;
       let image = null;
-      let googleID = null;
       if(req.file){
         image = req.file.filename;
         isChangeImage = true;
       }
 
       const user = await User.findById(id);
-      if(user.name && !name){
+      if(user.name && name === "null"){
         name = user.name;
       }
-      if(user.phone && !phone){
+      if(user.phone && phone === "null"){
         phone = user.phone;
       }
-      if(user.gender && !gender){
+      if(user.gender && gender === "null"){
         gender = user.gender;
       }
-      if(user.birthday.day && !day){
+      if(user.birthday.day && day === "null"){
         day = user.birthday.day;
       }
-      if(user.birthday.month && !month){
+      if(user.birthday.month && month === "null"){
         month = user.birthday.month;
       }
-      if(user.birthday.year && !year){
+      if(user.birthday.year && year === "null"){
         year = user.birthday.year;
       }
-      if(user.image && !image){
+      if(user.image && image === null){
         image = user.image;
       }
-      if(user.googleID && !googleID){
-        googleID = user.googleID;
+
+      console.log(day, month, year);
+      if(day === "null"){
+        day = null;
       }
+      if(month === "null"){
+        month = null;
+      }
+      if(year === "null"){
+        year = null;
+      }
+      let birthday = { day, month, year };
   
       try{
         if(image && isChangeImage){  // only upload image to cloud only image is not null
           // store image into cloud     
-          console.log("req.body ", req.body);
-          console.log("req.file ", req.file); 
+          let fileBuffer = fs.readFileSync(req.file.path);
           const params = {
             Bucket: bucketName,
             Key: image,
-            Body: req.file.buffer,
+            Body: fileBuffer,
             ContentType: req.file.mimetype,
           }
   
@@ -98,17 +107,15 @@ module.exports.profile = async function(req, res){
         console.log('Error during S3 upload:', err);
         res.status(500).json({ error: err });
       }
-
-      let birthday = { day, month, year };
   
-      const updatedAttribute = { name, phone, gender, birthday, image, googleID };
+      const updatedAttribute = { name, phone, gender, birthday, image };
   
-      const userUpdate = await User.findByIdAndUpdate(id, updatedAttribute, {new: true});
+      await User.findByIdAndUpdate(id, updatedAttribute, {new: true});
       // res.status(200).json({ userUpdate });
       res.redirect(`/webid/profile/${id}`);
     }
     catch(err){
-      console.log(err);
+      console.log(err + "fuck");
       res.status(400).json({ err });
     }
 }

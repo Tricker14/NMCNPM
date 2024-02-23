@@ -32,7 +32,7 @@ module.exports.profile = async (req, res) => {
   
       // Convert Set to an array
       bids = Array.from(bids);
-  
+
       res.render("users/profile", {
         user: user,
         userSchema: User.schema,

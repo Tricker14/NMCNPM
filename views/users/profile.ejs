@@ -29,7 +29,7 @@
         <div class="row ava-name-area">
           <div class="col-6 avatar-frame">
             <% if(user.image){ %>
-            <img src="<%= 'https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/' + user.image %>" alt="" id="secondAvatar">
+            <img src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + user.image %>" alt="" id="secondAvatar">
             <% }else{ %>
             <img src="/images/auth-image/anonymous.jpg" alt="" id="secondAvatar">
             <% } %>
@@ -90,7 +90,7 @@
             <div class="col-9 profile-picture">
               <div class="avatar-frame">
                 <% if(user.image){ %>
-                  <img src="<%= 'https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/' + user.image %>" alt="" id="secondAvatar">
+                  <img src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + user.image %>" alt="" id="secondAvatar">
                 <% }else{ %>
                 <img src="/images/auth-image/anonymous.jpg" alt="" id="secondAvatar">
                 <% } %>
@@ -214,7 +214,7 @@
               <% products.forEach(function(product) { %>
                 <div class="col-4 card-product">
                   <a href="/webid/items/<%- product._id %>">
-                    <img src="/images/items-images/<%- product.image %>" alt="Product Image">
+                    <img src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + product.image %>" alt="Product Image">
                   </a>
                   <div class="card-content">
                     <a href="/webid/items/<%- product._id %>" class="product-name"><%- product.name %></a>

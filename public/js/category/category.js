@@ -1,5 +1,34 @@
 document.addEventListener("DOMContentLoaded", function(){
 
+    const form = document.querySelector('#addCategoryForm');
+    const error = document.querySelector('#error');
+    form.addEventListener('submit', async function(e){
+        e.preventDefault();
+
+        error.textContent = '';
+
+        const formData = new FormData(form);    // use form data when dealing with files
+
+        try{
+            const res = await fetch('/api/webid/categories', {
+                method: 'POST',
+                body: formData,
+            })
+            const data = await res.json();
+            console.log('data ', data);
+            if(data.error){
+                error.style.color = 'red';
+                error.textContent = data.error;
+            }
+            if(data.category){
+                location.assign('/webid/categories');
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+
     function createCategoryElement(category) {
         const colDiv = document.createElement('div');
         colDiv.classList.add('col-2', 'd-flex', 'flex-column', 'align-items-center', 'category-button'); // Added 'category-button' class
@@ -12,8 +41,7 @@ document.addEventListener("DOMContentLoaded", function(){
         link.href = `/webid/categories/${category._id}`; 
 
         const image = document.createElement('img');
-        console.log('image ', category.image);
-        image.src = `/images/categories-images/${category.image}`;
+        image.src = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${category.image}`;
         image.alt = '';
 
         link.appendChild(image);

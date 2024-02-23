@@ -10,27 +10,11 @@ function checkExist(dir){
 }
 
 // Configure multer storage and file name
-const storageItem = multer.diskStorage({
-  destination: (req, file, cb) => {
-    checkExist("public/images/items-images");
-    cb(null, "public/images/items-images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname.replace(/ /g, ""));
-  },
-});
+const storageItem = multer.diskStorage({});
 
 const storageUser = multer.diskStorage({});
 
-const storageCategory = multer.diskStorage({
-  destination: (req, file, cb) => {
-    checkExist("public/images/categories-images");
-    cb(null, "public/images/categories-images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname.replace(/ /g, ""));
-  },
-});
+const storageCategory = multer.diskStorage({});
 
 // Create multer upload instance
 const upload = multer({ storage: storageItem });
