@@ -1,4 +1,30 @@
 document.addEventListener("DOMContentLoaded", function(){
+    function checkError() {
+        const form = document.querySelector('#addCategoryForm');
+        const error = document.querySelector('#error');
+    
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+    
+            error.textContent = '';
+    
+            try {
+                const res = await fetch('/api/webid/categories', {
+                    method: 'POST',
+                    headers: { 'Content-type': 'application/json' }
+                });
+    
+                const data = await res.json();
+    
+                if (data.err) {
+                    console.log(data.err);
+                    error.textContent = data.err; // Display the error in the modal
+                }
+            } catch (error) {
+                console.error('Error:', error);     
+            }
+        });
+    }
 
     function createCategoryElement(category) {
         const colDiv = document.createElement('div');
@@ -12,8 +38,7 @@ document.addEventListener("DOMContentLoaded", function(){
         link.href = `/webid/categories/${category._id}`; 
 
         const image = document.createElement('img');
-        console.log('image ', category.image);
-        image.src = `/images/categories-images/${category.image}`;
+        image.src = `https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${category.image}`;
         image.alt = '';
 
         link.appendChild(image);
@@ -71,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function(){
     function handleAddButtonClick() {
         const addCategoryModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
         addCategoryModal.show();
+        checkError();
     }
 
     initCategories();

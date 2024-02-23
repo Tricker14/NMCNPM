@@ -87,7 +87,6 @@ module.exports.profile = async function(req, res){
         if(image && isChangeImage){  // only upload image to cloud only image is not null
           // store image into cloud     
           let fileBuffer = fs.readFileSync(req.file.path);
-          console.log("buffer ", fileBuffer);
           const params = {
             Bucket: bucketName,
             Key: image,

@@ -19,7 +19,7 @@
                             <a href="/webid/items/<%= item._id %>">
                                 <div class="item-card">
                                     <a class="item-image" href="/webid/items/<%= item._id %>">
-                                        <img src="/images/items-images/<%= item.image %>" alt="Product Image" style="height: 15rem;">
+                                        <img src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + item.image %>" alt="Product Image" style="height: 15rem;">
                                     </a>
                                     <div class="card-content">
                                         <a href="/webid/items/<%= item._id %>" class="product-name"><%= item.name %></a>
