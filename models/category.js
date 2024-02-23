@@ -13,25 +13,6 @@ const categorySchema = new mongoose.Schema({
     }
 });
 
-function deleteImage(image) {
-    console.log(image);
-  
-    try {
-      unlinkSync(`public/images/categories-images/${image}`);
-    } catch (err) {
-      console.log("cannot delete image");
-      console.log(err);
-    }
-}
-
-categorySchema.pre("findOneAndDelete", async function (next) {
-    const doc = await this.findOne();
-    if (doc) {
-      deleteImage(doc.image);
-    }
-    next();
-});
-
 const Category = mongoose.model('category', categorySchema);
 
 module.exports = Category;

@@ -118,3 +118,4 @@ dist
 # public directory
 public/images/items-images/*
 public/images/categories-images/*
+public/images/users-images/*

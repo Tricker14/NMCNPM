@@ -43,13 +43,13 @@
       <div class="container">
         <div class="mySlides text-center ">
           <div class="numbertext">1 / <%= item.previewImages.length + 1 %></div>
-          <img src="<%= '/images/items-images/' + item.image %>" style="height:50vh">
+          <img src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + item.image %>" style="height:50vh">
         </div>
   
         <% for(var i=0; i< item.previewImages.length; i++) {%>
         <div class="mySlides text-center">
           <div class="numbertext"> <%= i+2 %> / <%= item.previewImages.length + 1 %></div>
-          <img src="<%= '/images/items-images/' + item.previewImages[i] %>" style="height:50vh">
+          <img src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + item.previewImages[i] %>" style="height:50vh">
         </div>
         <% } %>
 
@@ -62,11 +62,11 @@
 
         <div class="row1">
           <div class="column">
-            <img class="demo cursor" src="<%= '/images/items-images/' + item.image %>" style="width:100%" onclick="currentSlide(1)" alt="<%= item.name %>" id="img<%= 1 %>">
+            <img class="demo cursor" src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + item.image %>" style="width:100%" onclick="currentSlide(1)" alt="<%= item.name %>" id="img<%= 1 %>">
           </div>
           <% for(var i=0; i< item.previewImages.length; i++) {%>
           <div class="column">
-            <img class="demo cursor" src="<%= '/images/items-images/' + item.previewImages[i] %>" style="width:100%" onclick="currentSlide('<%= i + 2 %>')" alt="<%= item.name %>" id="img<%= i + 2 %>">
+            <img class="demo cursor" src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + item.previewImages[i] %>" style="width:100%" onclick="currentSlide('<%= i + 2 %>')" alt="<%= item.name %>" id="img<%= i + 2 %>">
           </div>
           <% } %>
         </div>
