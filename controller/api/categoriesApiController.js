@@ -21,12 +21,6 @@ module.exports.category_post = async function (req, res) {
   console.log("file ", req.file);
   const { name } = req.body;
   const image  = req.file.filename;
-
-  const category = await Category.findOne({ name });
-  if(category){
-    const error = "Category already exist!";
-    res.status(400).json({ error });
-  }
   
   // store image into cloud     
   let fileBuffer = fs.readFileSync(req.file.path);
@@ -42,10 +36,12 @@ module.exports.category_post = async function (req, res) {
   // store image to cloud
 
   try {
-    await Category.create({ name, image });
-    res.redirect('/webid/categories');
+    const category = await Category.create({ name, image });
+    res.status(201).json({ category });
+    // res.redirect('/webid/categories');
   } catch (err) {
-    console.log(err);
-    res.status(400).json({ err });
+    const error = 'This category is already exist!';
+    console.log(error);
+    res.status(400).json({ error });
   }
 };

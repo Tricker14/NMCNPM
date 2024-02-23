@@ -1,30 +1,33 @@
 document.addEventListener("DOMContentLoaded", function(){
-    function checkError() {
-        const form = document.querySelector('#addCategoryForm');
-        const error = document.querySelector('#error');
-    
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-    
-            error.textContent = '';
-    
-            try {
-                const res = await fetch('/api/webid/categories', {
-                    method: 'POST',
-                    headers: { 'Content-type': 'application/json' }
-                });
-    
-                const data = await res.json();
-    
-                if (data.err) {
-                    console.log(data.err);
-                    error.textContent = data.err; // Display the error in the modal
-                }
-            } catch (error) {
-                console.error('Error:', error);     
+
+    const form = document.querySelector('#addCategoryForm');
+    const error = document.querySelector('#error');
+    form.addEventListener('submit', async function(e){
+        e.preventDefault();
+
+        error.textContent = '';
+
+        const formData = new FormData(form);    // use form data when dealing with files
+
+        try{
+            const res = await fetch('/api/webid/categories', {
+                method: 'POST',
+                body: formData,
+            })
+            const data = await res.json();
+            console.log('data ', data);
+            if(data.error){
+                error.style.color = 'red';
+                error.textContent = data.error;
             }
-        });
-    }
+            if(data.category){
+                location.assign('/webid/categories');
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
 
     function createCategoryElement(category) {
         const colDiv = document.createElement('div');
@@ -96,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function(){
     function handleAddButtonClick() {
         const addCategoryModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
         addCategoryModal.show();
-        checkError();
     }
 
     initCategories();
