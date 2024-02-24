@@ -7,7 +7,6 @@ const { unlinkSync } = require("node:fs");
 const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
 const fs = require('fs');
 const { S3Client, PutObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
-const { promisify } = require("util");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -154,8 +153,6 @@ module.exports.get_edit_page = async function (req, res) {
   res.render("items/edit-item", { item: item, categories: categories });
 };
 
-const readFileAsync = promisify(fs.readFile);
-
 module.exports.create_item = async function (req, res) {
   console.log("body ", req.body);
 
@@ -185,39 +182,44 @@ module.exports.create_item = async function (req, res) {
   console.log("file ", req.file);
   console.log("files ", req.files);
 
-  try {
-    const uploadImageToS3 = async (file) => {
-      const fileBuffer = await readFileAsync(file.path);
-      console.log("path ", file.path);
+  if(image){  // only upload image to cloud only image is not null
+    // store image into cloud     
+    console.log(Object.values(images)[0][0].path);
+    let fileBuffer = fs.readFileSync(Object.values(images)[0][0].path);
+    console.log("buffer 1", fileBuffer);
+    const params = {
+      Bucket: bucketName,
+      Key: Object.values(images)[0][0].filename,
+      Body: fileBuffer,
+      ContentType: Object.values(images)[0][0].mimetype,
+    }
 
+    console.log("execute successfully 1");
+    const command = new PutObjectCommand(params);
+    await s3.send(command);
+    // store image to cloud
+  }
+
+  if(previewImages){  // only upload image to cloud only image is not null
+    // store image into cloud     
+    Object.values(images)[1].forEach(async function(preview){
+      let fileBuffer = fs.readFileSync(preview.path);
+      console.log("buffer 2", fileBuffer);
       const params = {
         Bucket: bucketName,
-        Key: file.filename,
+        Key: preview.filename,
         Body: fileBuffer,
-        ContentType: file.mimetype,
-      };
-
-      console.log(`Uploading ${file.filename} to S3...`);
+        ContentType: preview.mimetype,
+      }
+  
+      console.log("execute successfully 2");
       const command = new PutObjectCommand(params);
       await s3.send(command);
-      console.log(`Upload successful for ${file.filename}`);
-    };
+    })
+    // store image to cloud
+  }
 
-    const uploadImagePromises = [];
-
-    if (image) {
-      uploadImagePromises.push(uploadImageToS3(Object.values(images)[0][0]));
-    }
-
-    if (previewImages) {
-      previewImages.forEach((preview) => {
-        uploadImagePromises.push(uploadImageToS3(preview));
-      });
-    }
-
-    // Wait for all image uploads to complete
-    await Promise.all(uploadImagePromises);
-
+  try {
     const item = await Item.create({
       name,
       description,
@@ -231,13 +233,12 @@ module.exports.create_item = async function (req, res) {
       owner,
       countdown,
     });
-
     countdownDeleteItem(item);
 
     res.redirect("/webid/items/" + item._id + "?create=succeed");
   } catch (err) {
-    console.error(err);
-    res.send("Caught error happened in item");
+    console.log(err);
+    res.send("Catched error happened in item");
   }
 };
 
