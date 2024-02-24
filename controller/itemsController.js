@@ -182,44 +182,40 @@ module.exports.create_item = async function (req, res) {
   console.log("file ", req.file);
   console.log("files ", req.files);
 
-  if(image){  // only upload image to cloud only image is not null
-    // store image into cloud     
-    console.log(Object.values(images)[0][0].path);
-    let fileBuffer = fs.readFileSync(Object.values(images)[0][0].path);
-    console.log("buffer 1", fileBuffer);
+  const uploadImageToS3 = async (file) => {
+    let fileBuffer = fs.readFileSync(file.path);
     const params = {
       Bucket: bucketName,
-      Key: Object.values(images)[0][0].filename,
+      Key: file.filename,
       Body: fileBuffer,
-      ContentType: Object.values(images)[0][0].mimetype,
-    }
+      ContentType: file.mimetype,
+    };
 
-    console.log("execute successfully 1");
+    console.log(`Uploading ${file.filename} to S3...`);
     const command = new PutObjectCommand(params);
     await s3.send(command);
-    // store image to cloud
-  }
+    console.log(`${file.filename} uploaded successfully to S3`);
+  };
 
-  if(previewImages){  // only upload image to cloud only image is not null
-    // store image into cloud     
-    Object.values(images)[1].forEach(async function(preview){
-      let fileBuffer = fs.readFileSync(preview.path);
-      console.log("buffer 2", fileBuffer);
-      const params = {
-        Bucket: bucketName,
-        Key: preview.filename,
-        Body: fileBuffer,
-        ContentType: preview.mimetype,
-      }
-  
-      console.log("execute successfully 2");
-      const command = new PutObjectCommand(params);
-      await s3.send(command);
-    })
-    // store image to cloud
-  }
+  const uploadAllImagesToS3 = async () => {
+    const imageUploadPromises = [];
+
+    if (image) {
+      imageUploadPromises.push(uploadImageToS3(Object.values(images)[0][0]));
+    }
+
+    if (previewImages.length > 0) {
+      previewImages.forEach((preview) => {
+        imageUploadPromises.push(uploadImageToS3(preview));
+      });
+    }
+
+    await Promise.all(imageUploadPromises);
+  };
 
   try {
+    await uploadAllImagesToS3();
+    
     const item = await Item.create({
       name,
       description,
