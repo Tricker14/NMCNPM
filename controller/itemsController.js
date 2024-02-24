@@ -183,10 +183,6 @@ module.exports.create_item = async function (req, res) {
   console.log("files ", req.files);
 
   const uploadImageToS3 = async (file) => {
-    // if (!file || !file.path || !file.filename || !file.mimetype) {
-    //   console.error("Invalid file data for upload:", file);
-    //   return;
-    // }
     console.log("check file path", file.path);
 
     let fileBuffer = fs.readFileSync(file.path);
@@ -208,13 +204,17 @@ module.exports.create_item = async function (req, res) {
     const imageUploadPromises = [];
 
     if (image) {
+      console.log('start image');
       imageUploadPromises.push(uploadImageToS3(Object.values(images)[0][0]));
+      console.log('done image');
     }
 
     if (previewImages.length > 0) {
+      console.log('start preview');
       previewImages.forEach((preview) => {
         imageUploadPromises.push(uploadImageToS3(preview));
       });
+      console.log('done preview');
     }
 
     await Promise.all(imageUploadPromises);
