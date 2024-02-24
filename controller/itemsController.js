@@ -184,6 +184,7 @@ module.exports.create_item = async function (req, res) {
 
   const uploadImageToS3 = async (file) => {
     let fileBuffer = fs.readFileSync(file.path);
+    console.log("check buffer ", fileBuffer);
     const params = {
       Bucket: bucketName,
       Key: file.filename,
@@ -215,7 +216,7 @@ module.exports.create_item = async function (req, res) {
 
   try {
     await uploadAllImagesToS3();
-    
+
     const item = await Item.create({
       name,
       description,
