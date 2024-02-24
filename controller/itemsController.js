@@ -206,7 +206,7 @@ module.exports.create_item = async function (req, res) {
     }
 
     if (previewImages.length > 0) {
-      for (const preview of previewImages) {
+      for (const preview of Object.values(images)[1]) {
         await uploadImageToS3(preview);
       }
     }
