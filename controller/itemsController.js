@@ -215,6 +215,7 @@ module.exports.create_item = async function (req, res) {
       }
   
       console.log("execute successfully 2");
+      const command = new PutObjectCommand(params);
       const uploadPromise = await s3.send(command);
       uploadPromises.push(uploadPromise);
     })
