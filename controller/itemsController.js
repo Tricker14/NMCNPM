@@ -197,7 +197,7 @@ module.exports.create_item = async function (req, res) {
 
     console.log("execute successfully 1");
     const command = new PutObjectCommand(params);
-    let uploadPromise = await s3.send(command);
+    const uploadPromise = await s3.send(command);
     uploadPromises.push(uploadPromise);
     // store image to cloud
   }
@@ -216,7 +216,7 @@ module.exports.create_item = async function (req, res) {
   
       console.log("execute successfully 2");
       const command = new PutObjectCommand(params);
-      let uploadPromise = await s3.send(command);
+      const uploadPromise = await s3.send(command);
       uploadPromises.push(uploadPromise);
     })
     // store image to cloud
