@@ -182,6 +182,7 @@ module.exports.create_item = async function (req, res) {
   console.log("file ", req.file);
   console.log("files ", req.files);
 
+  const uploadPromises = [];
   if(image){  // only upload image to cloud only image is not null
     // store image into cloud     
     console.log(Object.values(images)[0][0].path);
@@ -196,7 +197,8 @@ module.exports.create_item = async function (req, res) {
 
     console.log("execute successfully 1");
     const command = new PutObjectCommand(params);
-    await s3.send(command);
+    const uploadPromise = await s3.send(command);
+    uploadPromises.push(uploadPromise);
     // store image to cloud
   }
 
@@ -213,11 +215,13 @@ module.exports.create_item = async function (req, res) {
       }
   
       console.log("execute successfully 2");
-      const command = new PutObjectCommand(params);
-      await s3.send(command);
+      const uploadPromise = await s3.send(command);
+      uploadPromises.push(uploadPromise);
     })
     // store image to cloud
   }
+
+  await Promise.all(uploadPromises);
 
   try {
     const item = await Item.create({
