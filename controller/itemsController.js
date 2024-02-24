@@ -183,6 +183,11 @@ module.exports.create_item = async function (req, res) {
   console.log("files ", req.files);
 
   const uploadImageToS3 = async (file) => {
+    if (!file || !file.path || !file.filename || !file.mimetype) {
+      console.error("Invalid file data for upload:", file);
+      return;
+    }
+
     let fileBuffer = fs.readFileSync(file.path);
     console.log("check buffer ", fileBuffer);
     const params = {
