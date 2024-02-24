@@ -201,23 +201,15 @@ module.exports.create_item = async function (req, res) {
   };
 
   const uploadAllImagesToS3 = async () => {
-    const imageUploadPromises = [];
-
     if (image) {
-      console.log('start image');
-      imageUploadPromises.push(uploadImageToS3(Object.values(images)[0][0]));
-      console.log('done image');
+      await uploadImageToS3(Object.values(images)[0][0]);
     }
 
     if (previewImages.length > 0) {
-      console.log('start preview');
-      previewImages.forEach((preview) => {
-        imageUploadPromises.push(uploadImageToS3(preview));
-      });
-      console.log('done preview');
+      for (const preview of previewImages) {
+        await uploadImageToS3(preview);
+      }
     }
-
-    await Promise.all(imageUploadPromises);
   };
 
   try {
