@@ -127,8 +127,8 @@ async function deleteMainImage(image) {
   }
 }
 
-function deletePreviewImages(images) {
-  images.forEach(async (image) => {
+async function deletePreviewImages(images) {
+  for(let image of images) {
     try {
       // unlinkSync(`public/images/items-images/${image}`);
 
@@ -145,7 +145,7 @@ function deletePreviewImages(images) {
       console.log("cannot delete image");
       console.log(err);
     }
-  });
+  }
 }
 
 // clean up image when delete an item
@@ -158,8 +158,8 @@ function deletePreviewImages(images) {
 itemSchema.pre("findOneAndDelete", async function (next) {
   const doc = await this.findOne();
   if (doc) {
-    deleteMainImage(doc.image);
-    deletePreviewImages(doc.previewImages);
+    await deleteMainImage(doc.image);
+    await deletePreviewImages(doc.previewImages);
 
     console.log("start");
     await Bid.deleteMany({ product: doc._id });
