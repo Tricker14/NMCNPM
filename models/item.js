@@ -127,8 +127,8 @@ async function deleteMainImage(image) {
   }
 }
 
-function deletePreviewImages(images) {
-  images.forEach(async (image) => {
+async function deletePreviewImages(images) {
+  for(let image of images) {
     try {
       // unlinkSync(`public/images/items-images/${image}`);
 
@@ -145,7 +145,7 @@ function deletePreviewImages(images) {
       console.log("cannot delete image");
       console.log(err);
     }
-  });
+  }
 }
 
 // clean up image when delete an item
