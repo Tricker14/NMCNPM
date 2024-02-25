@@ -202,8 +202,8 @@ module.exports.create_item = async function (req, res) {
 
   if(previewImages.length > 0){  // only upload image to cloud only image is not null
     // store image into cloud     
-    console.log("start preview");
     Object.values(images)[1].forEach(async function(preview){
+      console.log("start preview");
       let fileBuffer = fs.readFileSync(preview.path);
       console.log("buffer 2", fileBuffer);
       const params = {
@@ -216,8 +216,8 @@ module.exports.create_item = async function (req, res) {
       console.log("execute successfully 2");
       const command = new PutObjectCommand(params);
       await s3.send(command);
+      console.log("done preview");
     })
-    console.log("done preview");
     // store image to cloud
   }
 
