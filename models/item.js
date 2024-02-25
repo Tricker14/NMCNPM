@@ -190,23 +190,20 @@ const deleteItem = async function (id) {
 };
 
 const countdownDeleteItem = function (item) {
-  // const time =
-  //   (item.countdown.day * 24 * 60 * 60 +
-  //     item.countdown.hour * 60 * 60 +
-  //     item.countdown.minute * 60 +
-  //     item.countdown.second) *
-  //   1000;
-  // setTimeout(function () {
-  //   deleteItem(item._id);
-  // }, time);
-  if(item.timeLeft.day < 0 || item.timeLeft.hour < 0 || item.timeLeft.minute < 0 || item.timeLeft.second < 0){
+  const time =
+    (item.countdown.day * 24 * 60 * 60 +
+      item.countdown.hour * 60 * 60 +
+      item.countdown.minute * 60 +
+      item.countdown.second) *
+    1000;
+  setTimeout(function () {
     deleteItem(item._id);
-  }
+  }, time);
 };
 
 const calculateTimeLeft = function (item) {
   const currentTime = new Date();
-  const endDate = new Date(item.createdDate.toISOString()); // Assuming createdDate is the auction start date
+  const endDate = new Date(item.createdDate); // Assuming createdDate is the auction start date
 
   // Calculate the target end time based on the provided countdown values
   endDate.setUTCDate(endDate.getUTCDate() + item.countdown.day);
