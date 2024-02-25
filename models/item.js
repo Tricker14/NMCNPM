@@ -158,8 +158,8 @@ async function deletePreviewImages(images) {
 itemSchema.pre("findOneAndDelete", async function (next) {
   const doc = await this.findOne();
   if (doc) {
-    deleteMainImage(doc.image);
-    deletePreviewImages(doc.previewImages);
+    await deleteMainImage(doc.image);
+    await deletePreviewImages(doc.previewImages);
 
     console.log("start");
     await Bid.deleteMany({ product: doc._id });
