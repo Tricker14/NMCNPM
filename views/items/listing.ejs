@@ -69,13 +69,13 @@
     async function heart(itemId) {
         if ($("#" + itemId).hasClass("red-heart-icon")) {
             const res = await fetch("https://nmcnpm-bid.vercel.app/api/webid/users/removeFavorite/" + itemId)
-            if (res.statusText === "OK") {
+            if (res.ok) {
                 $("#" + itemId).removeClass("red-heart-icon").addClass("heart-icon")
             }
         }
         else {
             const res = await fetch("https://nmcnpm-bid.vercel.app/api/webid/users/addFavorite/" + itemId)
-            if (res.statusText === "OK") {
+            if (res.ok) {
                 $("#" + itemId).removeClass("heart-icon").addClass("red-heart-icon")
             }
         }
