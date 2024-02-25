@@ -179,14 +179,11 @@ module.exports.create_item = async function (req, res) {
   const categoryString = req.body.category;
   const category = await Category.findOne({ name: categoryString });
 
-  console.log("file ", req.file);
   console.log("files ", req.files);
 
-  const uploadImageToS3 = async (file) => {
-    console.log("check file path", file.path);
+  const uploadImageToS3 = async function(file) {
 
     let fileBuffer = fs.readFileSync(file.path);
-    console.log("check buffer ", fileBuffer);
     const params = {
       Bucket: bucketName,
       Key: file.filename,
@@ -200,15 +197,19 @@ module.exports.create_item = async function (req, res) {
     console.log(`${file.filename} uploaded successfully to S3`);
   };
 
-  const uploadAllImagesToS3 = async () => {
+  const uploadAllImagesToS3 = async function() {
     if (image) {
+      console.log("start image");
       await uploadImageToS3(Object.values(images)[0][0]);
+      console.log("done image");
     }
 
     if (previewImages.length > 0) {
+      console.log("start preview");
       for (const preview of Object.values(images)[1]) {
         await uploadImageToS3(preview);
       }
+      console.log("done preview");
     }
   };
 
