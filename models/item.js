@@ -168,7 +168,7 @@ itemSchema.pre("findOneAndDelete", async function (next) {
   next();
 });
 
-// delete item when the countdown over
+// delete item when the countdown over (just set isListing = false, not delete literally)
 
 const deleteItem = async function (id) {
   try {
@@ -203,7 +203,7 @@ const countdownDeleteItem = function (item) {
 
 const calculateTimeLeft = function (item) {
   const currentTime = new Date();
-  const endDate = new Date(item.createdDate); // Assuming createdDate is the auction start date
+  const endDate = new Date(item.createdDate.toISOString()); // Assuming createdDate is the auction start date
 
   // Calculate the target end time based on the provided countdown values
   endDate.setUTCDate(endDate.getUTCDate() + item.countdown.day);
