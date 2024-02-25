@@ -181,41 +181,47 @@ module.exports.create_item = async function (req, res) {
 
   console.log("files ", req.files);
 
-  const uploadImageToS3 = async function(file) {
-
-    let fileBuffer = fs.readFileSync(file.path);
+  if(image){  // only upload image to cloud only image is not null
+    // store image into cloud     
+    console.log("start image");
+    let fileBuffer = fs.readFileSync(Object.values(images)[0][0].path);
+    console.log("buffer 1", fileBuffer);
     const params = {
       Bucket: bucketName,
-      Key: file.filename,
+      Key: Object.values(images)[0][0].filename,
       Body: fileBuffer,
-      ContentType: file.mimetype,
-    };
+      ContentType: Object.values(images)[0][0].mimetype,
+    }
 
-    console.log(`Uploading ${file.filename} to S3...`);
+    console.log("execute successfully 1");
     const command = new PutObjectCommand(params);
     await s3.send(command);
-    console.log(`${file.filename} uploaded successfully to S3`);
-  };
+    console.log("done image");
+    // store image to cloud
+  }
 
-  const uploadAllImagesToS3 = async function() {
-    if (image) {
-      console.log("start image");
-      await uploadImageToS3(Object.values(images)[0][0]);
-      console.log("done image");
-    }
-
-    if (previewImages.length > 0) {
-      console.log("start preview");
-      for (const preview of Object.values(images)[1]) {
-        await uploadImageToS3(preview);
+  if(previewImages.length > 0){  // only upload image to cloud only image is not null
+    // store image into cloud     
+    console.log("start preview");
+    Object.values(images)[1].forEach(async function(preview){
+      let fileBuffer = fs.readFileSync(preview.path);
+      console.log("buffer 2", fileBuffer);
+      const params = {
+        Bucket: bucketName,
+        Key: preview.filename,
+        Body: fileBuffer,
+        ContentType: preview.mimetype,
       }
-      console.log("done preview");
-    }
-  };
+  
+      console.log("execute successfully 2");
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+    })
+    console.log("done preview");
+    // store image to cloud
+  }
 
   try {
-    await uploadAllImagesToS3();
-
     const item = await Item.create({
       name,
       description,
