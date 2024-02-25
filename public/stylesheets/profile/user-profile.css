@@ -307,6 +307,18 @@ hr {
   font-size: 1.2rem;
 }
 
+.disabled-go-to-bid-btn {
+  background-color: grey;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+
 .row{
   margin-top: 20px;
 }

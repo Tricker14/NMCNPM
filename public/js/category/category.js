@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
         const formData = new FormData(form);    // use form data when dealing with files
 
         try{
-            const res = await fetch('https://nmcnpm-bid.vercel.app/api/webid/categories', {
+            const res = await fetch('/api/webid/categories', {
                 method: 'POST',
                 body: formData,
             })
