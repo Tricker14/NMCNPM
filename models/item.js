@@ -199,7 +199,7 @@ const countdownDeleteItem = function (item) {
   // setTimeout(function () {
   //   deleteItem(item._id);
   // }, time);
-  if(item.timeLeft.day <= 0 && item.timeLeft.hour <= 0 && item.timeLeft.minute <= 0 && item.timeLeft.second <= 0){
+  if(item.timeLeft.day < 0 || item.timeLeft.hour < 0 || item.timeLeft.minute < 0 || item.timeLeft.second < 0){
     deleteItem(item._id);
   }
 };
