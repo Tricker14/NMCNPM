@@ -225,7 +225,11 @@
                         <button class="heart-icon clicked" onclick="removeFavorite(this, '<%= product._id %>')">&#10084;</button>
                       </a>
                       <a href="/webid/items/<%- product._id %>">
-                        <button class="go-to-bid-btn">Go to bid</button>
+                        <% if(product.isListing){ %>
+                          <button class="go-to-bid-btn">Go to bid</button>
+                        <% }else{ %>
+                          <button class="disabled-go-to-bid-btn" disabled>Go to bid</button>
+                        <% } %>
                       </a>
                     </div>
                   </div>
