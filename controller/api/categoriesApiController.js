@@ -1,7 +1,7 @@
 const Category = require("../../models/category");
 const jwt = require("jsonwebtoken");
 const fs = require('fs');
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -15,6 +15,17 @@ const s3 = new S3Client({
   },
   region: bucketRegion
 });
+
+async function deleteImage(image){
+  // delete image from cloud
+  const params = {
+    Bucket: bucketName,
+    Key: image
+  }
+  const command = new DeleteObjectCommand(params);
+  await s3.send(command);
+  // delete image from cloud
+}
 
 module.exports.category_post = async function (req, res) {
   console.log("body, ", req.body);
@@ -41,6 +52,7 @@ module.exports.category_post = async function (req, res) {
     // res.redirect('/webid/categories');
   } catch (err) {
     const error = 'This category is already exist!';
+    deleteImage(image);
     console.log(error);
     res.status(400).json({ error });
   }
