@@ -263,8 +263,8 @@ async function deleteMainImage(image) {
   }
 }
 
-function deletePreviewImages(images) {
-  images.forEach(async (image) => {
+async function deletePreviewImages(images) {
+  for(let image of images) {
     try {
       // unlinkSync(`public/images/items-images/${image}`);
 
@@ -281,7 +281,7 @@ function deletePreviewImages(images) {
       console.log("cannot delete image");
       console.log(err);
     }
-  });
+  }
 }
 
 module.exports.item_edit = async function (req, res) {
@@ -313,9 +313,8 @@ module.exports.item_edit = async function (req, res) {
       item.save();
 
       // store image into cloud     
-      Object.values(images)[0].forEach(async function(preview){
+      for(let preview of Object.values(images)[1]){
         let fileBuffer = fs.readFileSync(preview.path);
-        console.log("buffer 2", fileBuffer);
         const params = {
           Bucket: bucketName,
           Key: preview.filename,
@@ -326,7 +325,7 @@ module.exports.item_edit = async function (req, res) {
         console.log("execute successfully 2");
         const command = new PutObjectCommand(params);
         await s3.send(command);
-      })
+      }
       // store image to cloud
 
     } else if (
@@ -341,7 +340,6 @@ module.exports.item_edit = async function (req, res) {
       // store image into cloud     
       console.log(Object.values(images)[0][0].path);
       let fileBuffer = fs.readFileSync(Object.values(images)[0][0].path);
-      console.log("buffer 1", fileBuffer);
       const params = {
         Bucket: bucketName,
         Key: Object.values(images)[0][0].filename,
@@ -375,12 +373,13 @@ module.exports.item_edit = async function (req, res) {
         ContentType: Object.values(images)[0][0].mimetype,
       }
 
+      console.log("execute successfully 1");
       const commandMain = new PutObjectCommand(paramsMain);
       await s3.send(commandMain);
       // store image to cloud
 
       // store image into cloud     
-      Object.values(images)[1].forEach(async function(preview){
+      for(let preview of Object.values(images)[1]){
         let fileBufferPreview = fs.readFileSync(preview.path);
         const paramsPreview = {
           Bucket: bucketName,
@@ -389,9 +388,10 @@ module.exports.item_edit = async function (req, res) {
           ContentType: preview.mimetype,
         }
 
+        console.log("execute successfully 2");
         const commandPreview = new PutObjectCommand(paramsPreview);
         await s3.send(commandPreview);
-      })
+      }
       // store image to cloud
 
     }
