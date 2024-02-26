@@ -462,10 +462,11 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("<");
             const statusContainer = listItem.querySelector('.countdown-container');
 
-            element.querySelector('#days').innerText = `${padZero(days)}d`;
-            element.querySelector('#hours').innerText = `${padZero(hours)}h`;
-            element.querySelector('#minutes').innerText = `${padZero(minutes)}m`;
-            element.querySelector('#seconds').innerText = `${padZero(seconds)}s`;
+            // Set all time values to zero
+            listItem.querySelector('#days').innerText = '00d';
+            listItem.querySelector('#hours').innerText = '00h';
+            listItem.querySelector('#minutes').innerText = '00m';
+            listItem.querySelector('#seconds').innerText = '00s';
 
             if(bid.product.winner){
                 if(bid.product.winner.toString() === user._id.toString()){
