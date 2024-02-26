@@ -462,6 +462,11 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("<");
             const statusContainer = listItem.querySelector('.countdown-container');
 
+            element.querySelector('#days').innerText = `${padZero(days)}d`;
+            element.querySelector('#hours').innerText = `${padZero(hours)}h`;
+            element.querySelector('#minutes').innerText = `${padZero(minutes)}m`;
+            element.querySelector('#seconds').innerText = `${padZero(seconds)}s`;
+
             if(bid.product.winner){
                 if(bid.product.winner.toString() === user._id.toString()){
                     statusContainer.innerHTML = `<p class="win-status">Win</p>`;
