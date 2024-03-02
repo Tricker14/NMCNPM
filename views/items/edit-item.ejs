@@ -1,5 +1,9 @@
 <%- include('../partials/header'); -%>
 
+<head>
+  <title>Edit <%= item.name %> | WeBid</title>
+</head>
+
 <h2 class="text-center mt-5">Edit Auction</h2>
 
 <form action="/webid/items/edit/<%= item._id %>" method="post" enctype="multipart/form-data" style="max-width: 700px; margin: 0 auto">
