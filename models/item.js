@@ -168,7 +168,7 @@ itemSchema.pre("findOneAndDelete", async function (next) {
   next();
 });
 
-// delete item when the countdown over
+// delete item when the countdown over (just set isListing = false, not delete literally)
 
 const deleteItem = async function (id) {
   try {
