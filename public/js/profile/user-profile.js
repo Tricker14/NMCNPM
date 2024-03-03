@@ -488,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         listItem.querySelector(".shortcut-button").addEventListener("click", function () {
             // Replace the URL with the desired destination
-            window.location.href = "your_destination_url";
+            window.location.href = "/webid/items/bid.product._id";
         });
 
         historyList.appendChild(listItem);
