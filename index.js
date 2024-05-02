@@ -17,6 +17,7 @@ const categoriesApi = require("./routes/api/categoriesApi");
 const bidsApi = require("./routes/api/bidsApi");
 const usersRoutes = require("./routes/usersRoutes");
 const usersApi = require("./routes/api/usersApi");
+const adminRoutes = require("./routes/adminRoutes");
 // const homeRoutes = require("./routes/homeRoutes");
 const appRoutes = require("./routes/appRoutes");
 
@@ -77,6 +78,7 @@ app.use("/webid", categoriesRoutes);
 app.use("/api/webid", categoriesApi);
 app.use("/api/webid", bidsApi);
 app.use("/webid", usersRoutes);
+app.use("/webid", adminRoutes);
 app.use("/api/webid", usersApi);
 // app.use("/webid", homeRoutes);
 app.use("/webid", appRoutes);

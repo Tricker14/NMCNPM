@@ -39,9 +39,11 @@
       <li>
         <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
       </li>
-      <li>
-        <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/dashboard">Dashboard</a>
-      </li>
+      <% if(user && user.role==="admin" ){ %>
+        <li>
+          <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/admin">Dashboard</a>
+        </li>
+        <% } %>
     </ul>
 
     <div id="userAvatarField" style="width: 10vw" class=" d-flex justify-content-around dropdown">
@@ -97,35 +99,40 @@
         <li>
           <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/items/create">Create</a>
         </li>
-        <li>
-          <hr />
-        </li>
+        <% if(user && user.role==="admin" ){ %>
+          <li>
+            <a class="nav-link active" id="nav-link" aria-current="page" href="/webid/admin">Dashboard</a>
+          </li>
+          <% } %>
+            <li>
+              <hr />
+            </li>
 
-        <% if(user){ %>
-          <li><a class="nav-link active text-end ">Hi, <%= currentUser.username %></a></li>
-          <div class="d-flex justify-content-end">
-            <div class="align-self-center">
-              <a href="/webid/profile/<%= user._id %>">
-                <% if(user.image){ %>
-                  <img
-                    src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + user.image %>"
-                    alt="Profile" style="width: 5rem;">
-                  <% }else{ %>
-                    <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
-                    <% } %>
-              </a>
-            </div>
-          </div>
-          <% }else{ %>
-            <li><a class="nav-link active text-end ">Hi, Anonymous</a></li>
-            <div class="d-flex justify-content-end">
-              <div class="align-self-center">
-                <a href="/webid/login %>">
-                  <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
-                </a>
+            <% if(user){ %>
+              <li><a class="nav-link active text-end ">Hi, <%= currentUser.username %></a></li>
+              <div class="d-flex justify-content-end">
+                <div class="align-self-center">
+                  <a href="/webid/profile/<%= user._id %>">
+                    <% if(user.image){ %>
+                      <img
+                        src="<%= `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/` + user.image %>"
+                        alt="Profile" style="width: 5rem;">
+                      <% }else{ %>
+                        <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
+                        <% } %>
+                  </a>
+                </div>
               </div>
-            </div>
-            <% } %>
+              <% }else{ %>
+                <li><a class="nav-link active text-end ">Hi, Anonymous</a></li>
+                <div class="d-flex justify-content-end">
+                  <div class="align-self-center">
+                    <a href="/webid/login %>">
+                      <img src="/images/auth-image/anonymous.jpg" alt="Anonymous" style="width: 5rem;">
+                    </a>
+                  </div>
+                </div>
+                <% } %>
 
       </ul>
 
