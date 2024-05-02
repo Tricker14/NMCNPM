@@ -18,7 +18,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^5.9.23",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.1.0",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "util": "^0.12.5",
