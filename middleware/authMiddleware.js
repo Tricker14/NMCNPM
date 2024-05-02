@@ -35,13 +35,16 @@ const checkUser = function (req, res, next) {
       process.env.JWT_SECRET_TOKEN,
       async function (err, decodedToken) {
         if (err) {
+          console.log("check 1");
           console.log(err.message);
           res.locals.user = null;
           res.locals.currentUser = null;
           next();
         } else {
-          console.log(decodedToken);
+          console.log("check 2");
+          console.log("decode ", decodedToken);
           let user = await User.findById(decodedToken.id);
+          console.log("user ", user);
           res.locals.user = user;
           res.locals.currentUser = user;
           next();
@@ -49,6 +52,7 @@ const checkUser = function (req, res, next) {
       }
     );
   } else {
+    console.log("check 3");
     res.locals.user = null;
     res.locals.currentUser = null;
     next();
