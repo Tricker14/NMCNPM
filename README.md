@@ -25,7 +25,7 @@ JWT_SECRET_TOKEN='secret'
 
 * Run app
 ```
-nodemon app
+nodemon index
 ```
 
 
