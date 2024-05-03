@@ -1,8 +1,345 @@
 <%- include('../partials/header'); -%>
 
-<div>
-    Total user: <%= totalUser %>
-    Total revenue: <%= totalRevenue %>
-</div>
+    <!-- <div>
+        Total user: <%= totalUser %>
+            Total revenue: <%= totalRevenue %>
+    </div> -->
+    <div class="dashboard-header">
+        <h2 style="font-size: 50px; margin: 20px 200px;">Dashboard</h2>
+        <div style="margin: 0 20px;">
+            <div style="display: flex; width: fit-content; margin: 0 auto; gap: 20px;">
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #1565c0;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold; height: 72px;">Total Users
+                        </h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #1565c0;">20 users</p>
+                            <i class="fa-solid fa-user" style="font-size: 30px; color: #1565c0;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #26a69a;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">Total Revenue
+                        </h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #26a69a;">$ 40000</p>
+                            <i class="fa-solid fa-money-bill" style="font-size: 30px; color: #26a69a;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #00bcd4;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">Total items</h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #00bcd4;">20 users</p>
+                            <i class="fa-solid fa-boxes-stacked" style="font-size: 30px; color: #00bcd4;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #f9a825;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">
+                            Total currently bidding items
+                        </h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #f9a825;">20 users</p>
+                            <i class="fa-solid fa-gavel" style="font-size: 30px; color: #f9a825;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; width: fit-content; margin: 0 auto; gap: 30px; margin-top: 20px;">
+                <div id="curve_chart" style="width: 700px; height: 300px; border: 2px solid black;">
+                </div>
+                <div id="donutchart" style="width: 500px; height: 300px; border: 2px solid black;"></div>
+            </div>
+            <div style="display: flex; width: 1200px; margin: 20px auto; gap: 30px;">
+                <div style="display: flex; flex-direction: column; width: 100%;">
+                    <div class="alert alert-primary" role="alert" style="width: 200px; height: fit-content;">
+                        <h1 style="font-weight: bold; text-align: center; font-size: 30px;">User Data</h1>
+                    </div>
+                    <div style="width: 100%; border: solid 2px #0288d1;">
+                        <table id="user-data-table" class="table table-primary table-striped table-sortable">
+                            <thead id="user-data-header">
+                                <tr>
+                                    <th style="cursor: pointer;" scope="col">ID </th>
+                                    <th style="cursor: pointer;" scope="col">Name </th>
+                                    <th style="cursor: pointer;" scope="col">Most spend </th>
+                                    <th style="cursor: pointer;" scope="col">Most buy </th>
+                                    <th style="cursor: pointer;" scope="col">Money spend </th>
+                                    <th style="cursor: pointer;" scope="col">Most bid </th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; width: 100%;">
+                    <div class="alert alert-success" role="alert" style="width: 200px; height: fit-content;">
+                        <h1 style="font-weight: bold; text-align: center; font-size: 30px;">Admin Data</h1>
+                    </div>
+                    <div style="width: 100%; border: solid 2px #00796b;">
+                        <table id="admin-data-table" class="table table-success table-striped table-sortable">
+                            <thead id="user-data-header">
+                                <tr>
+                                    <th style="cursor: pointer;" scope="col">ID </th>
+                                    <th style="cursor: pointer;" scope="col">Name </th>
+                                    <th style="cursor: pointer;" scope="col">Most spend </th>
+                                    <th style="cursor: pointer;" scope="col">Most buy </th>
+                                    <th style="cursor: pointer;" scope="col">Money spend </th>
+                                    <th style="cursor: pointer;" scope="col">Most bid </th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<%- include('../partials/footer'); -%>
+    </div>
+
+
+
+    <%- include('../partials/footer'); -%>
+
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Year', 'Sales', 'Expenses'],
+                    ['2004', 1000, 400],
+                    ['2005', 1170, 460],
+                    ['2006', 660, 1120],
+                    ['2007', 1030, 540]
+                ]);
+
+                var options = {
+                    title: 'Company Performance',
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+            }
+        </script>
+
+
+        <script type="text/javascript">
+            google.charts.load("current", { packages: ["corechart"] });
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['Work', 11],
+                    ['Eat', 2],
+                    ['Commute', 2],
+                    ['Watch TV', 2],
+                    ['Sleep', 7]
+                ]);
+
+                var options = {
+                    title: 'My Daily Activities',
+                    pieHole: 0.4,
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                chart.draw(data, options);
+            }
+        </script>
+
+        <script>
+
+            const data = [
+                {
+                    ID: 1,
+                    Name: "John",
+                    MostSpend: 1500,
+                    MostBuy: 800,
+                    MoneySpend: 1500,
+                    MostBid: 1200
+                },
+                {
+                    ID: 2,
+                    Name: "Alice",
+                    MostSpend: 800,
+                    MostBuy: 500,
+                    MoneySpend: 800,
+                    MostBid: 500
+                },
+                {
+                    ID: 3,
+                    Name: "Michael",
+                    MostSpend: 300,
+                    MostBuy: 400,
+                    MoneySpend: 300,
+                    MostBid: 400
+                },
+                {
+                    ID: 4,
+                    Name: "Emily",
+                    MostSpend: 1200,
+                    MostBuy: 700,
+                    MoneySpend: 1200,
+                    MostBid: 1000
+                },
+                {
+                    ID: 5,
+                    Name: "David",
+                    MostSpend: 500,
+                    MostBuy: 300,
+                    MoneySpend: 500,
+                    MostBid: 400
+                },
+                {
+                    ID: 6,
+                    Name: "Sophia",
+                    MostSpend: 400,
+                    MostBuy: 200,
+                    MoneySpend: 400,
+                    MostBid: 300
+                },
+                {
+                    ID: 7,
+                    Name: "Matthew",
+                    MostSpend: 2000,
+                    MostBuy: 1800,
+                    MoneySpend: 2000,
+                    MostBid: 1500
+                },
+                {
+                    ID: 8,
+                    Name: "Emma",
+                    MostSpend: 700,
+                    MostBuy: 600,
+                    MoneySpend: 700,
+                    MostBid: 500
+                },
+                {
+                    ID: 9,
+                    Name: "James",
+                    MostSpend: 600,
+                    MostBuy: 400,
+                    MoneySpend: 600,
+                    MostBid: 300
+                },
+                {
+                    ID: 10,
+                    Name: "Olivia",
+                    MostSpend: 1800,
+                    MostBuy: 1500,
+                    MoneySpend: 1800,
+                    MostBid: 1200
+                }
+            ];
+            let userData = ``;
+            data.forEach(item => {
+                userData += `
+                    <tr>
+                        <td style="font-weight: bold;" scope="row">${item.ID}</td>
+                        <td>${item.Name}</td>
+                        <td>${item.MostSpend}</td>
+                        <td>${item.MostBuy}</td>
+                        <td>${item.MoneySpend}</td>
+                        <td>${item.MostBid}</td>
+                    </tr>
+                `
+            })
+            const userDataTable = document.getElementById("user-data");
+            const adminDataTale = document.getElementById("admin-data");
+            userDataTable.innerHTML = userData;
+            adminDataTale.innerHTML = userData;
+
+            function sortTableByColumn(table, column, asc = true) {
+                if (!table) {
+                    console.log('table does not exists');
+                    return;
+                }
+                const isAsc = asc ? 1 : -1;
+                const tBody = table.tBodies[0];
+                const rows = Array.from(tBody.querySelectorAll("tr"));
+                // console.log(rows);
+
+                const sortedRows = rows.sort((a, b) => {
+                    const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+                    const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+                    if (isNaN(parseInt(aColText)) && isNaN(parseInt(bColText))) {
+                        return aColText > bColText ? (1 * isAsc) : (-1 * isAsc);
+                    }
+                    else {
+                        return parseInt(aColText) > parseInt(bColText) ? (1 * isAsc) : (-1 * isAsc);
+                    }
+                })
+
+                while (tBody.firstChild) {
+                    tBody.removeChild(tBody.firstChild);
+                }
+
+                tBody.append(...sortedRows);
+
+                table.querySelectorAll("th").forEach(th => {
+                    th.classList.remove("th-sort-asc", "th-sort-desc");
+                })
+                table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
+                table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+
+                table.querySelectorAll(".fa-sort-up, .fa-sort-down").forEach(icon => {
+                    icon.parentElement.removeChild(icon);
+                })
+                const sortIcon = asc ? "fa-sort-up" : "fa-sort-down";
+                const iconElement = document.createElement("i");
+                iconElement.classList.add("fa-solid", sortIcon);
+                table.querySelector(`th:nth-child(${column + 1})`).appendChild(iconElement);
+
+            }
+
+            // sortTableByColumn(document.querySelector("#user-data-table"), 1);
+
+            document.querySelectorAll(".table-sortable th").forEach(headerCell => {
+                headerCell.addEventListener("click", () => {
+                    const tableElement = headerCell.parentElement.parentElement.parentElement;
+                    const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+                    const isAscendingSorted = headerCell.classList.contains("th-sort-asc");
+
+
+
+                    sortTableByColumn(tableElement, headerIndex, !isAscendingSorted);
+                })
+            })
+
+
+
+
+
+
+
+        </script>
