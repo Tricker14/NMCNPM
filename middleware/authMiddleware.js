@@ -59,4 +59,30 @@ const checkUser = function (req, res, next) {
   }
 };
 
-module.exports = { requireAuth, checkUser };
+const checkAdmin = function (req, res, next) {
+  const token = req.cookies.jwt;
+
+  // check if jwt exists & verified
+  if (token) {
+    jwt.verify(
+      token,
+      process.env.JWT_SECRET_TOKEN,
+      async function (err, decodedToken) {
+        if (err) {
+          console.log(err.message);
+          res.redirect("/webid/login");
+        } else {
+          let user = await User.findById(decodedToken.id);
+          if(user.role === "user"){
+            res.redirect("/webid/login");
+          }
+          next();
+        }
+      }
+    );
+  } else {
+    res.redirect("/webid/login");
+  }
+};
+
+module.exports = { requireAuth, checkUser, checkAdmin };

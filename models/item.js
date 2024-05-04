@@ -168,7 +168,7 @@ itemSchema.pre("findOneAndDelete", async function (next) {
   next();
 });
 
-// delete item when the countdown over (just set isListing = false, not delete literally)
+// delete item when the countdown over (just set isListing = false, not delete it literally)
 
 const deleteItem = async function (id) {
   try {
@@ -206,8 +206,8 @@ const countdownDeleteItem = function (item) {
       item.countdown.second) *
     1000;
 
-    setTimeout(function () {
-      deleteItem(item._id);
+    setTimeout(async function () {
+      await deleteItem(item._id);
     }, time);
   }
   else{
@@ -218,8 +218,8 @@ const countdownDeleteItem = function (item) {
       item.countdown.second) *
     1000;
 
-    setTimeout(function () {
-      deleteItem(item._id);
+    setTimeout(async function () {
+      await deleteItem(item._id);
     }, time);
   }
 };
@@ -260,6 +260,25 @@ const calculateTimeLeft = function (item) {
   };
 };
 
+const calculateEndedDate = function(item){
+  const endDate = new Date(item.createdDate); // Assuming createdDate is the auction start date
+
+  // Calculate the target end time based on the provided countdown values
+  endDate.setUTCDate(endDate.getUTCDate() + item.countdown.day);
+  endDate.setUTCHours(endDate.getUTCHours() + item.countdown.hour);
+  endDate.setUTCMinutes(endDate.getUTCMinutes() + item.countdown.minute);
+  endDate.setUTCSeconds(endDate.getUTCSeconds() + item.countdown.second);
+
+  return endDate;
+}
+
+const calculateTimeOnChart = function(item){
+  const currentTime = new Date();
+  const createdDate = new Date(item.createdDate);
+
+  return currentTime - createdDate;
+}
+
 const Item = mongoose.model("item", itemSchema);
 
-module.exports = { Item, countdownDeleteItem, calculateTimeLeft };
+module.exports = { Item, countdownDeleteItem, calculateTimeLeft, calculateEndedDate, calculateTimeOnChart };
