@@ -1,9 +1,4 @@
 <%- include('../partials/header'); -%>
-
-    <!-- <div>
-        Total user: <%= totalUser %>
-            Total revenue: <%= totalRevenue %>
-    </div> -->
     <div class="dashboard-header">
         <h2 style="font-size: 50px; margin: 20px 200px;">Dashboard</h2>
         <div style="margin: 0 20px;">
@@ -14,11 +9,13 @@
                 padding: 0 10px;
                 border: 3px solid #1565c0;">
                     <div class="card-body">
-                        <h1 class="card-title" style="font-size: 30px; font-weight: bold; height: 72px;">Total Users
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold; height: 72px;">
+                            Total Users
                         </h1>
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #1565c0;">20 users</p>
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #1565c0;">
+                                20 users</p>
                             <i class="fa-solid fa-user" style="font-size: 30px; color: #1565c0;"></i>
                         </div>
                     </div>
@@ -29,11 +26,13 @@
                 padding: 0 10px;
                 border: 3px solid #26a69a;">
                     <div class="card-body">
-                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">Total Revenue
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">
+                            Total Revenue
                         </h1>
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #26a69a;">$ 40000</p>
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #26a69a;">
+                                $ 40000</p>
                             <i class="fa-solid fa-money-bill" style="font-size: 30px; color: #26a69a;"></i>
                         </div>
                     </div>
@@ -44,10 +43,12 @@
                 padding: 0 10px;
                 border: 3px solid #00bcd4;">
                     <div class="card-body">
-                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">Total items</h1>
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">
+                            Total items</h1>
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #00bcd4;">20 users</p>
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #00bcd4;">
+                                20 users</p>
                             <i class="fa-solid fa-boxes-stacked" style="font-size: 30px; color: #00bcd4;"></i>
                         </div>
                     </div>
@@ -63,7 +64,8 @@
                         </h1>
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #f9a825;">20 users</p>
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #f9a825;">
+                                20 users</p>
                             <i class="fa-solid fa-gavel" style="font-size: 30px; color: #f9a825;"></i>
                         </div>
                     </div>
@@ -74,7 +76,8 @@
                     <div style="margin-bottom: 10px;">
                         <button id="dropdown-button-linechart" class="btn btn-outline-primary dropdown-toggle"
                             type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                            style="font-size: large;">Select year</button>
+                            style="font-size: large;">Select
+                            year</button>
                         <ul id="dropdown-menu-linechart" class="dropdown-menu">
                             <li class="dropdown-item" style="font-size: 16px; text-align: center;">2020</li>
                             <li class="dropdown-item" style="font-size: 16px; text-align: center;">2021</li>
@@ -90,7 +93,8 @@
                     <div style="margin-bottom: 10px;">
                         <button id="dropdown-button-donutchart" class="btn btn-outline-primary dropdown-toggle"
                             type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                            style="font-size: large;">Select year</button>
+                            style="font-size: large;">Select
+                            year</button>
                         <ul id="dropdown-menu-donutchart" class="dropdown-menu">
                             <li class="dropdown-item" style="font-size: 16px; text-align: center;">2020</li>
                             <li class="dropdown-item" style="font-size: 16px; text-align: center;">2021</li>
@@ -99,7 +103,8 @@
                             <li class="dropdown-item" style="font-size: 16px; text-align: center;">2024</li>
                         </ul>
                     </div>
-                    <div id="donutchart" style="width: 500px; height: 300px; border: 2px solid black;"></div>
+                    <div id="donutchart" style="width: 500px; height: 300px; border: 2px solid black;">
+                    </div>
                 </div>
             </div>
             <div style="display: flex; width: 1200px; margin: 20px auto; gap: 30px;">
@@ -147,11 +152,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
     <%- include('../partials/footer'); -%>
 
 
