@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const { Item, calculateEndedDate, calculateTimeLeft } = require("../models/item");
 const Bid = require("../models/bid");
+const Category = require("../models/category");
 const mongoose = require('mongoose');
 
 const getHeaderData = async function(){
@@ -29,6 +30,7 @@ const getHeaderData = async function(){
 }
 
 // get user data for user table
+// most post - most buy - money spent - most bid
 const getAllUserData = async function(allUserData){
     const users = await User.find({});
 
@@ -76,16 +78,15 @@ const getAllUserData = async function(allUserData){
 }
 
 // get item data for item table
+// most bid - highest bid - starting bid - time left
 const getAllItemData = async function(allItemData){
     const items = await Item.find({});
-
-    let money = null;
 
     for(let item of items){
         let itemData = {
             numberOfBid: 0,
-            moneySpent: 0,
-            percentChange: 0,
+            highestBid: 0,
+            startingBid: 0,
             timeLeft: {
                 day: 0,
                 hour: 0,
@@ -95,32 +96,8 @@ const getAllItemData = async function(allItemData){
         }
 
         itemData.numberOfBid = await Bid.where({ product: item._id }).countDocuments();
-
-        money = await Item.aggregate(
-            [
-                {
-                    $match: { _id: new mongoose.Types.ObjectId(item._id) }
-                },
-                {
-                    $group:
-                    {
-                        _id: null,
-                        totalRevenue: {$sum: "$highestBid"},
-                    }
-                }
-            ]
-        )
-
-        if(money.length > 0){  // item has been sold
-            itemData.moneySpent = money[0].totalRevenue;
-        }
-        else{
-            itemData.moneySpent = 0;
-        }
-
-        let priceBefore = item.startingBid;
-        let priceAfter = item.highestBid;
-        itemData.percentChange = priceAfter / priceBefore;
+        itemData.highestBid = item.highestBid;
+        itemData.startingBid = item.startingBid;
 
         calculateTimeLeft(item);
 
@@ -248,4 +225,8 @@ module.exports.revenueByYear = async function(req, res){
         console.log(err);
         res.status(400).json({ err });
     }
+}
+
+module.exports.revenueByCategory = async function(req, res){
+    
 }

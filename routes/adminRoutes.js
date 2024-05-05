@@ -7,6 +7,7 @@ const { requireAuth, checkUser, checkAdmin } = require("../middleware/authMiddle
 // router.get("/admin/:year", requireAuth, checkAdmin, adminController.revenueByYear);
 
 router.get("/admin", adminController.adminPage);
-router.get("/admin/:year", adminController.revenueByYear);
+router.get("/admin/linechart/:year", adminController.revenueByYear);
+router.get("/admin/piechart/:year", adminController.revenueByCategory);
 
 module.exports = router;
