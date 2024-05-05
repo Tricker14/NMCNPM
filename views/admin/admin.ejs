@@ -15,7 +15,8 @@
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                             <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #1565c0;">
-                                20 users</p>
+                                <%= totalUser%>
+                            </p>
                             <i class="fa-solid fa-user" style="font-size: 30px; color: #1565c0;"></i>
                         </div>
                     </div>
@@ -32,7 +33,8 @@
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                             <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #26a69a;">
-                                $ 40000</p>
+                                <%= totalRevenue %>
+                            </p>
                             <i class="fa-solid fa-money-bill" style="font-size: 30px; color: #26a69a;"></i>
                         </div>
                     </div>
@@ -48,7 +50,8 @@
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                             <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #00bcd4;">
-                                20 users</p>
+                                <%= totalItems %>
+                            </p>
                             <i class="fa-solid fa-boxes-stacked" style="font-size: 30px; color: #00bcd4;"></i>
                         </div>
                     </div>
@@ -65,7 +68,8 @@
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                             <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #f9a825;">
-                                20 users</p>
+                                <%= totalBiddingItems %>
+                            </p>
                             <i class="fa-solid fa-gavel" style="font-size: 30px; color: #f9a825;"></i>
                         </div>
                     </div>
@@ -164,11 +168,27 @@
             const btnLineChart = document.getElementById("dropdown-button-linechart");
             const menuLineChart = document.getElementById("dropdown-menu-linechart");
             let currentYear = "";
-            menuLineChart.addEventListener("click", (e) => {
+            menuLineChart.addEventListener("click", async (e) => {
                 if (e.target.classList.contains("dropdown-item")) {
                     btnLineChart.textContent = e.target.textContent;
                     currentYear = e.target.textContent;
-                    let data;
+                    const data_to_render = await getLineChartData(currentYear);
+                    const revenueByYear = data_to_render.revenueByYear;
+                    const data = await google.visualization.arrayToDataTable([
+                        ['Month', 'Revenue'],
+                        ['Jan', revenueByYear.month_1],
+                        ['Feb', revenueByYear.month_2],
+                        ['Mar', revenueByYear.month_3],
+                        ['Apr', revenueByYear.month_4],
+                        ['May', revenueByYear.month_5],
+                        ['Jun', revenueByYear.month_6],
+                        ['Jul', revenueByYear.month_7],
+                        ['Aug', revenueByYear.month_8],
+                        ['Sep', revenueByYear.month_9],
+                        ['Oct', revenueByYear.month_10],
+                        ['Nov', revenueByYear.month_11],
+                        ['Dec', revenueByYear.month_12]
+                    ]);
                     let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
                     var options = {
                         title: title,
@@ -184,20 +204,22 @@
             })
 
             async function drawChart() {
+                const data_to_render = await getLineChartData("2024");
+                const revenueByYear = data_to_render.revenueByYear;
                 var data = await google.visualization.arrayToDataTable([
                     ['Month', 'Revenue'],
-                    ['Jan', 1000],
-                    ['Feb', 1200],
-                    ['Mar', 1100],
-                    ['Apr', 1300],
-                    ['May', 1400],
-                    ['Jun', 1500],
-                    ['Jul', 1600],
-                    ['Aug', 1700],
-                    ['Sep', 1800],
-                    ['Oct', 1900],
-                    ['Nov', 2000],
-                    ['Dec', 2100]
+                    ['Jan', revenueByYear.month_1],
+                    ['Feb', revenueByYear.month_2],
+                    ['Mar', revenueByYear.month_3],
+                    ['Apr', revenueByYear.month_4],
+                    ['May', revenueByYear.month_5],
+                    ['Jun', revenueByYear.month_6],
+                    ['Jul', revenueByYear.month_7],
+                    ['Aug', revenueByYear.month_8],
+                    ['Sep', revenueByYear.month_9],
+                    ['Oct', revenueByYear.month_10],
+                    ['Nov', revenueByYear.month_11],
+                    ['Dec', revenueByYear.month_12]
                 ]);
 
                 let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
@@ -210,6 +232,19 @@
                 var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
                 chart.draw(data, options);
+            }
+
+            async function getLineChartData(year) {
+                try {
+                    const response = await fetch(`/webid/admin/linechart/${year}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return await response.json();
+
+                } catch (error) {
+                    console.log(error);
+                }
             }
         </script>
 
@@ -238,6 +273,8 @@
         </script>
 
         <script>
+            const allUserData = '<%- JSON.stringify(allUserData) %>';
+            const allUserDataJson = JSON.parse(allUserData);
 
             const data = [
                 {

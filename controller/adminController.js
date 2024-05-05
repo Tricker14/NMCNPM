@@ -4,7 +4,7 @@ const Bid = require("../models/bid");
 const Category = require("../models/category");
 const mongoose = require('mongoose');
 
-const getHeaderData = async function(){
+const getHeaderData = async function () {
     const totalUser = await User.countDocuments();
     const total = await Item.aggregate(
         [
@@ -12,7 +12,7 @@ const getHeaderData = async function(){
                 $group:
                 {
                     _id: null,
-                    totalRevenue: {$sum: "$highestBid"},
+                    totalRevenue: { $sum: "$highestBid" },
                 }
             }
         ]
@@ -31,12 +31,12 @@ const getHeaderData = async function(){
 
 // get user data for user table
 // most post - most buy - money spent - most bid
-const getAllUserData = async function(allUserData){
+const getAllUserData = async function (allUserData) {
     const users = await User.find({});
 
     let money = null;
 
-    for(let user of users){
+    for (let user of users) {
         let userData = {
             numberOfPost: 0,
             numberOfItem: 0,
@@ -47,7 +47,7 @@ const getAllUserData = async function(allUserData){
         userData.numberOfPost = await Item.where({ owner: user._id }).countDocuments();
         userData.numberOfItem = await Item.where({ winner: user._id }).countDocuments();
 
-        money = await Item.aggregate(   
+        money = await Item.aggregate(
             [
                 {
                     $match: { winner: new mongoose.Types.ObjectId(user._id) }
@@ -56,16 +56,16 @@ const getAllUserData = async function(allUserData){
                     $group:
                     {
                         _id: null,
-                        totalRevenue: {$sum: "$highestBid"},
+                        totalRevenue: { $sum: "$highestBid" },
                     }
                 }
             ]
         )
 
-        if(money.length > 0){  // item has been sold
+        if (money.length > 0) {  // item has been sold
             userData.moneySpent = money[0].totalRevenue;
         }
-        else{
+        else {
             userData.moneySpent = 0;
         }
 
@@ -79,10 +79,10 @@ const getAllUserData = async function(allUserData){
 
 // get item data for item table
 // most bid - highest bid - starting bid - time left
-const getAllItemData = async function(allItemData){
+const getAllItemData = async function (allItemData) {
     const items = await Item.find({});
 
-    for(let item of items){
+    for (let item of items) {
         let itemData = {
             numberOfBid: 0,
             highestBid: 0,
@@ -106,13 +106,13 @@ const getAllItemData = async function(allItemData){
         itemData.timeLeft.minute = item.timeLeft.minute;
         itemData.timeLeft.second = item.timeLeft.second;
 
-        if(item.timeLeft.second >= 0 && itemData.timeLeft.minute >= 0 && itemData.timeLeft.hour >= 0 && itemData.timeLeft.day >= 0){
+        if (item.timeLeft.second >= 0 && itemData.timeLeft.minute >= 0 && itemData.timeLeft.hour >= 0 && itemData.timeLeft.day >= 0) {
             itemData.timeLeft.day = item.timeLeft.day;
             itemData.timeLeft.hour = item.timeLeft.hour;
             itemData.timeLeft.minute = item.timeLeft.minute;
             itemData.timeLeft.second = item.timeLeft.second;
         }
-        else{
+        else {
             itemData.timeLeft.day = 0;
             itemData.timeLeft.hour = 0;
             itemData.timeLeft.minute = 0;
@@ -125,8 +125,8 @@ const getAllItemData = async function(allItemData){
     return allItemData;
 }
 
-module.exports.adminPage = async function(req, res){
-    try{
+module.exports.adminPage = async function (req, res) {
+    try {
         // Run all three tasks concurrently
         const [headerData, allUserData, allItemData] = await Promise.all([
             getHeaderData(),
@@ -150,14 +150,14 @@ module.exports.adminPage = async function(req, res){
             allItemData,
         });
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         res.status(400).json({ err });
     }
 }
 
-module.exports.revenueByYear = async function(req, res){
-    try{
+module.exports.revenueByYear = async function (req, res) {
+    try {
         const year = req.params.year;
         const items = await Item.find({});
         const revenueByYear = {
@@ -175,10 +175,10 @@ module.exports.revenueByYear = async function(req, res){
             month_12: 0,
         }
 
-        items.forEach(function(item){
-            if(calculateEndedDate(item).getFullYear() === parseInt(year)){
+        items.forEach(function (item) {
+            if (calculateEndedDate(item).getFullYear() === parseInt(year)) {
                 console.log("items ", calculateEndedDate(item).getFullYear());
-                switch(calculateEndedDate(item).getMonth()){
+                switch (calculateEndedDate(item).getMonth()) {
                     case 1:
                         revenueByYear.month_1 += parseInt(item.highestBid);
                         break;
@@ -219,14 +219,14 @@ module.exports.revenueByYear = async function(req, res){
             }
         });
 
-        res.status(200).json({revenueByYear});
+        res.status(200).json({ revenueByYear });
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         res.status(400).json({ err });
     }
 }
 
-module.exports.revenueByCategory = async function(req, res){
-    
+module.exports.revenueByCategory = async function (req, res) {
+
 }
