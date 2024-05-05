@@ -70,9 +70,37 @@
                 </div>
             </div>
             <div style="display: flex; width: fit-content; margin: 0 auto; gap: 30px; margin-top: 20px;">
-                <div id="curve_chart" style="width: 700px; height: 300px; border: 2px solid black;">
+                <div>
+                    <div style="margin-bottom: 10px;">
+                        <button id="dropdown-button-linechart" class="btn btn-outline-primary dropdown-toggle"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="font-size: large;">Select year</button>
+                        <ul id="dropdown-menu-linechart" class="dropdown-menu">
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2020</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2021</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2022</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2023</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2024</li>
+                        </ul>
+                    </div>
+                    <div id="curve_chart" style="width: 700px; height: 300px; border: 2px solid black;">
+                    </div>
                 </div>
-                <div id="donutchart" style="width: 500px; height: 300px; border: 2px solid black;"></div>
+                <div>
+                    <div style="margin-bottom: 10px;">
+                        <button id="dropdown-button-donutchart" class="btn btn-outline-primary dropdown-toggle"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="font-size: large;">Select year</button>
+                        <ul id="dropdown-menu-donutchart" class="dropdown-menu">
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2020</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2021</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2022</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2023</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2024</li>
+                        </ul>
+                    </div>
+                    <div id="donutchart" style="width: 500px; height: 300px; border: 2px solid black;"></div>
+                </div>
             </div>
             <div style="display: flex; width: 1200px; margin: 20px auto; gap: 30px;">
                 <div style="display: flex; flex-direction: column; width: 100%;">
@@ -132,17 +160,48 @@
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Year', 'Sales', 'Expenses'],
-                    ['2004', 1000, 400],
-                    ['2005', 1170, 460],
-                    ['2006', 660, 1120],
-                    ['2007', 1030, 540]
+            const btnLineChart = document.getElementById("dropdown-button-linechart");
+            const menuLineChart = document.getElementById("dropdown-menu-linechart");
+            let currentYear = "";
+            menuLineChart.addEventListener("click", (e) => {
+                if (e.target.classList.contains("dropdown-item")) {
+                    btnLineChart.textContent = e.target.textContent;
+                    currentYear = e.target.textContent;
+                    let data;
+                    let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
+                    var options = {
+                        title: title,
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                    chart.draw(data, options);
+
+                }
+            })
+
+            async function drawChart() {
+                var data = await google.visualization.arrayToDataTable([
+                    ['Month', 'Revenue'],
+                    ['Jan', 1000],
+                    ['Feb', 1200],
+                    ['Mar', 1100],
+                    ['Apr', 1300],
+                    ['May', 1400],
+                    ['Jun', 1500],
+                    ['Jul', 1600],
+                    ['Aug', 1700],
+                    ['Sep', 1800],
+                    ['Oct', 1900],
+                    ['Nov', 2000],
+                    ['Dec', 2100]
                 ]);
 
+                let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
                 var options = {
-                    title: 'Company Performance',
+                    title: title,
                     curveType: 'function',
                     legend: { position: 'bottom' }
                 };
@@ -322,7 +381,6 @@
 
             }
 
-            // sortTableByColumn(document.querySelector("#user-data-table"), 1);
 
             document.querySelectorAll(".table-sortable th").forEach(headerCell => {
                 headerCell.addEventListener("click", () => {
