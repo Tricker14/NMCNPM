@@ -38,12 +38,14 @@ const getAllUserData = async function(allUserData){
 
     for(let user of users){
         let userData = {
+            name: "",
             numberOfPost: 0,
             numberOfItem: 0,
             moneySpent: 0,
             numberOfBid: 0,
         }
 
+        userData.name = user.username;
         userData.numberOfPost = await Item.where({ owner: user._id }).countDocuments();
         userData.numberOfItem = await Item.where({ winner: user._id }).countDocuments();
 
@@ -84,6 +86,7 @@ const getAllItemData = async function(allItemData){
 
     for(let item of items){
         let itemData = {
+            name: "",
             numberOfBid: 0,
             highestBid: 0,
             startingBid: 0,
@@ -95,6 +98,7 @@ const getAllItemData = async function(allItemData){
             }
         }
 
+        itemData.name = item.name;
         itemData.numberOfBid = await Bid.where({ product: item._id }).countDocuments();
         itemData.highestBid = item.highestBid;
         itemData.startingBid = item.startingBid;
@@ -228,5 +232,5 @@ module.exports.revenueByYear = async function(req, res){
 }
 
 module.exports.revenueByCategory = async function(req, res){
-    
+
 }
