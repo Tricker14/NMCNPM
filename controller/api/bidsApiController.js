@@ -7,7 +7,13 @@ module.exports.bid_post = async function(req, res){
     const bidder = res.locals.user;
     const bidIncrement = req.body.bidIncrement;
 
-    const price = product.highestBid + bidIncrement * product.bidIncrement;
+    let price = 0;
+    if(product.highestBid === 0){
+        price = product.startingBid + bidIncrement * product.bidIncrement;
+    }
+    else{
+        price = product.highestBid + bidIncrement * product.bidIncrement;
+    }
     console.log("bidIncrement", bidIncrement);
     try{
         if(price > product.highestBid){

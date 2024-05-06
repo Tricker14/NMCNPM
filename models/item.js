@@ -272,14 +272,6 @@ const calculateEndedDate = function(item){
   return endDate;
 }
 
-const calculateTimeOnChart = function(item){
-  const currentTime = new Date();
-  const createdDate = new Date(item.createdDate);
-
-  return currentTime - createdDate;
-}
-
 const Item = mongoose.model("item", itemSchema);
 
-module.exports = { Item, countdownDeleteItem, calculateTimeLeft, 
-  calculateEndedDate, calculateTimeOnChart, deleteItem };
+module.exports = { Item, countdownDeleteItem, calculateTimeLeft, calculateEndedDate, deleteItem };

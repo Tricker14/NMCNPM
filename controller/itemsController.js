@@ -181,7 +181,7 @@ module.exports.create_item = async function (req, res) {
   Object.values(images)[1].forEach((preview) => {
     previewImages.push(preview.filename);
   });
-  const highestBid = startingBid;
+  const highestBid = 0;
   const owner = res.locals.user;
 
   const categoryString = req.body.category;
