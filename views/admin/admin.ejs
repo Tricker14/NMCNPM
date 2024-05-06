@@ -113,7 +113,12 @@
                             <li class="dropdown-item" style="font-size: 16px; text-align: center;">2024</li>
                         </ul>
                     </div>
-                    <div id="donutchart" style="width: 500px; height: 300px; border: 2px solid black;">
+                    <div style="width: 500px; height: 300px; border: 2px solid black;" class="position-relative">
+                        <div id="donutchart" style="width: 100%; height: 100%;"></div>
+                        <div id="pie_chart_loading" class="spinner-border position-absolute d-none"
+                            style="width: 5rem; height: 5rem; top: 20px; left: 425px; color: black;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,7 +146,7 @@
                 </div>
                 <div style="display: flex; flex-direction: column; width: 100%;">
                     <div class="alert alert-success" role="alert" style="width: 200px; height: fit-content;">
-                        <h1 style="font-weight: bold; text-align: center; font-size: 30px;">Admin Data</h1>
+                        <h1 style="font-weight: bold; text-align: center; font-size: 30px;">Item Data</h1>
                     </div>
                     <div style="width: 100%; border: solid 2px #00796b;">
                         <table id="admin-data-table" class="table table-success table-striped table-sortable">
@@ -174,7 +179,6 @@
             let currentYear = "";
             menuLineChart.addEventListener("click", async (e) => {
                 if (e.target.classList.contains("dropdown-item")) {
-                    isLoading = true;
                     document.getElementById("curve_chart_loading").classList.toggle("d-none");
                     btnLineChart.textContent = e.target.textContent;
                     currentYear = e.target.textContent;
@@ -206,8 +210,6 @@
                     document.getElementById("curve_chart_loading").classList.toggle("d-none");
 
                     chart.draw(data, options);
-
-
                 }
             })
 
@@ -255,28 +257,77 @@
                 }
             }
         </script>
-
-
         <script type="text/javascript">
+            const btnPieChart = document.getElementById("dropdown-button-donutchart");
+            const menuPieChart = document.getElementById("dropdown-menu-donutchart");
+            let currentYearPieChart = "";
+            menuPieChart.addEventListener("click", async (e) => {
+                if (e.target.classList.contains("dropdown-item")) {
+                    document.getElementById("pie_chart_loading").classList.toggle("d-none");
+                    btnPieChart.textContent = e.target.textContent;
+                    currentYearPieChart = e.target.textContent;
+                    const data_to_render = await getPieChartData(currentYearPieChart);
+                    const revenueByYear = data_to_render.revenueByYear;
+                    // console.log(revenueByYear);
+                    var data = google.visualization.arrayToDataTable([
+                        ['Categories', 'Revenue By Year'],
+                        ['Accessories', revenueByYear.Accessories],
+                        ['Antiques', revenueByYear.Antiques],
+                        ['Book', revenueByYear.Book],
+                        ['Clothing', revenueByYear.Clothing],
+                        ['Electronics', revenueByYear.Electronics],
+                        ['Games', revenueByYear.Games],
+                        ['Handmade', revenueByYear.Handmade],
+                        ['Houseware', revenueByYear.Houseware],
+                        ['Interior', revenueByYear.Interior],
+                        ['Jewelry', revenueByYear.Jewelry],
+                        ['Paintings', revenueByYear.Paintings],
+                        ['Party', revenueByYear.Party],
+                        ['Pottery', revenueByYear.Pottery],
+                        ['Toys', revenueByYear.Toys]
+                    ]);
+                    let title = currentYearPieChart === "" ? "WeBid categories in 2024" : `WeBid categories in ${currentYearPieChart}`;
+                    var options = {
+                        title: title,
+                        pieHole: 0.4,
+                    };
+                    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                    chart.draw(data, options);
+                    document.getElementById("pie_chart_loading").classList.toggle("d-none");
+                }
+            });
+
+
             google.charts.load("current", { packages: ["corechart"] });
             google.charts.setOnLoadCallback(drawChart);
             async function drawChart() {
-                // const data_to_render = await getPieChartData("2024");
-                // console.log(JSON.stringify);
+                const data_to_render = await getPieChartData("2024");
+                const revenueByYear = data_to_render.revenueByYear;
+                console.log(revenueByYear);
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
-                    ['Work', 11],
-                    ['Eat', 2],
-                    ['Commute', 2],
-                    ['Watch TV', 2],
-                    ['Sleep', 7]
+                    ['Categories', 'Revenue By Year'],
+                    ['Accessories', revenueByYear.Accessories],
+                    ['Antiques', revenueByYear.Antiques],
+                    ['Book', revenueByYear.Book],
+                    ['Clothing', revenueByYear.Clothing],
+                    ['Electronics', revenueByYear.Electronics],
+                    ['Games', revenueByYear.Games],
+                    ['Handmade', revenueByYear.Handmade],
+                    ['Houseware', revenueByYear.Houseware],
+                    ['Interior', revenueByYear.Interior],
+                    ['Jewelry', revenueByYear.Jewelry],
+                    ['Paintings', revenueByYear.Paintings],
+                    ['Party', revenueByYear.Party],
+                    ['Pottery', revenueByYear.Pottery],
+                    ['Toys', revenueByYear.Toys]
+
                 ]);
 
+                let title = currentYearPieChart === "" ? "WeBid categories in 2024" : `WeBid categories in ${currentYearPieChart}`;
                 var options = {
-                    title: 'My Daily Activities',
+                    title: title,
                     pieHole: 0.4,
                 };
-
                 var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
                 chart.draw(data, options);
             }
@@ -300,6 +351,7 @@
             const allUserDataJson = JSON.parse(allUserData);
             const allItemData = '<%- JSON.stringify(allItemData) %>';
             const allItemDataJson = JSON.parse(allItemData);
+            // console.log(allItemDataJson);
             let userData = ``;
             allUserDataJson.forEach((item, index) => {
                 userData += `
@@ -315,8 +367,7 @@
             })
             const userDataTable = document.getElementById("user-data");
             userDataTable.innerHTML = userData;
-
-
+            // allItemDataJson[0].timeLeft.second = 8;
             let itemData = ``;
             allItemDataJson.forEach((item, index) => {
                 itemData += `
@@ -329,21 +380,23 @@
                             <div class="countdown d-flex gap-2">
                                 <i class="bi bi-clock-fill"></i>
                                 <div class="countdown-item">
-                                    <span class="countdown-number" id="days">${item.timeLeft.day}d</span>
+                                    <span class="countdown-number" id="days-${item.name}">${item.timeLeft.day}d</span>
                                 </div>
                                 <div class="countdown-item">
-                                    <span class="countdown-number" id="hours">${item.timeLeft.hour}h</span>
+                                    <span class="countdown-number" id="hours-${item.name}">${item.timeLeft.hour}h</span>
                                 </div>
                                 <div class="countdown-item">
-                                    <span class="countdown-number" id="minutes">${item.timeLeft.minute}m</span>
+                                    <span class="countdown-number" id="minutes-${item.name}">${item.timeLeft.minute}m</span>
                                 </div>
                                 <div class="countdown-item">
-                                    <span class="countdown-number" id="seconds">${item.timeLeft.second}s</span>
+                                    <span class="countdown-number" id="seconds-${item.name}">${item.timeLeft.second}s</span>
                                 </div>
                             </div>
                         </td>
                     </tr>
                 `;
+
+
             });
             const adminDataTale = document.getElementById("admin-data");
             adminDataTale.innerHTML = itemData;
@@ -403,10 +456,33 @@
                 })
             })
 
+            function updateCountdown() {
+                allItemDataJson.forEach((item) => {
+                    if (item.timeLeft.day === 0 && item.timeLeft.hour === 0 && item.timeLeft.minute === 0 && item.timeLeft.second === 0) {
+                        return;
+                    }
+                    item.timeLeft.second--;
+                    if (item.timeLeft.second < 0) {
+                        item.timeLeft.second = 59;
+                        item.timeLeft.minute--;
+                        if (item.timeLeft.minute < 0) {
+                            item.timeLeft.minute = 59;
+                            item.timeLeft.hour--;
+                            if (item.timeLeft.hour < 0) {
+                                item.timeLeft.hour = 23;
+                                item.timeLeft.day--;
+                                if (item.timeLeft.day < 0) {
 
+                                }
+                            }
+                        }
+                    }
+                    document.getElementById(`days-${item.name}`).textContent = `${item.timeLeft.day}d`;
+                    document.getElementById(`hours-${item.name}`).textContent = `${item.timeLeft.hour}h`;
+                    document.getElementById(`minutes-${item.name}`).textContent = `${item.timeLeft.minute}m`;
+                    document.getElementById(`seconds-${item.name}`).textContent = `${item.timeLeft.second}s`;
+                });
+            }
 
-
-
-
-
+            setInterval(updateCountdown, 1000);
         </script>
