@@ -281,4 +281,5 @@ const calculateTimeOnChart = function(item){
 
 const Item = mongoose.model("item", itemSchema);
 
-module.exports = { Item, countdownDeleteItem, calculateTimeLeft, calculateEndedDate, calculateTimeOnChart };
+module.exports = { Item, countdownDeleteItem, calculateTimeLeft, 
+  calculateEndedDate, calculateTimeOnChart, deleteItem };
