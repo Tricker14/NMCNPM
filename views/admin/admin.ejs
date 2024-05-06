@@ -90,8 +90,14 @@
                             <li class="dropdown-item" style="font-size: 16px; text-align: center;">2024</li>
                         </ul>
                     </div>
-                    <div id="curve_chart" style="width: 700px; height: 300px; border: 2px solid black;">
+                    <div style="width: 700px; height: 300px; border: 2px solid black;" class="position-relative">
+                        <div id="curve_chart" style="width: 100%; height: 100%;"></div>
+                        <div id="curve_chart_loading" class="spinner-border position-absolute d-none"
+                            style="width: 5rem; height: 5rem; top: 20px; left: 620px; color: black;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
+
                 </div>
                 <div>
                     <div style="margin-bottom: 10px;">
@@ -122,10 +128,10 @@
                                 <tr>
                                     <th style="cursor: pointer;" scope="col">ID </th>
                                     <th style="cursor: pointer;" scope="col">Name </th>
-                                    <th style="cursor: pointer;" scope="col">Most spend </th>
-                                    <th style="cursor: pointer;" scope="col">Most buy </th>
-                                    <th style="cursor: pointer;" scope="col">Money spend </th>
-                                    <th style="cursor: pointer;" scope="col">Most bid </th>
+                                    <th style="cursor: pointer;" scope="col">Money Spent </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Bid </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Item </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Post </th>
                                 </tr>
                             </thead>
                             <tbody id="user-data">
@@ -142,11 +148,10 @@
                             <thead id="user-data-header">
                                 <tr>
                                     <th style="cursor: pointer;" scope="col">ID </th>
-                                    <th style="cursor: pointer;" scope="col">Name </th>
-                                    <th style="cursor: pointer;" scope="col">Most spend </th>
-                                    <th style="cursor: pointer;" scope="col">Most buy </th>
-                                    <th style="cursor: pointer;" scope="col">Money spend </th>
-                                    <th style="cursor: pointer;" scope="col">Most bid </th>
+                                    <th style="cursor: pointer;" scope="col">Item Name </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Bid </th>
+                                    <th style="cursor: pointer;" scope="col">Starting Bid </th>
+                                    <th style="cursor: pointer;" scope="col">Time left </th>
                                 </tr>
                             </thead>
                             <tbody id="admin-data">
@@ -164,12 +169,13 @@
         <script type="text/javascript">
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
-
             const btnLineChart = document.getElementById("dropdown-button-linechart");
             const menuLineChart = document.getElementById("dropdown-menu-linechart");
             let currentYear = "";
             menuLineChart.addEventListener("click", async (e) => {
                 if (e.target.classList.contains("dropdown-item")) {
+                    isLoading = true;
+                    document.getElementById("curve_chart_loading").classList.toggle("d-none");
                     btnLineChart.textContent = e.target.textContent;
                     currentYear = e.target.textContent;
                     const data_to_render = await getLineChartData(currentYear);
@@ -197,8 +203,10 @@
                     };
 
                     var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                    document.getElementById("curve_chart_loading").classList.toggle("d-none");
 
                     chart.draw(data, options);
+
 
                 }
             })
@@ -252,7 +260,9 @@
         <script type="text/javascript">
             google.charts.load("current", { packages: ["corechart"] });
             google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
+            async function drawChart() {
+                // const data_to_render = await getPieChartData("2024");
+                // console.log(JSON.stringify);
                 var data = google.visualization.arrayToDataTable([
                     ['Task', 'Hours per Day'],
                     ['Work', 11],
@@ -270,111 +280,74 @@
                 var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
                 chart.draw(data, options);
             }
+
+            async function getPieChartData(year) {
+                try {
+                    const response = await fetch(`/webid/admin/piechart/${year}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return await response.json();
+
+                } catch (error) {
+                    console.log(error);
+                }
+            } 
         </script>
 
         <script>
             const allUserData = '<%- JSON.stringify(allUserData) %>';
             const allUserDataJson = JSON.parse(allUserData);
-
-            const data = [
-                {
-                    ID: 1,
-                    Name: "John",
-                    MostSpend: 1500,
-                    MostBuy: 800,
-                    MoneySpend: 1500,
-                    MostBid: 1200
-                },
-                {
-                    ID: 2,
-                    Name: "Alice",
-                    MostSpend: 800,
-                    MostBuy: 500,
-                    MoneySpend: 800,
-                    MostBid: 500
-                },
-                {
-                    ID: 3,
-                    Name: "Michael",
-                    MostSpend: 300,
-                    MostBuy: 400,
-                    MoneySpend: 300,
-                    MostBid: 400
-                },
-                {
-                    ID: 4,
-                    Name: "Emily",
-                    MostSpend: 1200,
-                    MostBuy: 700,
-                    MoneySpend: 1200,
-                    MostBid: 1000
-                },
-                {
-                    ID: 5,
-                    Name: "David",
-                    MostSpend: 500,
-                    MostBuy: 300,
-                    MoneySpend: 500,
-                    MostBid: 400
-                },
-                {
-                    ID: 6,
-                    Name: "Sophia",
-                    MostSpend: 400,
-                    MostBuy: 200,
-                    MoneySpend: 400,
-                    MostBid: 300
-                },
-                {
-                    ID: 7,
-                    Name: "Matthew",
-                    MostSpend: 2000,
-                    MostBuy: 1800,
-                    MoneySpend: 2000,
-                    MostBid: 1500
-                },
-                {
-                    ID: 8,
-                    Name: "Emma",
-                    MostSpend: 700,
-                    MostBuy: 600,
-                    MoneySpend: 700,
-                    MostBid: 500
-                },
-                {
-                    ID: 9,
-                    Name: "James",
-                    MostSpend: 600,
-                    MostBuy: 400,
-                    MoneySpend: 600,
-                    MostBid: 300
-                },
-                {
-                    ID: 10,
-                    Name: "Olivia",
-                    MostSpend: 1800,
-                    MostBuy: 1500,
-                    MoneySpend: 1800,
-                    MostBid: 1200
-                }
-            ];
+            const allItemData = '<%- JSON.stringify(allItemData) %>';
+            const allItemDataJson = JSON.parse(allItemData);
             let userData = ``;
-            data.forEach(item => {
+            allUserDataJson.forEach((item, index) => {
                 userData += `
                     <tr>
-                        <td style="font-weight: bold;" scope="row">${item.ID}</td>
-                        <td>${item.Name}</td>
-                        <td>${item.MostSpend}</td>
-                        <td>${item.MostBuy}</td>
-                        <td>${item.MoneySpend}</td>
-                        <td>${item.MostBid}</td>
+                        <td style="font-weight: bold;" scope="row">${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.moneySpent}</td>
+                        <td>${item.numberOfBid}</td>
+                        <td>${item.numberOfItem}</td>
+                        <td>${item.numberOfPost}</td>
                     </tr>
                 `
             })
             const userDataTable = document.getElementById("user-data");
-            const adminDataTale = document.getElementById("admin-data");
             userDataTable.innerHTML = userData;
-            adminDataTale.innerHTML = userData;
+
+
+            let itemData = ``;
+            allItemDataJson.forEach((item, index) => {
+                itemData += `
+                    <tr>
+                        <td style="font-weight: bold;" scope="row">${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.highestBid}</td>
+                        <td>${item.numberOfBid}</td>
+                        <td>
+                            <div class="countdown d-flex gap-2">
+                                <i class="bi bi-clock-fill"></i>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="days">${item.timeLeft.day}d</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="hours">${item.timeLeft.hour}h</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="minutes">${item.timeLeft.minute}m</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="seconds">${item.timeLeft.second}s</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            const adminDataTale = document.getElementById("admin-data");
+            adminDataTale.innerHTML = itemData;
+
 
             function sortTableByColumn(table, column, asc = true) {
                 if (!table) {
@@ -425,8 +398,6 @@
                     const tableElement = headerCell.parentElement.parentElement.parentElement;
                     const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
                     const isAscendingSorted = headerCell.classList.contains("th-sort-asc");
-
-
 
                     sortTableByColumn(tableElement, headerIndex, !isAscendingSorted);
                 })
