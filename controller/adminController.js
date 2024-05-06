@@ -231,70 +231,6 @@ module.exports.revenueByYear = async function(req, res){
     }
 }
 
-// module.exports.revenueByCategory = async function(req, res){
-//     try{
-//         const year = req.params.year;
-//         const categories = await Category.find({});
-//         const countCategories = await Category.countDocuments();
-//         const revenueByYear = {};
-
-//         for(let i = 1; i <= countCategories; i++){
-//             revenueByYear[categories[i - 1]] = 0;
-//         }
-
-//         categories.forEach(async function(category){
-//             let items = await Item.find({ category: category._id });
-//             if(calculateEndedDate(item).getFullYear() === parseInt(year)){
-//                 console.log("categories ", calculateEndedDate(item).getFullYear());
-//                 switch(calculateEndedDate(item).getMonth()){
-//                     case 1:
-//                         revenueByYear.month_1 += parseInt(item.highestBid);
-//                         break;
-//                     case 2:
-//                         revenueByYear.month_2 += parseInt(item.highestBid);
-//                         break;
-//                     case 3:
-//                         revenueByYear.month_3 += parseInt(item.highestBid);
-//                         break;
-//                     case 4:
-//                         revenueByYear.month_4 += parseInt(item.highestBid);
-//                         break;
-//                     case 5:
-//                         revenueByYear.month_5 += parseInt(item.highestBid);
-//                         break;
-//                     case 6:
-//                         revenueByYear.month_6 += parseInt(item.highestBid);
-//                         break;
-//                     case 7:
-//                         revenueByYear.month_7 += parseInt(item.highestBid);
-//                         break;
-//                     case 8:
-//                         revenueByYear.month_8 += parseInt(item.highestBid);
-//                         break;
-//                     case 9:
-//                         revenueByYear.month_9 += parseInt(item.highestBid);
-//                         break;
-//                     case 10:
-//                         revenueByYear.month_10 += parseInt(item.highestBid);
-//                         break;
-//                     case 11:
-//                         revenueByYear.month_11 += parseInt(item.highestBid);
-//                         break;
-//                     case 12:
-//                         revenueByYear.month_12 += parseInt(item.highestBid);
-//                         break;
-//                 }
-//             }
-//         });
-
-//         res.status(200).json({revenueByYear});
-//     }
-//     catch(err){
-//         console.log(err);
-//         res.status(400).json({ err });
-//     }
-// }
-
 module.exports.revenueByCategory = async function(req, res){
     try{
         const year = req.params.year;
@@ -304,16 +240,14 @@ module.exports.revenueByCategory = async function(req, res){
         const revenueByYear = {};
 
         for(let i = 1; i <= countCategories; i++){
-            revenueByYear[categories[i - 1]] = 0;
+            revenueByYear[categories[i - 1].name] = 0;
         }
 
         items.forEach(function(item){
             if(calculateEndedDate(item).getFullYear() === parseInt(year)){
                 for(let i = 1; i <= countCategories; i++){
-                    console.log("id 1 ", item.category);
-                    console.log("id 2 ", categories[i - 1]._id);
                     if(item.category.toString() == categories[i - 1]._id.toString()){
-                        revenueByYear[categories[i - 1]] += item.highestBid;
+                        revenueByYear[categories[i - 1].name] += item.highestBid;
                         break;
                     }
                 }
