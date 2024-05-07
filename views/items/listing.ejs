@@ -30,7 +30,13 @@
                                         <div class="product-description">
                                             <%= item.description %>
                                         </div>
-                                        <div class="price">$<%= item.highestBid %></div>
+                                        <div class="price">
+                                            <% if(item.highestBid === 0){ %>
+                                                <%= item.startingBid %>
+                                            <% }else{ %>
+                                                <%= item.highestBid %>
+                                            <% } %>
+                                        </div>
     
                                         <% if(user){ %>
                                             <% if (item.owner._id.equals(user._id))  { %>

@@ -115,7 +115,6 @@ module.exports.profile = async function(req, res){
       res.redirect(`/webid/profile/${id}`);
     }
     catch(err){
-      console.log(err + "fuck");
       res.status(400).json({ err });
     }
 }

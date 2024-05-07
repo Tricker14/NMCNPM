@@ -132,7 +132,11 @@
           </div>
           <div class="col-8 tooltip-container" id="current-price-container">
             <i class="fa-solid fa-trophy"></i>
-            <%= item.highestBid %>
+            <% if(item.highestBid === 0){ %>
+              <%= item.startingBid %>
+            <% }else{ %>
+              <%= item.highestBid %>
+            <% } %>
             <div class="tooltip" id="current-price-tooltip">
               <% if(highestBidder){ %>
                 <%= highestBidder.username %> is currently the highest bidder

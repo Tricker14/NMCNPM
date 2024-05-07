@@ -4,7 +4,7 @@ const { Item } = require("../models/item");
 const Bid = require("../models/bid");
 const jwt = require("jsonwebtoken");
 const { unlinkSync } = require("node:fs");
-const { countdownDeleteItem, calculateTimeLeft } = require("../models/item");
+const { countdownDeleteItem, calculateTimeLeft, deleteItem } = require("../models/item");
 const fs = require('fs');
 const { S3Client, PutObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
@@ -117,7 +117,15 @@ module.exports.item_create_page = async function (req, res) {
 module.exports.listing_get = async function (req, res) {
 
   const theItems = []
-  const items = await Item.find({ isListing: true }).populate("owner");
+  let items = await Item.find({ isListing: true }).populate("owner");
+  items = items.filter(function(item){
+    let { days, hours, minutes, seconds } = calculateTimeLeft(item);
+    if(days < 0 || hours < 0 || minutes < 0 || seconds <0){
+      deleteItem(item);
+      return false; // exclude item
+    }
+    return true;    // include item
+  })
   await items.forEach(async function (item) {
     tempItem = item.toObject();
     if (res.locals.user != null && res.locals.user.username === item.owner.username) {
@@ -173,7 +181,7 @@ module.exports.create_item = async function (req, res) {
   Object.values(images)[1].forEach((preview) => {
     previewImages.push(preview.filename);
   });
-  const highestBid = startingBid;
+  const highestBid = 0;
   const owner = res.locals.user;
 
   const categoryString = req.body.category;
