@@ -81,19 +81,19 @@ module.exports.login = async (req, res) => {
   }
 };
 
-module.exports.googleAuth = function(req, res){
+module.exports.googleAuth = function (req, res) {
   const user = req.user;
   const token = createToken(user._id);
   res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
   res.redirect("/webid/home");
 }
 
-passport.serializeUser(function(user, done){
+passport.serializeUser(function (user, done) {
   done(null, user._id);
   console.log("serialize");
 });
 
-passport.deserializeUser(async function(id, done){
+passport.deserializeUser(async function (id, done) {
   const user = await User.findById(id);
   done(null, user);
   console.log("deserialize");
@@ -104,20 +104,20 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: process.env.LOCAL_URL
 },
-async function(accessToken, refreshToken, profile, done){
-  const user = await User.findOne({googleID: profile.id});
-  if(user){
-    console.log('old user: ', user);
-    done(null, user);
-  }
-  else{
-    const username = profile.displayName;
-    const email = profile.emails[0].value;
-    const role = "user";
-    const googleID = profile.id;
-    const newUser = await User.create({ username, email, role, googleID });
+  async function (accessToken, refreshToken, profile, done) {
+    const user = await User.findOne({ googleID: profile.id });
+    if (user) {
+      console.log('old user: ', user);
+      done(null, user);
+    }
+    else {
+      const username = profile.displayName;
+      const email = profile.emails[0].value;
+      const role = "user";
+      const googleID = profile.id;
+      const newUser = await User.create({ username, email, role, googleID });
 
-    console.log('new user: ', newUser);
-    done(null, newUser);
-  }
-}));
+      console.log('new user: ', newUser);
+      done(null, newUser);
+    }
+  }));

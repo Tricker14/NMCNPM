@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,7 +15,7 @@
       background-color: #f4f4f4;
     }
 
-    
+
     nav {
       text-align: left;
       margin: 15px 0;
@@ -36,17 +39,17 @@
     }
 
     #navbarSupportedContent ul {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        background-color: none;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      background-color: none;
     }
 
-    header{
+    header {
       background-color: #ffe4c4;
-      padding:35px;
+      padding: 35px;
       opacity: 0.8;
-      
+
     }
 
     footer {
@@ -57,18 +60,15 @@
       position: fixed;
       bottom: 0;
       width: 100%;
-  }
+    }
 
-  .nav-item {
-    margin-top: 10px;
-  }
-
- 
-
+    .nav-item {
+      margin-top: 10px;
+    }
   </style>
   <title>Your Website</title>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       // Check if user is logged in (you may implement your own logic here)
       var isLoggedIn = false; // Change this to true if the user is logged in
 
@@ -81,24 +81,27 @@
       if (isLoggedIn) {
         signUpButton.style.display = "none";
         logInButton.style.display = "none";
-        
+
       } else {
         logOutButton.style.display = "none";
       }
     });
   </script>
 </head>
+
 <body>
-  
+
   <div>
     <header>
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 test">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -106,29 +109,29 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Active Listings</a>
               </li>
-            
+
               <li class="nav-item">
                 <a class="nav-link" href="#">Categories</a>
               </li>
-  
+
               <li class="nav-item">
                 <a class="nav-link" href="#">Watchlists</a>
               </li>
-  
+
               <li class="nav-item">
                 <a class="nav-link" href="#">Create Listing</a>
               </li>
-  
+
               <li class="nav-item">
-                <a id="logInButton" class="nav-link"  href="#">Log In</a>
+                <a id="logInButton" class="nav-link" href="#">Log In</a>
               </li>
-  
+
               <li class="nav-item">
-                <a id="signUpButton" class="nav-link"  href="#">Sign Up</a>
+                <a id="signUpButton" class="nav-link" href="#">Sign Up</a>
               </li>
-  
+
               <li class="nav-item">
-                <a id="logOutButton" class="nav-link"  style="display: none" href="#">Log Out</a>
+                <a id="logOutButton" class="nav-link" style="display: none" href="#">Log Out</a>
               </li>
             </ul>
           </div>
@@ -140,9 +143,12 @@
   <footer>
 
   </footer>
-  
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 
 </body>
+
 </html>

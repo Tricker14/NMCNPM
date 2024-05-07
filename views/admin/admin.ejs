@@ -1,10 +1,488 @@
 <%- include('../partials/header'); -%>
+    <div class="dashboard-header">
+        <h2 style="font-size: 50px; margin: 20px 200px;">Dashboard</h2>
+        <div style="margin: 0 20px;">
+            <div style="display: flex; width: fit-content; margin: 0 auto; gap: 20px;">
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #1565c0;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold; height: 72px;">
+                            Total Users
+                        </h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #1565c0;">
+                                <%= totalUser%>
+                            </p>
+                            <i class="fa-solid fa-user" style="font-size: 30px; color: #1565c0;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #26a69a;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">
+                            Total Revenue
+                        </h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #26a69a;">
+                                <%= totalRevenue %>
+                            </p>
+                            <i class="fa-solid fa-money-bill" style="font-size: 30px; color: #26a69a;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #00bcd4;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">
+                            Total items</h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #00bcd4;">
+                                <%= totalItems %>
+                            </p>
+                            <i class="fa-solid fa-boxes-stacked" style="font-size: 30px; color: #00bcd4;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="width: 300px;
+                height: 150px;
+                border-radius: 20px;
+                padding: 0 10px;
+                border: 3px solid #f9a825;">
+                    <div class="card-body">
+                        <h1 class="card-title" style="font-size: 30px; font-weight: bold;height: 72px;">
+                            Total currently bidding items
+                        </h1>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #f9a825;">
+                                <%= totalBiddingItems %>
+                            </p>
+                            <i class="fa-solid fa-gavel" style="font-size: 30px; color: #f9a825;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; width: fit-content; margin: 0 auto; gap: 30px; margin-top: 20px;">
+                <div>
+                    <div style="margin-bottom: 10px;">
+                        <button id="dropdown-button-linechart" class="btn btn-outline-primary dropdown-toggle"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="font-size: large;">Select
+                            year</button>
+                        <ul id="dropdown-menu-linechart" class="dropdown-menu">
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2020</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2021</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2022</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2023</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2024</li>
+                        </ul>
+                    </div>
+                    <div style="width: 700px; height: 300px; border: 2px solid black;" class="position-relative">
+                        <div id="curve_chart" style="width: 100%; height: 100%;"></div>
+                        <div id="curve_chart_loading" class="spinner-border position-absolute d-none"
+                            style="width: 5rem; height: 5rem; top: 20px; left: 620px; color: black;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
 
-<div>
-    Total user: <%= totalUser %>
-    Total revenue: <%= totalRevenue %>
-    Total item: <%= totalItems %>
-    Total bidding items: <%= totalBiddingItems %>
-</div>
+                </div>
+                <div>
+                    <div style="margin-bottom: 10px;">
+                        <button id="dropdown-button-donutchart" class="btn btn-outline-primary dropdown-toggle"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            style="font-size: large;">Select
+                            year</button>
+                        <ul id="dropdown-menu-donutchart" class="dropdown-menu">
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2020</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2021</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2022</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2023</li>
+                            <li class="dropdown-item" style="font-size: 16px; text-align: center;">2024</li>
+                        </ul>
+                    </div>
+                    <div style="width: 500px; height: 300px; border: 2px solid black;" class="position-relative">
+                        <div id="donutchart" style="width: 100%; height: 100%;"></div>
+                        <div id="pie_chart_loading" class="spinner-border position-absolute d-none"
+                            style="width: 5rem; height: 5rem; top: 20px; left: 425px; color: black;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; width: 1200px; margin: 20px auto; gap: 30px;">
+                <div style="display: flex; flex-direction: column; width: 100%;">
+                    <div class="alert alert-primary" role="alert" style="width: 200px; height: fit-content;">
+                        <h1 style="font-weight: bold; text-align: center; font-size: 30px;">User Data</h1>
+                    </div>
+                    <div style="width: 100%; border: solid 2px #0288d1;">
+                        <table id="user-data-table" class="table table-primary table-striped table-sortable">
+                            <thead id="user-data-header">
+                                <tr>
+                                    <th style="cursor: pointer;" scope="col">ID </th>
+                                    <th style="cursor: pointer;" scope="col">Name </th>
+                                    <th style="cursor: pointer;" scope="col">Money Spent </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Bid </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Item </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Post </th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; width: 100%;">
+                    <div class="alert alert-success" role="alert" style="width: 200px; height: fit-content;">
+                        <h1 style="font-weight: bold; text-align: center; font-size: 30px;">Item Data</h1>
+                    </div>
+                    <div style="width: 100%; border: solid 2px #00796b;">
+                        <table id="admin-data-table" class="table table-success table-striped table-sortable">
+                            <thead id="user-data-header">
+                                <tr>
+                                    <th style="cursor: pointer;" scope="col">ID </th>
+                                    <th style="cursor: pointer;" scope="col">Item Name </th>
+                                    <th style="cursor: pointer;" scope="col">Number of Bid </th>
+                                    <th style="cursor: pointer;" scope="col">Starting Bid </th>
+                                    <th style="cursor: pointer;" scope="col">Time left </th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer'); -%>
 
-<%- include('../partials/footer'); -%>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+            const btnLineChart = document.getElementById("dropdown-button-linechart");
+            const menuLineChart = document.getElementById("dropdown-menu-linechart");
+            let currentYear = "";
+            menuLineChart.addEventListener("click", async (e) => {
+                if (e.target.classList.contains("dropdown-item")) {
+                    document.getElementById("curve_chart_loading").classList.toggle("d-none");
+                    btnLineChart.textContent = e.target.textContent;
+                    currentYear = e.target.textContent;
+                    const data_to_render = await getLineChartData(currentYear);
+                    const revenueByYear = data_to_render.revenueByYear;
+                    const data = await google.visualization.arrayToDataTable([
+                        ['Month', 'Revenue'],
+                        ['Jan', revenueByYear.month_1],
+                        ['Feb', revenueByYear.month_2],
+                        ['Mar', revenueByYear.month_3],
+                        ['Apr', revenueByYear.month_4],
+                        ['May', revenueByYear.month_5],
+                        ['Jun', revenueByYear.month_6],
+                        ['Jul', revenueByYear.month_7],
+                        ['Aug', revenueByYear.month_8],
+                        ['Sep', revenueByYear.month_9],
+                        ['Oct', revenueByYear.month_10],
+                        ['Nov', revenueByYear.month_11],
+                        ['Dec', revenueByYear.month_12]
+                    ]);
+                    let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
+                    var options = {
+                        title: title,
+                        curveType: 'function',
+                        legend: { position: 'bottom' }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                    document.getElementById("curve_chart_loading").classList.toggle("d-none");
+
+                    chart.draw(data, options);
+                }
+            })
+
+            async function drawChart() {
+                const data_to_render = await getLineChartData("2024");
+                const revenueByYear = data_to_render.revenueByYear;
+                var data = await google.visualization.arrayToDataTable([
+                    ['Month', 'Revenue'],
+                    ['Jan', revenueByYear.month_1],
+                    ['Feb', revenueByYear.month_2],
+                    ['Mar', revenueByYear.month_3],
+                    ['Apr', revenueByYear.month_4],
+                    ['May', revenueByYear.month_5],
+                    ['Jun', revenueByYear.month_6],
+                    ['Jul', revenueByYear.month_7],
+                    ['Aug', revenueByYear.month_8],
+                    ['Sep', revenueByYear.month_9],
+                    ['Oct', revenueByYear.month_10],
+                    ['Nov', revenueByYear.month_11],
+                    ['Dec', revenueByYear.month_12]
+                ]);
+
+                let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
+                var options = {
+                    title: title,
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+            }
+
+            async function getLineChartData(year) {
+                try {
+                    const response = await fetch(`/webid/admin/linechart/${year}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return await response.json();
+
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            const btnPieChart = document.getElementById("dropdown-button-donutchart");
+            const menuPieChart = document.getElementById("dropdown-menu-donutchart");
+            let currentYearPieChart = "";
+            menuPieChart.addEventListener("click", async (e) => {
+                if (e.target.classList.contains("dropdown-item")) {
+                    document.getElementById("pie_chart_loading").classList.toggle("d-none");
+                    btnPieChart.textContent = e.target.textContent;
+                    currentYearPieChart = e.target.textContent;
+                    const data_to_render = await getPieChartData(currentYearPieChart);
+                    const revenueByYear = data_to_render.revenueByYear;
+                    // console.log(revenueByYear);
+                    var data = google.visualization.arrayToDataTable([
+                        ['Categories', 'Revenue By Year'],
+                        ['Accessories', revenueByYear.Accessories],
+                        ['Antiques', revenueByYear.Antiques],
+                        ['Book', revenueByYear.Book],
+                        ['Clothing', revenueByYear.Clothing],
+                        ['Electronics', revenueByYear.Electronics],
+                        ['Games', revenueByYear.Games],
+                        ['Handmade', revenueByYear.Handmade],
+                        ['Houseware', revenueByYear.Houseware],
+                        ['Interior', revenueByYear.Interior],
+                        ['Jewelry', revenueByYear.Jewelry],
+                        ['Paintings', revenueByYear.Paintings],
+                        ['Party', revenueByYear.Party],
+                        ['Pottery', revenueByYear.Pottery],
+                        ['Toys', revenueByYear.Toys]
+                    ]);
+                    let title = currentYearPieChart === "" ? "WeBid categories in 2024" : `WeBid categories in ${currentYearPieChart}`;
+                    var options = {
+                        title: title,
+                        pieHole: 0.4,
+                    };
+                    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                    chart.draw(data, options);
+                    document.getElementById("pie_chart_loading").classList.toggle("d-none");
+                }
+            });
+
+
+            google.charts.load("current", { packages: ["corechart"] });
+            google.charts.setOnLoadCallback(drawChart);
+            async function drawChart() {
+                const data_to_render = await getPieChartData("2024");
+                const revenueByYear = data_to_render.revenueByYear;
+                console.log(revenueByYear);
+                var data = google.visualization.arrayToDataTable([
+                    ['Categories', 'Revenue By Year'],
+                    ['Accessories', revenueByYear.Accessories],
+                    ['Antiques', revenueByYear.Antiques],
+                    ['Book', revenueByYear.Book],
+                    ['Clothing', revenueByYear.Clothing],
+                    ['Electronics', revenueByYear.Electronics],
+                    ['Games', revenueByYear.Games],
+                    ['Handmade', revenueByYear.Handmade],
+                    ['Houseware', revenueByYear.Houseware],
+                    ['Interior', revenueByYear.Interior],
+                    ['Jewelry', revenueByYear.Jewelry],
+                    ['Paintings', revenueByYear.Paintings],
+                    ['Party', revenueByYear.Party],
+                    ['Pottery', revenueByYear.Pottery],
+                    ['Toys', revenueByYear.Toys]
+
+                ]);
+
+                let title = currentYearPieChart === "" ? "WeBid categories in 2024" : `WeBid categories in ${currentYearPieChart}`;
+                var options = {
+                    title: title,
+                    pieHole: 0.4,
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                chart.draw(data, options);
+            }
+
+            async function getPieChartData(year) {
+                try {
+                    const response = await fetch(`/webid/admin/piechart/${year}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return await response.json();
+
+                } catch (error) {
+                    console.log(error);
+                }
+            } 
+        </script>
+
+        <script>
+            const allUserData = '<%- JSON.stringify(allUserData) %>';
+            const allUserDataJson = JSON.parse(allUserData);
+            const allItemData = '<%- JSON.stringify(allItemData) %>';
+            const allItemDataJson = JSON.parse(allItemData);
+            // console.log(allItemDataJson);
+            let userData = ``;
+            allUserDataJson.forEach((item, index) => {
+                userData += `
+                    <tr>
+                        <td style="font-weight: bold;" scope="row">${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.moneySpent}</td>
+                        <td>${item.numberOfBid}</td>
+                        <td>${item.numberOfItem}</td>
+                        <td>${item.numberOfPost}</td>
+                    </tr>
+                `
+            })
+            const userDataTable = document.getElementById("user-data");
+            userDataTable.innerHTML = userData;
+            // allItemDataJson[0].timeLeft.second = 8;
+            let itemData = ``;
+            allItemDataJson.forEach((item, index) => {
+                itemData += `
+                    <tr>
+                        <td style="font-weight: bold;" scope="row">${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.highestBid}</td>
+                        <td>${item.numberOfBid}</td>
+                        <td>
+                            <div class="countdown d-flex gap-2">
+                                <i class="bi bi-clock-fill"></i>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="days-${item.name}">${item.timeLeft.day}d</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="hours-${item.name}">${item.timeLeft.hour}h</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="minutes-${item.name}">${item.timeLeft.minute}m</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="seconds-${item.name}">${item.timeLeft.second}s</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+
+
+            });
+            const adminDataTale = document.getElementById("admin-data");
+            adminDataTale.innerHTML = itemData;
+
+
+            function sortTableByColumn(table, column, asc = true) {
+                if (!table) {
+                    console.log('table does not exists');
+                    return;
+                }
+                const isAsc = asc ? 1 : -1;
+                const tBody = table.tBodies[0];
+                const rows = Array.from(tBody.querySelectorAll("tr"));
+                // console.log(rows);
+
+                const sortedRows = rows.sort((a, b) => {
+                    const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+                    const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+                    if (isNaN(parseInt(aColText)) && isNaN(parseInt(bColText))) {
+                        return aColText > bColText ? (1 * isAsc) : (-1 * isAsc);
+                    }
+                    else {
+                        return parseInt(aColText) > parseInt(bColText) ? (1 * isAsc) : (-1 * isAsc);
+                    }
+                })
+
+                while (tBody.firstChild) {
+                    tBody.removeChild(tBody.firstChild);
+                }
+
+                tBody.append(...sortedRows);
+
+                table.querySelectorAll("th").forEach(th => {
+                    th.classList.remove("th-sort-asc", "th-sort-desc");
+                })
+                table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
+                table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+
+                table.querySelectorAll(".fa-sort-up, .fa-sort-down").forEach(icon => {
+                    icon.parentElement.removeChild(icon);
+                })
+                const sortIcon = asc ? "fa-sort-up" : "fa-sort-down";
+                const iconElement = document.createElement("i");
+                iconElement.classList.add("fa-solid", sortIcon);
+                table.querySelector(`th:nth-child(${column + 1})`).appendChild(iconElement);
+
+            }
+
+
+            document.querySelectorAll(".table-sortable th").forEach(headerCell => {
+                headerCell.addEventListener("click", () => {
+                    const tableElement = headerCell.parentElement.parentElement.parentElement;
+                    const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+                    const isAscendingSorted = headerCell.classList.contains("th-sort-asc");
+
+                    sortTableByColumn(tableElement, headerIndex, !isAscendingSorted);
+                })
+            })
+
+            function updateCountdown() {
+                allItemDataJson.forEach((item) => {
+                    if (item.timeLeft.day === 0 && item.timeLeft.hour === 0 && item.timeLeft.minute === 0 && item.timeLeft.second === 0) {
+                        return;
+                    }
+                    item.timeLeft.second--;
+                    if (item.timeLeft.second < 0) {
+                        item.timeLeft.second = 59;
+                        item.timeLeft.minute--;
+                        if (item.timeLeft.minute < 0) {
+                            item.timeLeft.minute = 59;
+                            item.timeLeft.hour--;
+                            if (item.timeLeft.hour < 0) {
+                                item.timeLeft.hour = 23;
+                                item.timeLeft.day--;
+                                if (item.timeLeft.day < 0) {
+
+                                }
+                            }
+                        }
+                    }
+                    document.getElementById(`days-${item.name}`).textContent = `${item.timeLeft.day}d`;
+                    document.getElementById(`hours-${item.name}`).textContent = `${item.timeLeft.hour}h`;
+                    document.getElementById(`minutes-${item.name}`).textContent = `${item.timeLeft.minute}m`;
+                    document.getElementById(`seconds-${item.name}`).textContent = `${item.timeLeft.second}s`;
+                });
+            }
+
+            setInterval(updateCountdown, 1000);
+        </script>
