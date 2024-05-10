@@ -1,6 +1,6 @@
 <%- include('../partials/header'); -%>
     <div class="dashboard-header">
-        <h2 style="font-size: 50px; margin: 20px 200px;">Dashboard</h2>
+        <h2 style="font-size: 50px; margin: 20px 100px;">Dashboard</h2>
         <div style="margin: 0 20px;">
             <div style="display: flex; width: fit-content; margin: 0 auto; gap: 20px;">
                 <div class="card" style="width: 300px;
@@ -127,7 +127,7 @@
                     <div class="alert alert-primary" role="alert" style="width: 200px; height: fit-content;">
                         <h1 style="font-weight: bold; text-align: center; font-size: 30px;">User Data</h1>
                     </div>
-                    <div style="width: 100%; border: solid 2px #0288d1; overflow-y: auto; max-height: 450px;">
+                    <div style="width: 100%; border: solid 2px #0288d1; overflow-y: auto; max-height: 350px;">
                         <table id="user-data-table" class="table table-primary table-striped table-sortable">
                             <thead id="user-data-header">
                                 <tr>
@@ -135,7 +135,7 @@
                                     <th style="cursor: pointer;" scope="col">Name </th>
                                     <th style="cursor: pointer;" scope="col">Money Spent </th>
                                     <th style="cursor: pointer;" scope="col">Number of Bid </th>
-                                    <th style="cursor: pointer;" scope="col">Bid Items </th>
+                                    <th style="cursor: pointer;" scope="col">Won Items </th>
                                     <th style="cursor: pointer;" scope="col">Number of Post </th>
                                 </tr>
                             </thead>
@@ -148,7 +148,7 @@
                     <div class="alert alert-success" role="alert" style="width: 200px; height: fit-content;">
                         <h1 style="font-weight: bold; text-align: center; font-size: 30px;">Item Data</h1>
                     </div>
-                    <div style="width: 100%; border: solid 2px #00796b; overflow-y: auto; max-height: 450px;">
+                    <div style="width: 100%; border: solid 2px #00796b; overflow-y: auto; max-height: 350px;">
                         <table id="admin-data-table" class="table table-success table-striped table-sortable">
                             <thead id="user-data-header">
                                 <tr>
@@ -199,7 +199,7 @@
                         ['Nov', revenueByYear.month_11],
                         ['Dec', revenueByYear.month_12]
                     ]);
-                    let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
+                    let title = currentYear === "" ? `WeBid Revenue($) in 2024` : `WeBid Revenue($) in ${currentYear}`;
                     var options = {
                         title: title,
                         curveType: 'function',
@@ -232,7 +232,7 @@
                     ['Dec', revenueByYear.month_12]
                 ]);
 
-                let title = currentYear === "" ? `WeBid Revenue in 2024` : `WeBid Revenue in ${currentYear}`;
+                let title = currentYear === "" ? `WeBid Revenue($) in 2024` : `WeBid Revenue($) in ${currentYear}`;
                 var options = {
                     title: title,
                     curveType: 'function',
@@ -286,7 +286,7 @@
                         ['Pottery', revenueByYear.Pottery],
                         ['Toys', revenueByYear.Toys]
                     ]);
-                    let title = currentYearPieChart === "" ? "WeBid categories in 2024" : `WeBid categories in ${currentYearPieChart}`;
+                    let title = currentYearPieChart === "" ? "WeBid Revenue($) in each categories in 2024" : `WeBid Revenue($) in each categories in ${currentYearPieChart}`;
                     var options = {
                         title: title,
                         pieHole: 0.4,
@@ -323,7 +323,7 @@
 
                 ]);
 
-                let title = currentYearPieChart === "" ? "WeBid categories in 2024" : `WeBid categories in ${currentYearPieChart}`;
+                let title = currentYearPieChart === "" ? "WeBid Revenue($) in each categories in 2024" : `WeBid Revenue($) in each categories in ${currentYearPieChart}`;
                 var options = {
                     title: title,
                     pieHole: 0.4,
@@ -358,7 +358,7 @@
                     <tr>
                         <td style="font-weight: bold;" scope="row">${index + 1}</td>
                         <td>${item.name}</td>
-                        <td>${item.moneySpent}</td>
+                        <td>$${item.moneySpent}</td>
                         <td>${item.numberOfBid}</td>
                         <td>${item.numberOfItem}</td>
                         <td>${item.numberOfPost}</td>
@@ -374,8 +374,8 @@
                     <tr>
                         <td style="font-weight: bold;" scope="row">${index + 1}</td>
                         <td>${item.name}</td>
-                        <td>${item.highestBid}</td>
-                        <td>${item.startingBid}</td>
+                        <td>$${item.highestBid}</td>
+                        <td>$${item.startingBid}</td>
                         <td>
                             <div class="countdown d-flex gap-2">
                                 <i class="bi bi-clock-fill"></i>
@@ -415,6 +415,18 @@
                 const sortedRows = rows.sort((a, b) => {
                     const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
                     const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+
+                    // Check if both values contain the "$" symbol
+                    const hasCurrencySymbolA = aColText.includes('$');
+                    const hasCurrencySymbolB = bColText.includes('$');
+
+                    // If both have currency symbols, remove them and compare as numbers
+                    if (hasCurrencySymbolA && hasCurrencySymbolB) {
+                        const aBidAmount = parseFloat(aColText.replace(/\$/g, ''));
+                        const bBidAmount = parseFloat(bColText.replace(/\$/g, ''));
+                        return (aBidAmount - bBidAmount) * isAsc;
+                    }
+
                     if (isNaN(parseInt(aColText)) && isNaN(parseInt(bColText))) {
                         return aColText > bColText ? (1 * isAsc) : (-1 * isAsc);
                     }
