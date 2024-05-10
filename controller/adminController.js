@@ -17,7 +17,12 @@ const getHeaderData = async function () {
             }
         ]
     )
-    const totalRevenue = total[0].totalRevenue;
+
+    let totalRevenue = 0;
+    if(total.length !== 0){
+        totalRevenue = total[0].totalRevenue;
+    }
+    
     const totalItems = await Item.countDocuments();
     const totalBiddingItems = await Item.where({ isListing: true }).countDocuments();
 
@@ -181,42 +186,42 @@ module.exports.revenueByYear = async function (req, res) {
 
         items.forEach(function (item) {
             if (calculateEndedDate(item).getFullYear() === parseInt(year)) {
-                console.log("items ", calculateEndedDate(item).getFullYear());
+                console.log("items ", calculateEndedDate(item).getMonth());
                 switch (calculateEndedDate(item).getMonth()) {
-                    case 1:
+                    case 0:
                         revenueByYear.month_1 += parseInt(item.highestBid);
                         break;
-                    case 2:
+                    case 1:
                         revenueByYear.month_2 += parseInt(item.highestBid);
                         break;
-                    case 3:
+                    case 2:
                         revenueByYear.month_3 += parseInt(item.highestBid);
                         break;
-                    case 4:
+                    case 3:
                         revenueByYear.month_4 += parseInt(item.highestBid);
                         break;
-                    case 5:
+                    case 4:
                         revenueByYear.month_5 += parseInt(item.highestBid);
                         break;
-                    case 6:
+                    case 5:
                         revenueByYear.month_6 += parseInt(item.highestBid);
                         break;
-                    case 7:
+                    case 6:
                         revenueByYear.month_7 += parseInt(item.highestBid);
                         break;
-                    case 8:
+                    case 7:
                         revenueByYear.month_8 += parseInt(item.highestBid);
                         break;
-                    case 9:
+                    case 8:
                         revenueByYear.month_9 += parseInt(item.highestBid);
                         break;
-                    case 10:
+                    case 9:
                         revenueByYear.month_10 += parseInt(item.highestBid);
                         break;
-                    case 11:
+                    case 10:
                         revenueByYear.month_11 += parseInt(item.highestBid);
                         break;
-                    case 12:
+                    case 11:
                         revenueByYear.month_12 += parseInt(item.highestBid);
                         break;
                 }

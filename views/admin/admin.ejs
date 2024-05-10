@@ -33,7 +33,7 @@
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                             <p class="card-text" style="font-size: 25px; margin-bottom: 0; color: #26a69a;">
-                                <%= totalRevenue %>
+                                $<%= totalRevenue %>
                             </p>
                             <i class="fa-solid fa-money-bill" style="font-size: 30px; color: #26a69a;"></i>
                         </div>
@@ -127,7 +127,7 @@
                     <div class="alert alert-primary" role="alert" style="width: 200px; height: fit-content;">
                         <h1 style="font-weight: bold; text-align: center; font-size: 30px;">User Data</h1>
                     </div>
-                    <div style="width: 100%; border: solid 2px #0288d1;">
+                    <div style="width: 100%; border: solid 2px #0288d1; overflow-y: auto; max-height: 450px;">
                         <table id="user-data-table" class="table table-primary table-striped table-sortable">
                             <thead id="user-data-header">
                                 <tr>
@@ -135,7 +135,7 @@
                                     <th style="cursor: pointer;" scope="col">Name </th>
                                     <th style="cursor: pointer;" scope="col">Money Spent </th>
                                     <th style="cursor: pointer;" scope="col">Number of Bid </th>
-                                    <th style="cursor: pointer;" scope="col">Number of Item </th>
+                                    <th style="cursor: pointer;" scope="col">Bid Items </th>
                                     <th style="cursor: pointer;" scope="col">Number of Post </th>
                                 </tr>
                             </thead>
@@ -148,13 +148,13 @@
                     <div class="alert alert-success" role="alert" style="width: 200px; height: fit-content;">
                         <h1 style="font-weight: bold; text-align: center; font-size: 30px;">Item Data</h1>
                     </div>
-                    <div style="width: 100%; border: solid 2px #00796b;">
+                    <div style="width: 100%; border: solid 2px #00796b; overflow-y: auto; max-height: 450px;">
                         <table id="admin-data-table" class="table table-success table-striped table-sortable">
                             <thead id="user-data-header">
                                 <tr>
                                     <th style="cursor: pointer;" scope="col">ID </th>
                                     <th style="cursor: pointer;" scope="col">Item Name </th>
-                                    <th style="cursor: pointer;" scope="col">Number of Bid </th>
+                                    <th style="cursor: pointer;" scope="col">Highest Bid </th>
                                     <th style="cursor: pointer;" scope="col">Starting Bid </th>
                                     <th style="cursor: pointer;" scope="col">Time left </th>
                                 </tr>
@@ -375,7 +375,7 @@
                         <td style="font-weight: bold;" scope="row">${index + 1}</td>
                         <td>${item.name}</td>
                         <td>${item.highestBid}</td>
-                        <td>${item.numberOfBid}</td>
+                        <td>${item.startingBid}</td>
                         <td>
                             <div class="countdown d-flex gap-2">
                                 <i class="bi bi-clock-fill"></i>
