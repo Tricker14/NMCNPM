@@ -127,7 +127,7 @@
                     <div class="alert alert-primary" role="alert" style="width: 200px; height: fit-content;">
                         <h1 style="font-weight: bold; text-align: center; font-size: 30px;">User Data</h1>
                     </div>
-                    <div style="width: 100%; border: solid 2px #0288d1; overflow-y: auto;">
+                    <div style="width: 100%; border: solid 2px #0288d1; overflow-y: auto; max-height: 450px;">
                         <table id="user-data-table" class="table table-primary table-striped table-sortable">
                             <thead id="user-data-header">
                                 <tr>
@@ -148,7 +148,7 @@
                     <div class="alert alert-success" role="alert" style="width: 200px; height: fit-content;">
                         <h1 style="font-weight: bold; text-align: center; font-size: 30px;">Item Data</h1>
                     </div>
-                    <div style="width: 100%; border: solid 2px #00796b; overflow-y: auto;">
+                    <div style="width: 100%; border: solid 2px #00796b; overflow-y: auto; max-height: 450px;">
                         <table id="admin-data-table" class="table table-success table-striped table-sortable">
                             <thead id="user-data-header">
                                 <tr>
@@ -183,6 +183,7 @@
                     btnLineChart.textContent = e.target.textContent;
                     currentYear = e.target.textContent;
                     const data_to_render = await getLineChartData(currentYear);
+                    console.log(data_to_render);
                     const revenueByYear = data_to_render.revenueByYear;
                     const data = await google.visualization.arrayToDataTable([
                         ['Month', 'Revenue'],
